@@ -950,9 +950,72 @@
 
 	.detail-symbol { color: var(--accent); font: 700 0.72rem ui-monospace, monospace; letter-spacing: 0.1em; }
 	.detail-name { margin-top: 0.25rem; font-size: 1.35rem; }
-	.detail-chart { height: 220px; margin: 1.2rem 0; color: var(--accent); }
+	.detail-price-row {
+	  display: flex;
+	  align-items: baseline;
+	  gap: 0.7rem;
+	  margin-top: 0.85rem;
+	}
+	.detail-price { font: 700 1.8rem 'SF Mono', ui-monospace, monospace; letter-spacing: -0.04em; }
+	.detail-change { font: 650 0.8rem ui-monospace, monospace; }
+	.detail-change.up { color: var(--up); }
+	.detail-change.dn { color: var(--down); }
+	.detail-period { color: var(--text3); font-size: 0.67rem; }
+	.detail-chart {
+	  position: relative;
+	  height: 240px;
+	  margin: 1rem 0 1.2rem;
+	  color: var(--accent);
+	  border: 1px solid var(--border);
+	  border-radius: 14px;
+	  background: rgba(255,255,255,0.018);
+	  overflow: hidden;
+	  cursor: crosshair;
+	  touch-action: pan-y;
+	}
 	.detail-chart.down { color: var(--down); }
-	.detail-chart svg { width: 100%; height: 100%; }
+	.detail-chart svg { display: block; width: 100%; height: 100%; }
+	.detail-chart .spark-line { stroke-width: 2; }
+	.chart-guide {
+	  position: absolute;
+	  top: 0;
+	  bottom: 0;
+	  width: 1px;
+	  background: rgba(255,255,255,0.22);
+	  pointer-events: none;
+	  opacity: 0;
+	}
+	.chart-dot {
+	  position: absolute;
+	  width: 9px;
+	  height: 9px;
+	  border: 2px solid #fff;
+	  border-radius: 50%;
+	  background: currentColor;
+	  box-shadow: 0 0 0 3px rgba(0,0,0,0.45);
+	  transform: translate(-50%, -50%);
+	  pointer-events: none;
+	  opacity: 0;
+	}
+	.chart-tooltip {
+	  position: absolute;
+	  top: 10px;
+	  min-width: 105px;
+	  padding: 0.55rem 0.65rem;
+	  border: 1px solid rgba(255,255,255,0.12);
+	  border-radius: 9px;
+	  background: rgba(8,10,12,0.92);
+	  color: var(--text);
+	  box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+	  pointer-events: none;
+	  opacity: 0;
+	  transform: translateX(-50%);
+	}
+	.chart-tooltip strong { display: block; font: 700 0.78rem ui-monospace, monospace; }
+	.chart-tooltip span { display: block; margin-top: 0.2rem; color: var(--text2); font-size: 0.62rem; }
+	.detail-chart.interacting .chart-guide,
+	.detail-chart.interacting .chart-dot,
+	.detail-chart.interacting .chart-tooltip { opacity: 1; }
 	.detail-section { margin-top: 1.35rem; }
 	.detail-section h4 {
 	  margin-bottom: 0.7rem;
@@ -966,6 +1029,16 @@
 	.fund-label { color: var(--text3); font-size: 0.62rem; }
 	.fund-value { margin-top: 0.25rem; font: 650 0.78rem ui-monospace, monospace; }
 	.company-description { color: var(--text2); font-size: 0.76rem; line-height: 1.65; }
+	.chain-position-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.55rem; }
+	.chain-position {
+	  padding: 0.85rem;
+	  border: 1px solid var(--border);
+	  border-radius: 10px;
+	  background: var(--card);
+	}
+	.chain-position-label { color: var(--accent); font-size: 0.68rem; font-weight: 700; }
+	.chain-position-title { margin-top: 0.3rem; font-size: 0.8rem; font-weight: 650; }
+	.chain-position-role { margin-top: 0.35rem; color: var(--text3); font-size: 0.68rem; line-height: 1.5; }
 	.news-list { display: flex; flex-direction: column; gap: 0.55rem; }
 	.news-item {
 	  display: block;
@@ -983,8 +1056,10 @@
 
 	@media (max-width: 520px) {
 	  .fund-grid { grid-template-columns: repeat(2, 1fr); }
+	  .chain-position-grid { grid-template-columns: 1fr; }
 	  .company-hdr { padding: 0.7rem 1rem; }
 	  .company-body { padding: 1.25rem 1rem; }
+	  .detail-chart { height: 210px; }
 	}
 
 	.ctag {
@@ -1400,9 +1475,12 @@
 		detailLoading: '正在加载公司详情…',
 		fundamentals: '基本面',
 		companyProfile: '公司简介',
+		industryPosition: '产业链定位',
 		latestNews: '最新新闻',
 		noNews: '暂无相关新闻',
 		detailError: '公司详情暂时无法加载',
+		chartPeriod: '近 30 个交易日',
+		chartHint: '移动鼠标或触摸曲线查看每日收盘价',
 		back: '← 返回',
 		officialWebsite: '官网 ↗',
 		stockPage: '股价 ↗',
@@ -1445,9 +1523,12 @@
 		detailLoading: 'Loading company details…',
 		fundamentals: 'Fundamentals',
 		companyProfile: 'Company Profile',
+		industryPosition: 'Value-chain Position',
 		latestNews: 'Latest News',
 		noNews: 'No related news available',
 		detailError: 'Company details are temporarily unavailable',
+		chartPeriod: 'Last 30 trading days',
+		chartHint: 'Hover or touch the chart for daily closing prices',
 		back: '← Back',
 		officialWebsite: 'Website ↗',
 		stockPage: 'Quote ↗',
@@ -1456,12 +1537,12 @@
 
 	const INDUSTRY_EN = {
 	  compute: ['AI Chips', 'Accelerators, CPUs & Compute Platforms', 'GPUs are the engines of modern AI. Whether training large language models, serving real-time inference, or running on-device AI, every workload depends on massively parallel compute. NVIDIA built a decade-long moat through its CUDA software ecosystem. AMD and Intel are closing the gap on hardware, while Arm licenses CPU architecture IP to virtually every chip designer from cloud to smartphone. As inference demand explodes, the competitive frontier is shifting from "who can train the biggest model" to "who can serve it at the lowest cost per token."'],
-	  chips: ['Chip Manufacturing', 'Chip Design, Foundry & Equipment', 'Building an AI chip requires an extraordinarily precise manufacturing chain. TSMC and other foundries turn chip designs into silicon wafers at nodes as small as 3nm. ASML\'s EUV lithography machines — the only ones in the world — are indispensable for producing those advanced chips. Applied Materials, Lam Research and KLA cover deposition, etch and yield inspection across every critical step. AI demand is driving fierce competition for leading-edge capacity and advanced packaging (CoWoS, SoIC), and the entire semiconductor equipment industry benefits. This supply chain is highly concentrated: a handful of companies control the chokepoints of global AI chip production.'],
+	  chips: ['Chip Manufacturing', 'Chip Design, Foundry, Power Semiconductors & Equipment', 'Building an AI chip requires an extraordinarily precise manufacturing chain. TSMC and other foundries turn chip designs into silicon wafers at nodes as small as 3nm. ASML\'s EUV lithography machines — the only ones in the world — are indispensable for producing those advanced chips. Applied Materials, Lam Research and KLA cover deposition, etch and yield inspection, while Wolfspeed supplies silicon carbide power semiconductors for efficient power conversion. AI demand is driving fierce competition for leading-edge capacity, advanced packaging and high-efficiency power electronics.'],
 	  memory: ['Memory & Storage', 'HBM, Enterprise Storage & Data Pipelines', 'Training a large model means constantly shuttling billions of parameters between compute units and memory — memory bandwidth is one of the hardest bottlenecks in AI. HBM (High Bandwidth Memory) stacks DRAM dies next to the GPU in the same package, dramatically easing that bottleneck; Micron is one of only three suppliers. At the same time, AI datasets, model checkpoints and inference logs are growing exponentially, driving data center demand for SSDs and high-capacity HDDs. From HBM on the GPU to nearline spinning disk in the storage tier, every layer of the memory hierarchy is being redesigned for AI workloads.'],
 	  network: ['Networking', 'Switch Silicon, Interconnects & AI Networks', 'When a GPU cluster scales from hundreds to tens of thousands of cards, the network becomes the nervous system of the entire system. Scale-up fabrics (NVLink, InfiniBand) carry gradients between GPUs and demand nanosecond latency; scale-out fabrics (Ethernet) connect racks, pods and data centers across a campus. Broadcom and Marvell supply switch silicon and custom AI ASICs; Arista builds the Ethernet switching backbone; Cisco covers broader data-center networking and silicon photonics. As clusters keep growing, networking as a share of total data-center capex keeps rising.'],
 	  optics: ['Optical Networking', 'High-Speed Transceivers, Lasers & Photonics', 'The fiber links inside and between data centers are the physical foundation on which AI scale is built. 800G and 1.6T optical transceivers move enormous amounts of data between switches and servers at low latency and lower power than copper. Coherent and Lumentum design the lasers and transceivers; Fabrinet manufactures them with extreme precision; Corning lays the fiber highways; Ciena handles long-haul coherent transmission between data centers. The relentless stacking of AI compute is accelerating the migration from 400G to 800G and beyond across the entire optical ecosystem.'],
 	  systems: ['Servers & Infra', 'AI Servers, Racks & Liquid Cooling', 'GPUs, memory, networking and cooling are integrated into AI servers, then assembled into racks and clusters before they can deliver compute as a service. Super Micro iterates at exceptional speed to build dense servers around each new NVIDIA GPU generation. Dell and HPE sell AI infrastructure to enterprise customers through their broad sales networks. Vertiv specializes in the power and liquid-cooling challenge that high-density GPU racks create — a single rack can now exceed 100 kW, making liquid cooling a requirement rather than an option. The thermal infrastructure market is undergoing its biggest upgrade cycle in a decade.'],
-	  power: ['Power & Energy', 'Generation, Grid Equipment & Data-Center Power', 'A large AI data center consumes as much electricity as a mid-sized city. Global data-center power demand is projected to multiply several times over by 2030, driving investment in nuclear power (24/7 carbon-free baseload), natural gas (fast-ramping peaker capacity), and the transformers, switchgear and backup generators that connect it all. Constellation and Vistra are restarting retired nuclear plants under long-term power purchase agreements with tech companies. GE Vernova is receiving record gas turbine orders. Eaton and Quanta Services benefit from grid expansion and electrical construction. Power availability has become the primary constraint on data-center siting and growth.'],
+	  power: ['Power & Energy', 'Generation, Grid Equipment, Storage & Data-Center Power', 'A large AI data center consumes as much electricity as a mid-sized city. Global data-center power demand is projected to multiply several times over by 2030, driving investment in nuclear power, natural gas, battery storage, and the transformers, switchgear and backup systems that connect it all. Fluence adds flexible grid-scale storage that can bridge interconnection delays and stabilize large compute loads. Power availability has become the primary constraint on data-center siting and growth.'],
 	  cloud: ['Cloud & Compute', 'GPU Cloud, Hyperscalers & AI Applications', 'Microsoft, Amazon, Google and Meta are the world\'s largest consumers of AI compute and the ultimate demand signal for the entire GPU supply chain. They collectively spend hundreds of billions of dollars per year on GPUs and data-center construction, while also offering GPU cloud services to external developers. Oracle has won major model-training customers on OCI\'s low-latency GPU superclusters. Tesla builds its own compute to train autonomous-driving models. The capex plans of these hyperscalers almost entirely determine the business cycle for chips, networking, power and cooling upstream.'],
 	  software: ['Software & Apps', 'AI Software, Data Platforms & Enterprise Applications', 'Compute and data alone do not create business value — software is what turns them into deployable AI products. Palantir and ServiceNow embed AI into enterprise decision-making and workflows. Salesforce deploys AI agents to automate customer relationship management. Snowflake and MongoDB provide the data infrastructure on which AI applications run. Adobe integrates generative AI into creative tools. The competitive question at this layer is who can translate general-purpose model capability into specific, sticky enterprise applications — not just a legacy product with an AI wrapper bolted on.'],
 	};
@@ -1477,6 +1558,7 @@
 	  AMAT: ['Applied Materials', 'Applied Materials is one of the world\'s largest semiconductor equipment companies, with products covering thin-film deposition, etch and materials characterization used in both logic and memory manufacturing. The AI-driven surge in HBM demand and advanced logic chip production directly increases Applied\'s equipment shipments. Its materials engineering solutions also have significant exposure to advanced packaging — benefiting from the trend of integrating GPU and HBM dies in a single package. Applied Materials\' breadth across process steps makes it one of the most diversified ways to invest in semiconductor capex growth.', ['Deposition','Materials']],
 	  LRCX: ['Lam Research', 'Lam Research specializes in plasma etch and thin-film deposition (ALD/CVD) equipment, both of which are indispensable in NAND flash and DRAM production. The explosive demand for HBM high-bandwidth memory and data-center SSD expansion directly drives Lam\'s equipment orders. Its etch systems for 3D NAND multi-layer stacking have near-zero substitutability for customers — once a fab standardizes on Lam, switching costs are enormous. Customer concentration is high, but so are barriers to entry. As memory makers ramp HBM capacity aggressively to meet AI demand, Lam is one of the most direct beneficiaries in the equipment space.', ['Etch','Thin Film']],
 	  KLAC: ['KLA', 'KLA focuses on process-control and wafer-defect inspection equipment — the systems that find and eliminate manufacturing defects to improve chip yield. As process nodes shrink and a single GPU wafer becomes worth tens of thousands of dollars, yield control\'s value increases dramatically. A 1% improvement in yield at advanced nodes can be worth hundreds of millions of dollars annually to a major fab. KLA holds a commanding market share in process control, and the proprietary data accumulated over years of inspections creates a meaningful first-mover advantage. It is the least cyclical of the major equipment companies because fabs run inspection tools continuously regardless of production levels.', ['Inspection','Yield Control']],
+	  WOLF: ['Wolfspeed', 'Wolfspeed produces silicon carbide materials and power semiconductors used in high-efficiency data-center power systems, energy infrastructure and electrification. Its role in the AI chain is upstream power conversion: silicon carbide devices reduce switching losses, heat and equipment size when electricity is converted and distributed to dense compute loads.', ['Silicon Carbide','Power Semiconductors']],
 	  MU: ['Micron Technology', 'Micron is the only US-based company producing both DRAM and NAND, and one of only three suppliers globally capable of making HBM (High Bandwidth Memory). HBM is standard equipment on AI GPUs: an H100 ships with 80 GB of HBM3, while the B200 packs 192 GB of HBM3e. Micron is aggressively expanding HBM production capacity to meet demand from NVIDIA, AMD and others. The memory industry is notoriously cyclical, but AI\'s structural demand for HBM is smoothing out some of the boom-bust volatility that has historically defined Micron\'s earnings profile. Its ability to ramp HBM faster than competitors is the key variable to watch.', ['HBM','DRAM']],
 	  WDC: ['Western Digital', 'Western Digital produces both HDDs (hard disk drives) and SSDs (solid-state drives) for data centers, PCs and consumer electronics. The data center is its most important revenue segment: AI-generated datasets, model checkpoints and inference logs are growing at a pace that keeps demand for high-capacity storage robust. WDC has been in the process of separating its flash business (formerly shared with Kioxia) from its HDD business to allow each to focus on its own market dynamics. The AI workload explosion creates a multi-year demand tailwind for large-capacity storage, even as per-gigabyte storage prices continue to decline over time.', ['HDD','Data Center']],
 	  STX: ['Seagate Technology', 'Seagate is the world\'s largest HDD manufacturer, focused exclusively on hard-disk drives with a particular emphasis on high-capacity nearline storage for data centers. Its HAMR (Heat-Assisted Magnetic Recording) technology enables single-drive capacities above 30 TB, addressing the storage density challenge of rapidly growing AI data. Cloud providers\' appetite for cheap, dense, petabyte-scale storage keeps demand for Seagate\'s products structurally elevated. Revenue is highly sensitive to the capex cycle of its top hyperscaler customers — when Microsoft, Amazon or Google modulate data-center spending, Seagate feels it quickly.', ['Nearline Storage','Data Lakes']],
@@ -1503,6 +1585,7 @@
 	  GEV: ['GE Vernova', 'GE Vernova was spun off from General Electric in 2024 to focus on power generation and grid infrastructure. Its gas turbine business is benefiting from data-center power demand driving natural gas generation expansion; its grid business (transformers, switchgear) is benefiting from the massive infrastructure investment required to connect new generation to loads. Global transformer supply is severely constrained — lead times have extended to several years — and GE Vernova\'s backlog has surged correspondingly. This supply-demand imbalance in critical grid equipment reflects how the AI infrastructure buildout has created bottlenecks far upstream in the power supply chain.', ['Gas Turbines','Grid']],
 	  CMI: ['Cummins', 'Cummins is a global leader in diesel and natural gas engines, power systems and filtration technology. The data-center market is an important end customer: Cummins generator sets provide backup power to ensure continuous operation when primary grid power fails. As data centers scale in size, backup generation capacity scales proportionally — a 100 MW data center campus needs substantial backup generation to meet uptime SLAs. Cummins is also investing in hydrogen fuel cells, electrolyzers and hybrid power systems to address future low-carbon requirements. Its proven reliability track record and global service network are key differentiators in the mission-critical data-center power market.', ['Backup Power','Generators']],
 	  PWR: ['Quanta Services', 'Quanta Services is the largest specialty electrical and communications infrastructure contractor in North America, building transmission lines, substations, underground cables and fiber networks. New AI data-center campuses require new transmission infrastructure to connect to the grid — Quanta is the company physically building those connections. Its revenue scale and execution capability allow it to take on projects that smaller contractors cannot handle. In the current environment of surging grid investment and data-center construction, Quanta\'s backlog has grown substantially and labor constraints are the primary limit on how fast it can grow. It is a picks-and-shovels play on the electrification of AI.', ['Grid Construction','Transmission']],
+	  FLNC: ['Fluence Energy', 'Fluence provides grid-scale battery energy storage systems and optimization software for renewable and storage assets. For AI data centers, battery storage can bridge delayed grid connections, improve power quality, provide fast backup response and help balance large, variable loads without relying entirely on new generation.', ['Battery Storage','Grid Software']],
 	  MSFT: ['Microsoft', 'Microsoft\'s deep partnership with OpenAI has established it as the leading enterprise AI application provider. Azure OpenAI Service delivers GPT model families as an API to tens of thousands of enterprise customers; Microsoft 365 Copilot embeds AI directly into Word, Excel, Teams and other productivity tools used by hundreds of millions of people. At the infrastructure level, Microsoft is building GPU data centers globally at massive scale, with long-term GPU procurement agreements with NVIDIA. Azure is the company\'s fastest-growing business, and AI is materially increasing cloud revenue per user. Microsoft\'s ability to distribute AI capability through its existing enterprise software relationships is its primary competitive moat.', ['Azure','GPU Cloud']],
 	  META: ['Meta Platforms', 'Meta is one of the world\'s largest GPU purchasers, using AI compute primarily to power recommendation algorithms across Facebook, Instagram and WhatsApp, and to train and serve its Llama series of open-source large language models. Meta\'s AI strategy is "build for internal use, open-source strategically" — releasing Llama reduces the industry\'s dependence on OpenAI while building Meta\'s technical credibility. Its custom MTIA (Meta Training and Inference Accelerator) chip aims to reduce NVIDIA dependency over time, though GPU procurement remains dominant. Meta\'s advertising business creates the economic rationale for massive AI investment: better AI recommendations directly drive higher ad revenue per impression at billion-user scale.', ['AI Clusters','Foundation Models']],
 	  AMZN: ['Amazon', 'AWS is the world\'s largest cloud platform, offering a complete stack from compute (EC2 GPU instances) to AI services (SageMaker for model training, Bedrock for foundation model APIs). Amazon is also among the most aggressive custom silicon developers, with multiple generations of Trainium (training) and Inferentia (inference) chips deployed at scale in AWS. Amazon Alexa\'s AI overhaul and the rapid growth of AWS enterprise AI services make Amazon simultaneously a supplier and a consumer of AI infrastructure. Its annual capex budget of $80+ billion is one of the largest single sources of demand for NVIDIA, TSMC and the broader supply chain.', ['AWS','Heterogeneous Compute']],
@@ -1597,14 +1680,15 @@
 		],
 	  },
 	  {
-		id: 'chips', label: '芯片制造', title: '芯片设计、晶圆制造与设备',
-		desc: '制造一颗 AI 芯片需要极端精密的工艺链。台积电等代工厂将芯片设计转化为硅晶圆，ASML 的 EUV 光刻机是先进制程不可或缺的基石，应用材料、Lam Research 和 KLA 覆盖沉积、刻蚀和良率检测等关键工序。AI 需求推动先进制程节点（3nm、2nm）和先进封装（CoWoS、SoIC）需求快速增长，整条供应链高度集中，少数公司掌控全球 AI 芯片制造的关键节点。',
+		id: 'chips', label: '芯片制造', title: '芯片设计、晶圆制造、功率半导体与设备',
+		desc: '制造 AI 芯片需要极端精密的工艺链。台积电将芯片设计转化为硅晶圆，ASML、应用材料、Lam Research 和 KLA 覆盖先进制程关键设备，Wolfspeed 则提供高效率电能转换所需的碳化硅功率半导体。AI 需求同时推动先进制程、先进封装和高效供电器件增长。',
 		companies: [
 		  { t: 'TSM', name: '台积电 TSMC', role: '台积电是全球先进芯片制造的核心节点，制造了绝大多数高端 AI 芯片（NVIDIA GPU、苹果芯片、AMD 处理器）。其 3nm 制程和即将量产的 2nm，以及 CoWoS 先进封装技术（将 HBM 与 GPU 封装在一起的关键技术），使其在 AI 供应链中具有不可替代的地位。产能集中于台湾是地缘政治风险焦点，推动其在美国亚利桑那和日本熊本建设新产能，但成本显著高于台湾。台积电对客户拥有极强的定价权，因为大多数客户没有可替代的先进制程选择。', tags: ['晶圆代工','先进封装'] },
 		  { t: 'ASML', name: 'ASML Holding', role: 'ASML 是全球唯一能生产 EUV（极紫外）光刻机的公司，每台售价约 1.5-2 亿美元。没有 EUV，7nm 以下先进制程芯片无法经济地量产。其护城河极深——EUV 技术涉及数万个零部件和数十年技术积累，新进入者几乎无法复制。AI 需求推动台积电、三星、英特尔大力扩产，ASML 订单积压量创历史新高。荷兰政府限制 EUV 出口中国，使 ASML 置身地缘政治博弈核心。', tags: ['EUV','半导体设备'] },
 		  { t: 'AMAT', name: 'Applied Materials', role: '应用材料是全球最大半导体设备公司之一，产品覆盖薄膜沉积、刻蚀和材料检测，广泛用于逻辑芯片和存储器生产。AI 对 HBM 内存和先进逻辑芯片的需求激增直接拉动其设备出货。在先进封装领域也有重要布局，受益于 GPU 与 HBM 集成封装的趋势。其产品线覆盖最广，是投资半导体设备资本开支增长最多元化的标的之一。', tags: ['沉积','材料工程'] },
 		  { t: 'LRCX', name: 'Lam Research', role: 'Lam Research 专注薄膜沉积（ALD/CVD）和等离子刻蚀设备，是 NAND 闪存和 DRAM 生产中不可或缺的设备供应商。AI 对 HBM 高带宽内存的旺盛需求和数据中心 SSD 扩容，直接拉动 Lam 的设备订单。其在 3D NAND 多层堆叠工艺中的刻蚀设备几乎没有可替代方案，客户一旦采用，切换成本极高。随着内存厂商激进扩产 HBM 以满足 AI 需求，Lam 是设备行业中最直接的受益者之一。', tags: ['刻蚀','薄膜'] },
 		  { t: 'KLAC', name: 'KLA', role: 'KLA 专注晶圆缺陷检测和制程控制设备，帮助芯片厂在生产过程中发现并消除缺陷以提高良率。制程节点越精密、单张 GPU 晶圆价值越高，良率控制的价值就越大——先进节点良率提升 1% 每年可为大型晶圆厂带来数亿美元的额外价值。KLA 在制程控制市场占有极高份额，且多年积累的检测数据形成显著的先发优势。其设备在生产过程中持续运行，使其成为半导体设备中周期性最弱的公司之一。', tags: ['检测','良率控制'] },
+		  { t: 'WOLF', name: 'Wolfspeed', role: 'Wolfspeed 生产碳化硅材料与功率半导体，用于数据中心高效供电、能源基础设施和电气化设备。在 AI 产业链中，它属于供电转换上游：碳化硅器件可降低电能转换过程中的损耗和发热，并缩小高功率供电设备体积，更适合高密度算力负载。', tags: ['碳化硅','功率半导体'] },
 		],
 	  },
 	  {
@@ -1651,8 +1735,8 @@
 		],
 	  },
 	  {
-		id: 'power', label: '电力能源', title: '发电、电网设备与数据中心供能',
-		desc: '一座大型 AI 数据中心的用电量相当于一座中等城市。据估计，到 2030 年数据中心的全球电力需求将翻数倍，这推动了对核电（全天候无碳电力）、天然气（快速调峰电源），以及变压器、配电设备、备用发电机等电力基础设施的强劲投资。电力可用性已成为数据中心选址和扩张的首要约束。',
+		id: 'power', label: '电力能源', title: '发电、电网设备、储能与数据中心供能',
+		desc: '一座大型 AI 数据中心的用电量相当于一座中等城市。数据中心电力需求增长正在推动核电、天然气、电池储能、变压器、配电设备和备用电源投资。Fluence 代表的储能系统还能缓解并网延迟、稳定大型算力负载。电力可用性已成为数据中心选址和扩张的首要约束。',
 		companies: [
 		  { t: 'CEG', name: 'Constellation Energy', role: 'Constellation 是美国最大的核电运营商，运营约 20 座核电站，提供可靠的全天候无碳基荷电力。微软、亚马逊等科技公司已与其签订长期购电协议（PPA），将核电站电力定向供应给数据中心。2023 年 Constellation 宣布重启三哩岛核电站专供微软数据中心，标志着核电与 AI 基础设施的深度绑定。核电的核心优势是可调度性：与太阳能和风能不同，核电可以全天候满功率运行，完美匹配数据中心"永远在线"的用电特征。', tags: ['核电','清洁电力'] },
 		  { t: 'VST', name: 'Vistra', role: 'Vistra 是美国最大的独立电力生产商之一，拥有核电、天然气、煤炭和可再生能源等多元化发电资产。其核电资产（主要位于伊利诺伊州和德克萨斯州）提供稳定的无碳基荷电力，正积极与数据中心客户谈判长期购电协议。天然气机组作为快速调峰电源弥补可再生能源的间歇性缺口。AI 数据中心选址通常优先考虑电力充裕、电价稳定的地区——这对 Vistra 这类可提供多年价格稳定性的综合电力公司形成结构性利好。德克萨斯州 ERCOT 市场已成为数据中心电力供应的重要战场，Vistra 是其中的主要参与者。', tags: ['发电','核电'] },
@@ -1661,6 +1745,7 @@
 		  { t: 'ETN', name: 'Eaton', role: '伊顿是数据中心电气基础设施的重要供应商，提供配电单元（PDU）、UPS 系统、电气断路器和电源管理软件。随着 AI 数据中心用电需求激增，伊顿的电气产品在新建和扩建项目中需求旺盛。其业务还涵盖航空、车辆和工业领域，数据中心是多个重要业务条线之一，但 AI 带来的增量需求最为显著。在整个 AI 基础设施投资链条中，伊顿的电气产品是芯片供应链风险之外的一种差异化暴露方式。', tags: ['配电','电力管理'] },
 		  { t: 'CMI', name: 'Cummins', role: '康明斯是全球领先的发动机和动力系统制造商，数据中心市场是其重要终端客户之一。其柴油/天然气发电机组在主电源故障时为数据中心提供备用电力保障，确保连续运行。随着数据中心规模持续扩大，备用发电容量需求同步增长——一个 100MW 的数据中心园区需要相当可观的备用发电机组来满足在线率 SLA 承诺。康明斯也在积极布局氢燃料电池和混合动力系统，以应对未来的低碳化需求。其成熟的可靠性记录和全球服务网络是在关键任务数据中心市场的核心竞争优势。', tags: ['备用电源','发电机'] },
 		  { t: 'PWR', name: 'Quanta Services', role: 'Quanta Services 是北美最大的电力和通信基础设施建设承包商，承接输电线路、变电站、地下电缆和光纤网络的设计与施工。新建 AI 数据中心园区需要新的输电线路和变电站接入电网——Quanta 就是那家实际完成这些建设的公司。其营收规模和项目执行能力使其能承接其他承包商无力完成的超大型工程。在当前电网投资激增和数据中心建设高峰并发的环境下，Quanta 的订单积压量大幅增加，劳动力供应是限制其增长速度的首要瓶颈。可以说，它是 AI 电气化浪潮中"镐和铲"式的投资标的。', tags: ['电网建设','输电'] },
+		  { t: 'FLNC', name: 'Fluence Energy', role: 'Fluence 提供大型电池储能系统，以及面向可再生能源和储能资产的优化软件。对于 AI 数据中心，储能可以缓解电网接入延迟、改善电能质量、提供快速备用响应，并帮助电网平衡规模巨大且波动明显的算力负载。', tags: ['电池储能','电网软件'] },
 		],
 	  },
 	  {
@@ -2016,11 +2101,83 @@
 	  });
 	}
 
+	function companyContext(symbol) {
+	  return INDUSTRIES.flatMap(industry => {
+		const company = industry.companies.find(item => item.t === symbol);
+		if (!company) return [];
+		const localizedIndustryData = localizedIndustry(industry);
+		const localizedCompanyData = localizedCompany(company);
+		return [{
+		  label: localizedIndustryData.label,
+		  title: localizedIndustryData.title,
+		  role: localizedCompanyData.role,
+		}];
+	  });
+	}
+
+	function interactiveChart(history) {
+	  const points = history.filter(point => Number.isFinite(Number(point.close)));
+	  const chart = sparkSvg(points, 860, 220);
+	  if (!chart) return `<div class="spark-empty">${text('chartUnavailable')}</div>`;
+	  return `
+		${chart}
+		<div class="chart-guide"></div>
+		<div class="chart-dot"></div>
+		<div class="chart-tooltip"><strong></strong><span></span></div>
+	  `;
+	}
+
+	function bindChartInteraction(history) {
+	  const chart = document.querySelector('.detail-chart[data-interactive="true"]');
+	  if (!chart || history.length < 2) return;
+	  const points = history.filter(point => Number.isFinite(Number(point.close)));
+	  const values = points.map(point => Number(point.close));
+	  const min = Math.min(...values);
+	  const max = Math.max(...values);
+	  const range = max - min || 1;
+	  const guide = chart.querySelector('.chart-guide');
+	  const dot = chart.querySelector('.chart-dot');
+	  const tooltip = chart.querySelector('.chart-tooltip');
+
+	  const update = clientX => {
+		const rect = chart.getBoundingClientRect();
+		const ratio = Math.max(0, Math.min(1, (clientX - rect.left) / rect.width));
+		const index = Math.round(ratio * (points.length - 1));
+		const point = points[index];
+		const x = (index / (points.length - 1)) * rect.width;
+		const y = 2 + ((max - Number(point.close)) / range) * (rect.height - 4);
+		const tooltipX = Math.max(62, Math.min(rect.width - 62, x));
+
+		guide.style.left = `${x}px`;
+		dot.style.left = `${x}px`;
+		dot.style.top = `${y}px`;
+		tooltip.style.left = `${tooltipX}px`;
+		tooltip.querySelector('strong').textContent = fmtPrice(point.close);
+		tooltip.querySelector('span').textContent = new Date(`${point.date}T00:00:00`)
+		  .toLocaleDateString(currentLang === 'zh' ? 'zh-CN' : 'en-US', {
+			year: 'numeric',
+			month: 'short',
+			day: 'numeric',
+		  });
+		chart.classList.add('interacting');
+	  };
+
+	  chart.addEventListener('pointermove', event => update(event.clientX));
+	  chart.addEventListener('pointerenter', event => update(event.clientX));
+	  chart.addEventListener('pointerleave', () => chart.classList.remove('interacting'));
+	  chart.addEventListener('pointerdown', event => update(event.clientX));
+	}
+
 	function renderCompanyDetail(data, fallbackDescription = '') {
 	  const overview = data.overview || {};
 	  const history = data.history?.length ? data.history : (historyCache.get(data.symbol) || []);
-	  const chart = sparkSvg(history, 860, 220);
 	  const chartDown = history.length > 1 && history[history.length - 1].close < history[0].close;
+	  const latestPrice = quoteCache.get(data.symbol)?.price ??
+		(history.length ? history[history.length - 1].close : null);
+	  const periodChange = history.length > 1
+		? ((history[history.length - 1].close - history[0].close) / history[0].close) * 100
+		: null;
+	  const positions = companyContext(data.symbol);
 	  const metrics = [
 		['Market Cap', formatCompactNumber(overview.MarketCapitalization)],
 		['P/E', formatRatio(overview.PERatio)],
@@ -2042,9 +2199,27 @@
 
 	  const description = overview.Description || fallbackDescription || '—';
 	  document.getElementById('detail-content').innerHTML = `
-		<div class="detail-chart${chartDown ? ' down' : ''}">
-		  ${chart || `<div class="spark-empty">${text('chartUnavailable')}</div>`}
+		<div class="detail-price-row">
+		  <span class="detail-price">${fmtPrice(latestPrice)}</span>
+		  <span class="detail-change ${periodChange == null ? '' : periodChange >= 0 ? 'up' : 'dn'}">${periodChange == null ? '—' : fmtChg(periodChange)}</span>
+		  <span class="detail-period">${text('chartPeriod')}</span>
 		</div>
+		<div class="detail-chart${chartDown ? ' down' : ''}" data-interactive="${history.length > 1}">
+		  ${interactiveChart(history)}
+		</div>
+		<p class="chain-note">${text('chartHint')}</p>
+		<section class="detail-section">
+		  <h4>${text('industryPosition')}</h4>
+		  <div class="chain-position-grid">
+			${positions.map(position => `
+			  <div class="chain-position">
+				<div class="chain-position-label">${escapeHtml(position.label)}</div>
+				<div class="chain-position-title">${escapeHtml(position.title)}</div>
+				<div class="chain-position-role">${escapeHtml(position.role)}</div>
+			  </div>
+			`).join('')}
+		  </div>
+		</section>
 		<section class="detail-section">
 		  <h4>${text('fundamentals')}</h4>
 		  <div class="fund-grid">
@@ -2065,6 +2240,7 @@
 		  <div class="news-list">${news || `<div class="spark-empty">${text('noNews')}</div>`}</div>
 		</section>
 	  `;
+	  bindChartInteraction(history);
 	}
 
 	async function openCompanyDetail(symbol) {
@@ -2091,6 +2267,14 @@
 	  document.getElementById('p-company').classList.add('on');
 	  document.getElementById('p-company').scrollTop = 0;
 
+	  const fallbackData = {
+		symbol,
+		overview: null,
+		history: historyCache.get(symbol) || readStoredHistory(symbol),
+		news: [],
+	  };
+	  renderCompanyDetail(fallbackData, localized.role);
+
 	  try {
 		let data = companyCache.get(symbol);
 		if (!data) {
@@ -2108,8 +2292,7 @@
 		renderCompanyDetail(data, localized.role);
 	  } catch (error) {
 		console.error('Company detail load failed:', error);
-		document.getElementById('detail-content').innerHTML =
-		  `<div class="detail-loading">${text('detailError')}</div>`;
+		renderCompanyDetail(fallbackData, localized.role);
 	  }
 	}
 
