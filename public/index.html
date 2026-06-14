@@ -661,6 +661,137 @@
 	  line-height: 1.35;
 	}
 
+	.project-qr.qr-flash {
+	  animation: qrFlash 1.2s ease;
+	}
+	@keyframes qrFlash {
+	  0%, 100% { box-shadow: 0 10px 30px rgba(83,45,29,0.16); transform: scale(1); }
+	  30% { box-shadow: 0 0 0 4px rgba(255,255,255,0.9), 0 14px 36px rgba(83,45,29,0.32); transform: scale(1.08); }
+	}
+
+	/* ── Layoff (caileme) card ── */
+	.project-card.layoff-card { border-color: rgba(248,113,113,0.18); }
+	.project-card.layoff-card .project-visual {
+	  background:
+		radial-gradient(circle at 28% 18%, rgba(248,113,113,0.28), transparent 36%),
+		linear-gradient(145deg, #1c0c0c, #120d10);
+	}
+
+	.layoff-panel {
+	  width: min(84%, 430px);
+	  padding: 1.3rem 1.25rem;
+	  border: 1px solid rgba(248,113,113,0.22);
+	  border-radius: 18px;
+	  background: rgba(8,5,6,0.78);
+	  box-shadow: 0 28px 60px rgba(0,0,0,0.38);
+	  transform: rotate(-2deg);
+	}
+
+	.layoff-head {
+	  display: flex;
+	  justify-content: space-between;
+	  color: var(--text3);
+	  font-size: 0.6rem;
+	  letter-spacing: 0.1em;
+	}
+
+	.layoff-total {
+	  margin-top: 0.7rem;
+	  font-size: 2.6rem;
+	  font-weight: 800;
+	  letter-spacing: -0.04em;
+	  color: #fca5a5;
+	}
+
+	.layoff-caption { margin-top: 0.1rem; color: var(--text2); font-size: 0.62rem; }
+
+	.layoff-rows { margin-top: 1rem; display: grid; gap: 0.4rem; }
+	.layoff-row {
+	  display: flex;
+	  justify-content: space-between;
+	  align-items: center;
+	  padding: 0.45rem 0.6rem;
+	  border: 1px solid rgba(255,255,255,0.07);
+	  border-radius: 10px;
+	  background: rgba(255,255,255,0.03);
+	}
+	.layoff-row b { font-weight: 600; font-size: 0.72rem; color: var(--text); }
+	.layoff-row span { font-size: 0.8rem; font-weight: 700; color: #fca5a5; font-family: ui-monospace, monospace; }
+
+	.layoff-chip {
+	  margin-top: 1rem;
+	  display: inline-block;
+	  padding: 0.3rem 0.6rem;
+	  border-radius: 999px;
+	  background: rgba(248,113,113,0.14);
+	  color: #fca5a5;
+	  font-size: 0.62rem;
+	}
+
+	/* ── Lottery card ── */
+	.project-card.lottery-card { border-color: rgba(250,204,21,0.18); }
+	.project-card.lottery-card .project-visual {
+	  background:
+		radial-gradient(circle at 70% 22%, rgba(250,204,21,0.22), transparent 34%),
+		linear-gradient(145deg, #0a1410, #0c1116);
+	}
+
+	.lotto-panel {
+	  width: min(86%, 440px);
+	  padding: 1.5rem 1.25rem;
+	  border: 1px solid rgba(250,204,21,0.22);
+	  border-radius: 18px;
+	  background: rgba(5,9,8,0.78);
+	  box-shadow: 0 28px 60px rgba(0,0,0,0.38);
+	  transform: rotate(2deg);
+	  text-align: center;
+	}
+
+	.lotto-caption { color: var(--text3); font-size: 0.62rem; letter-spacing: 0.08em; }
+
+	.lotto-balls {
+	  margin: 1rem 0;
+	  display: flex;
+	  flex-wrap: wrap;
+	  justify-content: center;
+	  gap: 0.5rem;
+	}
+	.lotto-ball {
+	  display: grid;
+	  place-items: center;
+	  width: 42px;
+	  height: 42px;
+	  border-radius: 50%;
+	  background: #f5f5f4;
+	  color: #1c1917;
+	  font-weight: 800;
+	  font-size: 0.95rem;
+	  box-shadow: 0 6px 14px rgba(0,0,0,0.35);
+	}
+	.lotto-ball.red { background: #ef4444; color: #fff; }
+
+	.lotto-disclaimer { color: var(--text2); font-size: 0.62rem; line-height: 1.5; }
+
+	.lotto-chart-label { margin: 0.9rem 0 0.4rem; color: var(--text3); font-size: 0.66rem; letter-spacing: 0.04em; }
+	.lotto-chart {
+	  border: 1px solid var(--border);
+	  border-radius: 12px;
+	  background: rgba(255,255,255,0.018);
+	  padding: 0.6rem 0.5rem 0.2rem;
+	}
+	.lotto-chart svg { display: block; width: 100%; height: auto; }
+
+	.layoff-figure { margin: 0.9rem 0 0; }
+	.layoff-figure img {
+	  display: block;
+	  width: 100%;
+	  height: auto;
+	  border-radius: 12px;
+	  background: #fff;
+	  border: 1px solid var(--border);
+	}
+	.layoff-figcap { margin-top: 0.45rem; color: var(--text3); font-size: 0.64rem; text-align: center; }
+
 	.portfolio-footer {
 	  display: flex;
 	  justify-content: space-between;
@@ -769,6 +900,445 @@
 	  font-size: 0.65rem;
 	  line-height: 1.55;
 	}
+
+	.chain-view-tabs {
+	  display: inline-flex;
+	  align-self: flex-start;
+	  gap: 0.25rem;
+	  padding: 0.25rem;
+	  margin-bottom: 1.25rem;
+	  border: 1px solid var(--border);
+	  border-radius: 12px;
+	  background: rgba(255,255,255,0.025);
+	}
+
+	.chain-view-tab {
+	  border: 0;
+	  border-radius: 8px;
+	  padding: 0.52rem 0.9rem;
+	  background: transparent;
+	  color: var(--text2);
+	  font-size: 0.75rem;
+	  font-weight: 650;
+	  cursor: pointer;
+	}
+	.chain-view-tab.on { color: #06141b; background: var(--accent); }
+	.chain-view { display: none; }
+	.chain-view.on { display: block; }
+
+	.product-map {
+	  position: relative;
+	  display: grid;
+	  grid-template-columns: repeat(4, minmax(150px, 1fr));
+	  gap: 0.75rem;
+	  padding: 1rem;
+	  overflow: hidden;
+	  border: 1px solid var(--border);
+	  border-radius: 18px;
+	  background:
+		linear-gradient(rgba(56,189,248,0.035) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(56,189,248,0.035) 1px, transparent 1px),
+		radial-gradient(circle at 50% 0%, rgba(56,189,248,0.1), transparent 46%),
+		rgba(255,255,255,0.015);
+	  background-size: 32px 32px, 32px 32px, auto, auto;
+	}
+
+	.product-node {
+	  position: relative;
+	  min-height: 216px;
+	  padding: 0;
+	  overflow: hidden;
+	  border: 1px solid var(--border);
+	  border-radius: 16px;
+	  background: rgba(10,10,10,0.86);
+	  color: var(--text);
+	  text-align: left;
+	  cursor: pointer;
+	  transition: transform 0.2s, border-color 0.2s, background 0.2s;
+	}
+	.product-node:hover { transform: translateY(-3px); border-color: var(--border-hover); }
+	.product-node.on {
+	  border-color: var(--accent-border);
+	  background: linear-gradient(180deg, rgba(14,116,144,0.16), rgba(10,10,10,0.92));
+	  box-shadow: inset 0 1px rgba(255,255,255,0.04), 0 0 32px rgba(56,189,248,0.08);
+	}
+	.product-node::after {
+	  content: '→';
+	  position: absolute;
+	  right: -0.72rem;
+	  top: 50%;
+	  z-index: 3;
+	  color: var(--accent);
+	  font-size: 1rem;
+	  transform: translateY(-50%);
+	}
+	.product-node:nth-of-type(4)::after,
+	.product-node:last-child::after { display: none; }
+
+	.product-visual {
+	  position: relative;
+	  height: 145px;
+	  display: grid;
+	  place-items: center;
+	  overflow: hidden;
+	  padding: 0.65rem 0.8rem 0.2rem;
+	  color: var(--accent);
+	  background:
+		radial-gradient(circle at 50% 54%, rgba(56,189,248,0.12), transparent 48%),
+		linear-gradient(180deg, rgba(255,255,255,0.018), transparent);
+	}
+	.product-visual::after {
+	  content: '';
+	  position: absolute;
+	  left: 12%;
+	  right: 12%;
+	  bottom: 5px;
+	  height: 1px;
+	  background: linear-gradient(90deg, transparent, rgba(56,189,248,0.35), transparent);
+	}
+	.product-visual svg {
+	  display: block;
+	  width: min(100%, 300px);
+	  height: 100%;
+	  overflow: hidden;
+	  filter: drop-shadow(0 12px 16px rgba(0,0,0,0.42));
+	}
+	.product-node-copy {
+	  position: relative;
+	  z-index: 2;
+	  min-height: 70px;
+	  padding: 0.75rem 0.9rem 0.9rem;
+	  border-top: 1px solid rgba(255,255,255,0.045);
+	  background: linear-gradient(180deg, rgba(8,12,14,0.88), rgba(8,8,8,0.98));
+	}
+	.product-node-title { font-size: 0.82rem; font-weight: 720; letter-spacing: -0.01em; }
+	.product-node-role { margin-top: 0.25rem; color: #68747a; font-size: 0.65rem; line-height: 1.45; }
+	.flow-label {
+	  grid-column: 1 / -1;
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  color: var(--text3);
+	  font-size: 0.62rem;
+	  letter-spacing: 0.08em;
+	  text-transform: uppercase;
+	}
+	.flow-label span:nth-child(2) { color: var(--accent); }
+
+	.product-detail {
+	  display: grid;
+	  grid-template-columns: minmax(300px, 0.95fr) minmax(280px, 1.05fr);
+	  gap: 1rem;
+	  margin-top: 1rem;
+	}
+	.product-exploded,
+	.product-info {
+	  min-height: 330px;
+	  border: 1px solid var(--border);
+	  border-radius: 18px;
+	  background: var(--card);
+	}
+	.product-exploded {
+	  position: relative;
+	  display: grid;
+	  place-items: center;
+	  overflow: hidden;
+	  padding: 1.2rem;
+	  background:
+		linear-gradient(rgba(56,189,248,0.025) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(56,189,248,0.025) 1px, transparent 1px),
+		radial-gradient(circle at 50% 50%, rgba(56,189,248,0.12), transparent 48%),
+		var(--card);
+	  background-size: 28px 28px, 28px 28px, auto, auto;
+	}
+	.product-exploded svg {
+	  width: min(100%, 520px);
+	  height: 290px;
+	  filter: drop-shadow(0 18px 24px rgba(0,0,0,0.5));
+	}
+	.product-exploded[data-product="package"] svg { height: 320px; }
+	.product-info { padding: 1.25rem; }
+	.product-eyebrow {
+	  color: var(--accent);
+	  font: 700 0.62rem ui-monospace, monospace;
+	  letter-spacing: 0.13em;
+	  text-transform: uppercase;
+	}
+	.product-info h3 { margin-top: 0.45rem; font-size: 1.2rem; }
+	.product-summary { margin-top: 0.55rem; color: var(--text2); font-size: 0.76rem; line-height: 1.65; }
+	.product-parts { display: grid; gap: 0.45rem; margin-top: 1rem; }
+	.product-part {
+	  display: grid;
+	  grid-template-columns: 10px minmax(85px, 0.36fr) 1fr;
+	  gap: 0.55rem;
+	  align-items: start;
+	  padding: 0.55rem 0.65rem;
+	  border: 1px solid rgba(255,255,255,0.055);
+	  border-radius: 9px;
+	  background: rgba(0,0,0,0.2);
+	}
+	.part-dot { width: 7px; height: 7px; margin-top: 0.3rem; border-radius: 50%; background: var(--accent); box-shadow: 0 0 10px currentColor; }
+	.part-name { font-size: 0.68rem; font-weight: 700; }
+	.part-desc { color: var(--text3); font-size: 0.64rem; line-height: 1.45; }
+	.product-company-section { margin-top: 1.15rem; }
+	.product-company-heading {
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  gap: 0.75rem;
+	  margin-bottom: 0.55rem;
+	}
+	.product-company-heading h4 { font-size: 0.72rem; font-weight: 700; }
+	.product-company-heading span { color: var(--text3); font-size: 0.6rem; }
+	.product-companies { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.5rem; }
+	.product-company {
+	  position: relative;
+	  min-width: 0;
+	  padding: 0.7rem;
+	  border: 1px solid rgba(255,255,255,0.065);
+	  border-radius: 11px;
+	  background: rgba(0,0,0,0.2);
+	  color: var(--text);
+	  text-align: left;
+	}
+	button.product-company {
+	  cursor: pointer;
+	  transition: border-color 0.18s, background 0.18s, transform 0.18s;
+	}
+	button.product-company:hover {
+	  transform: translateY(-2px);
+	  border-color: var(--accent-border);
+	  background: rgba(14,116,144,0.1);
+	}
+	.product-company-top { display: flex; align-items: center; justify-content: space-between; gap: 0.5rem; }
+	.product-company-name { overflow: hidden; font-size: 0.7rem; font-weight: 720; white-space: nowrap; text-overflow: ellipsis; }
+	.product-company-ticker {
+	  flex-shrink: 0;
+	  color: var(--accent);
+	  font: 700 0.56rem ui-monospace, monospace;
+	  letter-spacing: 0.07em;
+	}
+	.product-company-role { margin-top: 0.34rem; color: #b8c0c4; font-size: 0.64rem; font-weight: 650; line-height: 1.35; }
+	.product-company-work { margin-top: 0.2rem; color: var(--text3); font-size: 0.61rem; line-height: 1.5; }
+	.product-company-link { display: inline-block; margin-top: 0.45rem; color: var(--accent); font-size: 0.58rem; }
+
+	.arch-lab {
+	  margin-top: 1rem;
+	  padding: 1.25rem;
+	  border: 1px solid var(--border);
+	  border-radius: 18px;
+	  background:
+		radial-gradient(circle at 18% 10%, rgba(56,189,248,0.1), transparent 32%),
+		rgba(255,255,255,0.018);
+	}
+	.arch-header {
+	  display: flex;
+	  align-items: flex-start;
+	  justify-content: space-between;
+	  gap: 1rem;
+	  margin-bottom: 1rem;
+	}
+	.arch-kicker {
+	  color: var(--accent);
+	  font: 700 0.61rem ui-monospace, monospace;
+	  letter-spacing: 0.12em;
+	  text-transform: uppercase;
+	}
+	.arch-header h3 { margin-top: 0.32rem; font-size: 1.05rem; }
+	.arch-intro { margin-top: 0.35rem; max-width: 720px; color: var(--text2); font-size: 0.72rem; line-height: 1.6; }
+	.arch-tabs {
+	  display: flex;
+	  flex-shrink: 0;
+	  gap: 0.25rem;
+	  padding: 0.22rem;
+	  border: 1px solid var(--border);
+	  border-radius: 10px;
+	  background: rgba(0,0,0,0.28);
+	}
+	.arch-tab {
+	  padding: 0.4rem 0.72rem;
+	  border: 0;
+	  border-radius: 7px;
+	  background: transparent;
+	  color: var(--text2);
+	  font-size: 0.67rem;
+	  font-weight: 700;
+	  cursor: pointer;
+	}
+	.arch-tab.on { color: #06141b; background: var(--accent); }
+	.arch-layout {
+	  display: grid;
+	  grid-template-columns: minmax(420px, 1.25fr) minmax(260px, 0.75fr);
+	  gap: 1rem;
+	}
+	.arch-board {
+	  position: relative;
+	  min-height: 430px;
+	  padding: 1rem;
+	  overflow: hidden;
+	  border: 1px solid rgba(85,204,255,0.22);
+	  border-radius: 15px;
+	  background:
+		linear-gradient(rgba(56,189,248,0.035) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(56,189,248,0.035) 1px, transparent 1px),
+		#071015;
+	  background-size: 24px 24px;
+	}
+	.arch-die {
+	  display: grid;
+	  width: 100%;
+	  height: 100%;
+	  min-height: 396px;
+	  gap: 6px;
+	  padding: 8px;
+	  border: 2px solid #6ed8ff;
+	  border-radius: 8px;
+	  background: #10252e;
+	  box-shadow: inset 0 0 38px rgba(56,189,248,0.08), 0 16px 40px rgba(0,0,0,0.4);
+	}
+	.arch-die.gpu {
+	  grid-template-columns: 0.58fr repeat(4, 1fr) 0.62fr;
+	  grid-template-rows: 0.62fr repeat(2, 1.55fr) 0.68fr;
+	  grid-template-areas:
+		"nvl hbm1 hbm2 hbm3 hbm4 pcie"
+		"nvl core1 cache1 core2 cache2 pcie"
+		"nvl core3 cache1 core4 cache2 pcie"
+		"nvl hbm5 hbm6 hbm7 hbm8 pcie";
+	}
+	.arch-die.cpu {
+	  grid-template-columns: repeat(4, 1fr) 0.82fr;
+	  grid-template-rows: repeat(3, 1fr) 0.75fr;
+	  grid-template-areas:
+		"core1 core2 core3 core4 io"
+		"core5 core6 core7 core8 io"
+		"l2 l2 l3 l3 io"
+		"memory memory pcie pcie io";
+	}
+	.arch-block {
+	  position: relative;
+	  display: grid;
+	  place-items: center;
+	  min-width: 0;
+	  padding: 0.38rem;
+	  overflow: hidden;
+	  border: 1px solid rgba(255,255,255,0.13);
+	  border-radius: 5px;
+	  background: rgba(255,255,255,0.035);
+	  color: #c5d2d8;
+	  font-size: 0.58rem;
+	  font-weight: 700;
+	  line-height: 1.25;
+	  text-align: center;
+	  cursor: help;
+	  transition: border-color 0.16s, background 0.16s, transform 0.16s, color 0.16s;
+	}
+	.arch-block::after {
+	  content: '';
+	  position: absolute;
+	  inset: 5px;
+	  opacity: 0.22;
+	  background: repeating-linear-gradient(90deg, transparent 0 8px, currentColor 8px 9px);
+	  pointer-events: none;
+	}
+	.arch-block span { position: relative; z-index: 1; padding: 0.2rem; background: rgba(5,11,14,0.76); border-radius: 3px; }
+	.arch-die.gpu .arch-block[style*="grid-area:nvl"] span,
+	.arch-die.gpu .arch-block[style*="grid-area:pcie"] span {
+	  white-space: nowrap;
+	  transform: rotate(-90deg);
+	}
+	.arch-block:hover,
+	.arch-block.on {
+	  z-index: 2;
+	  transform: translateY(-2px);
+	  border-color: currentColor;
+	  background: rgba(56,189,248,0.14);
+	  box-shadow: 0 0 18px color-mix(in srgb, currentColor 22%, transparent);
+	}
+	.arch-block.compute { color: #d8bd65; background-color: rgba(164,123,26,0.11); }
+	.arch-block.cache { color: #75d9bc; background-color: rgba(26,139,106,0.12); }
+	.arch-block.memory { color: #67cfff; background-color: rgba(25,124,164,0.13); }
+	.arch-block.link { color: #e78dba; background-color: rgba(158,54,106,0.12); }
+	.arch-block.control { color: #c99aff; background-color: rgba(111,66,161,0.12); }
+	.arch-explain {
+	  display: flex;
+	  flex-direction: column;
+	  min-height: 430px;
+	  padding: 1rem;
+	  border: 1px solid var(--border);
+	  border-radius: 15px;
+	  background: rgba(7,10,12,0.72);
+	}
+	.arch-selected {
+	  color: var(--accent);
+	  font: 700 0.58rem ui-monospace, monospace;
+	  letter-spacing: 0.1em;
+	  text-transform: uppercase;
+	}
+	.arch-mode-summary {
+	  margin-bottom: 0.75rem;
+	  padding-bottom: 0.75rem;
+	  border-bottom: 1px solid var(--border);
+	}
+	.arch-mode-summary strong { display: block; color: #dce5e9; font-size: 0.7rem; }
+	.arch-mode-summary span { display: block; margin-top: 0.25rem; color: var(--text3); font-size: 0.63rem; line-height: 1.5; }
+	.arch-explain h4 { margin-top: 0.55rem; font-size: 1rem; }
+	.arch-simple {
+	  margin-top: 0.6rem;
+	  color: #d8dde0;
+	  font-size: 0.72rem;
+	  line-height: 1.65;
+	}
+	.arch-analogy {
+	  margin-top: 0.8rem;
+	  padding: 0.75rem;
+	  border-left: 2px solid var(--accent);
+	  border-radius: 0 8px 8px 0;
+	  background: rgba(56,189,248,0.065);
+	  color: var(--text2);
+	  font-size: 0.67rem;
+	  line-height: 1.55;
+	}
+	.arch-why {
+	  margin-top: 0.8rem;
+	  color: var(--text3);
+	  font-size: 0.65rem;
+	  line-height: 1.55;
+	}
+	.arch-flow {
+	  display: grid;
+	  grid-template-columns: repeat(4, 1fr);
+	  gap: 0.4rem;
+	  margin-top: auto;
+	  padding-top: 1rem;
+	}
+	.arch-flow-step {
+	  position: relative;
+	  padding: 0.55rem 0.35rem;
+	  border: 1px solid rgba(255,255,255,0.06);
+	  border-radius: 7px;
+	  color: var(--text3);
+	  font-size: 0.56rem;
+	  text-align: center;
+	}
+	.arch-flow-step:not(:last-child)::after {
+	  content: '→';
+	  position: absolute;
+	  top: 50%;
+	  right: -0.36rem;
+	  z-index: 2;
+	  color: var(--accent);
+	  transform: translateY(-50%);
+	}
+
+	.diagram-label { fill: #a8dff4; font: 600 10px -apple-system, sans-serif; }
+	.diagram-sub { fill: #58717c; font: 9px -apple-system, sans-serif; }
+	.diagram-line { stroke: rgba(56,189,248,0.55); stroke-width: 1; stroke-dasharray: 3 3; }
+	.hw-edge { stroke: #55ccff; stroke-width: 1.5; vector-effect: non-scaling-stroke; }
+	.hw-fine { stroke: rgba(126,218,255,0.62); stroke-width: 0.8; vector-effect: non-scaling-stroke; }
+	.hw-gold { stroke: #f5bd3e; stroke-width: 1.4; vector-effect: non-scaling-stroke; }
+	.hw-power { stroke: #35d07f; stroke-width: 1.6; vector-effect: non-scaling-stroke; }
+	.data-pulse { animation: dataPulse 1.8s ease-in-out infinite; }
+	@keyframes dataPulse { 50% { opacity: 0.25; transform: translateX(5px); } }
 
 	/* Three-column chain layout */
 	.chain-grid {
@@ -1211,6 +1781,9 @@
 	  .project-card { grid-template-columns: 1fr; }
 	  .project-visual { min-height: 360px; }
 	  .industry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+	  .product-map { grid-template-columns: repeat(2, minmax(150px, 1fr)); }
+	  .product-node:nth-child(n)::after { display: none; }
+	  .product-detail { grid-template-columns: 1fr; }
 
 	  .chain-grid {
 		grid-template-columns: 1fr;
@@ -1254,6 +1827,23 @@
 	  #p-ai { padding: 1.25rem 1rem 2.5rem; }
 	  .dev-pill { display: none; }
 	  .industry-grid { grid-template-columns: 1fr; }
+	  .product-map { grid-template-columns: 1fr 1fr; padding: 0.7rem; }
+	  .product-node { min-height: 190px; }
+	  .product-visual { height: 122px; padding: 0.45rem 0.4rem 0; }
+	  .product-node-copy { min-height: 68px; padding: 0.65rem 0.7rem 0.75rem; }
+	  .product-detail { grid-template-columns: 1fr; }
+	  .product-exploded, .product-info { min-height: 0; }
+	  .product-exploded svg { height: 230px; }
+	  .product-exploded[data-product="package"] svg { height: 310px; }
+	  .product-part { grid-template-columns: 9px 78px 1fr; }
+	  .product-companies { grid-template-columns: 1fr; }
+	  .arch-header { flex-direction: column; }
+	  .arch-layout { grid-template-columns: 1fr; }
+	  .arch-board, .arch-explain { min-height: 0; }
+	  .arch-board { padding: 0.55rem; }
+	  .arch-die { min-height: 330px; gap: 4px; padding: 5px; }
+	  .arch-block { padding: 0.2rem; font-size: 0.48rem; }
+	  .arch-flow { grid-template-columns: repeat(2, 1fr); margin-top: 0.9rem; }
 	  .fund-grid { grid-template-columns: repeat(2, 1fr); }
 	}
   </style>
@@ -1288,7 +1878,7 @@
 		</div>
 		<aside class="portfolio-meta" aria-label="Portfolio summary">
 		  <div class="portfolio-meta-item">
-			<strong>02</strong>
+			<strong>04</strong>
 			<span data-i18n="portfolioProjects">当前项目</span>
 		  </div>
 		  <div class="portfolio-meta-item">
@@ -1345,7 +1935,7 @@
 				<span class="project-tag">Audio</span>
 				<span class="project-tag">Canvas</span>
 			  </div>
-			  <span class="project-link" data-i18n="scanProject">微信扫码体验 →</span>
+			  <button class="project-link" type="button" id="scan-project-btn" data-i18n="scanProject">微信扫码体验 →</button>
 			</div>
 			<div class="project-visual">
 			  <div class="phone-mockup" aria-hidden="true">
@@ -1365,9 +1955,70 @@
 				  </div>
 				</div>
 			  </div>
-			  <div class="project-qr">
+			  <div class="project-qr" id="project-qr">
 				<img src="/assets/miaoyan-code.jpg" alt="喵言喵语微信小程序码">
 				<span data-i18n="qrLabel">微信扫码打开小程序</span>
+			  </div>
+			</div>
+		  </article>
+
+		  <article class="project-card layoff-card">
+			<div class="project-copy">
+			  <span class="project-index">PROJECT 03 · DATA</span>
+			  <h3 class="project-title" data-i18n="layoffTitle">裁了么</h3>
+			  <p class="project-desc" data-i18n="layoffDesc">
+				抓取加州、华盛顿州和纽约州官方 WARN 裁员数据，自动清洗、统计并生成对比图表与社媒图文。
+			  </p>
+			  <div class="project-tags">
+				<span class="project-tag">Python</span>
+				<span class="project-tag">Pandas</span>
+				<span class="project-tag">WARN Data</span>
+				<span class="project-tag">Matplotlib</span>
+			  </div>
+			  <button class="project-link" type="button" data-open-page="p-layoff" data-i18n="openProject">打开项目 →</button>
+			</div>
+			<div class="project-visual" aria-hidden="true">
+			  <div class="layoff-panel">
+				<div class="layoff-head"><span>WARN LAYOFFS</span><span>CA · WA · NY</span></div>
+				<div class="layoff-total">74,703</div>
+				<div class="layoff-caption" data-i18n="layoffCaption">过去 6 个月 · 三州合计影响人数</div>
+				<div class="layoff-rows">
+				  <div class="layoff-row"><b>California</b><span>40,992</span></div>
+				  <div class="layoff-row"><b>Washington</b><span>25,299</span></div>
+				  <div class="layoff-row"><b>New York</b><span>8,412</span></div>
+				</div>
+				<div class="layoff-chip" data-i18n="layoffTop">裁员最多：Amazon</div>
+			  </div>
+			</div>
+		  </article>
+
+		  <article class="project-card lottery-card">
+			<div class="project-copy">
+			  <span class="project-index">PROJECT 04 · FOR FUN</span>
+			  <h3 class="project-title" data-i18n="lotteryTitle">彩票玄学</h3>
+			  <p class="project-desc" data-i18n="lotteryDesc">
+				统计过去 5 年 709 期 Powerball 开奖频率，还认真套了一套 SLSQP 凸优化去"预测"号码——给随机数做投资组合优化，主打一个一本正经。
+			  </p>
+			  <div class="project-tags">
+				<span class="project-tag">Python</span>
+				<span class="project-tag">SciPy</span>
+				<span class="project-tag" data-i18n="lotteryTag">一本正经的胡说八道</span>
+			  </div>
+			  <button class="project-link" type="button" data-open-page="p-lottery" data-i18n="openProject">打开项目 →</button>
+			</div>
+			<div class="project-visual" aria-hidden="true">
+			  <div class="lotto-panel">
+				<div class="lotto-caption" data-i18n="lottoCaption">过去 5 年 · 709 期最常开出</div>
+				<div class="lotto-balls">
+				  <span class="lotto-ball">21</span>
+				  <span class="lotto-ball">36</span>
+				  <span class="lotto-ball">33</span>
+				  <span class="lotto-ball">27</span>
+				  <span class="lotto-ball">47</span>
+				  <span class="lotto-ball">39</span>
+				  <span class="lotto-ball red">14</span>
+				</div>
+				<div class="lotto-disclaimer" data-i18n="lottoDisclaimer">⚠️ 用凸优化预测随机数 · 中奖率照样为零</div>
 			  </div>
 			</div>
 		  </article>
@@ -1385,26 +2036,70 @@
   <section class="page" id="p-ai">
 	<div class="chain-hdr">
 	  <h2 class="chain-title" data-i18n="chainTitle">AI 产业链</h2>
-	  <p class="chain-sub" data-i18n="chainSub">追踪从芯片、网络、电力到云服务与应用的 AI 上市公司</p>
-	  <div class="chain-ts">
+	  <p class="chain-sub" data-i18n="chainSub">从产品外观和内部结构理解 AI 基础设施如何连接</p>
+	  <div class="chain-ts" id="market-status">
 		<span id="ts-text" data-status="loading">正在加载数据…</span>
 		<button class="refresh" id="refresh-btn" data-i18n="refresh">刷新</button>
 	  </div>
 	</div>
 
-	<div class="industry-tabs" id="industry-tabs"></div>
-	<div class="industry-head">
-	  <div>
-		<h3 class="industry-title" id="industry-title"></h3>
-		<p class="industry-desc" id="industry-desc"></p>
-	  </div>
-	  <span class="industry-count" id="industry-count"></span>
+	<div class="chain-view-tabs" role="tablist">
+	  <button class="chain-view-tab on" data-chain-view="products" data-i18n="productMap">产品地图</button>
+	  <button class="chain-view-tab" data-chain-view="companies" data-i18n="companyMap">公司与行情</button>
 	</div>
-	<div class="industry-grid" id="industry-cards"></div>
-	<p class="chain-note" data-i18n="chainNote">
-	  分类覆盖 AI 基础设施、能源与应用生态。公司可能同时属于多个环节，
-	  行情可能延迟，仅供信息参考。
-	</p>
+
+	<div class="chain-view on" id="chain-products">
+	  <div class="product-map" id="product-map"></div>
+	  <div class="product-detail">
+		<div class="product-exploded" id="product-exploded"></div>
+		<div class="product-info">
+		  <div class="product-eyebrow" data-i18n="insideProduct">INSIDE THE PRODUCT</div>
+		  <h3 id="product-detail-title"></h3>
+		  <p class="product-summary" id="product-detail-summary"></p>
+		  <div class="product-parts" id="product-parts"></div>
+		  <section class="product-company-section">
+			<div class="product-company-heading">
+			  <h4 data-i18n="whoMakesIt">这些公司具体做什么</h4>
+			  <span data-i18n="companyCardHint">点击上市公司查看详情</span>
+			</div>
+			<div class="product-companies" id="product-companies"></div>
+		  </section>
+		</div>
+	  </div>
+	  <section class="arch-lab">
+		<div class="arch-header">
+		  <div>
+			<div class="arch-kicker" data-i18n="archKicker">BEGINNER ARCHITECTURE LAB</div>
+			<h3 data-i18n="archTitle">CPU 和 GPU 里面到底有什么？</h3>
+			<p class="arch-intro" data-i18n="archIntro">把鼠标移到芯片区域上，看看数据进入芯片后分别由谁接收、保存、计算和送出。手机上可直接点击。</p>
+		  </div>
+		  <div class="arch-tabs">
+			<button class="arch-tab on" type="button" data-arch="gpu">GPU</button>
+			<button class="arch-tab" type="button" data-arch="cpu">CPU</button>
+		  </div>
+		</div>
+		<div class="arch-layout">
+		  <div class="arch-board" id="arch-board"></div>
+		  <aside class="arch-explain" id="arch-explain"></aside>
+		</div>
+	  </section>
+	</div>
+
+	<div class="chain-view" id="chain-companies">
+	  <div class="industry-tabs" id="industry-tabs"></div>
+	  <div class="industry-head">
+		<div>
+		  <h3 class="industry-title" id="industry-title"></h3>
+		  <p class="industry-desc" id="industry-desc"></p>
+		</div>
+		<span class="industry-count" id="industry-count"></span>
+	  </div>
+	  <div class="industry-grid" id="industry-cards"></div>
+	  <p class="chain-note" data-i18n="chainNote">
+		分类覆盖 AI 基础设施、能源与应用生态。公司可能同时属于多个环节，
+		行情可能延迟，仅供信息参考。
+	  </p>
+	</div>
   </section>
 
   <!-- ── Coming soon ── -->
@@ -1429,6 +2124,112 @@
 	<div class="company-body" id="detail-content"></div>
   </section>
 
+  <!-- ── 裁了么 Result Page ── -->
+  <section class="page" id="p-layoff">
+	<div class="company-hdr">
+	  <button class="back-btn" data-go-home data-i18n="back">← 返回</button>
+	  <div class="company-hdr-info">
+		<div class="company-hdr-symbol">PROJECT 03 · DATA</div>
+		<div class="company-hdr-name" data-i18n="layoffTitle">裁了么</div>
+	  </div>
+	  <a class="website-btn visible" href="https://github.com/aiyingyun" target="_blank" rel="noopener noreferrer" data-i18n="viewCode">代码 →</a>
+	</div>
+	<div class="company-body">
+	  <p class="company-description" data-i18n="layoffLead">用 Python 抓取加州、华盛顿州、纽约州官方 WARN 裁员通知，自动清洗、按州与公司聚合，并生成对比图表和一份可直接发布的社媒图文。下面是过去 6 个月的统计结果。</p>
+	  <section class="detail-section">
+		<h4 data-i18n="layoffKeyHead">核心数字</h4>
+		<div class="fund-grid">
+		  <div class="fund-item"><div class="fund-label" data-i18n="layoffM1">总影响人数</div><div class="fund-value">74,703</div></div>
+		  <div class="fund-item"><div class="fund-label" data-i18n="layoffM2">覆盖州</div><div class="fund-value">CA · WA · NY</div></div>
+		  <div class="fund-item"><div class="fund-label" data-i18n="layoffM3">统计周期</div><div class="fund-value" data-i18n="layoffPeriodVal">过去 6 个月</div></div>
+		  <div class="fund-item"><div class="fund-label" data-i18n="layoffM4">数据来源</div><div class="fund-value">官方 WARN</div></div>
+		</div>
+	  </section>
+	  <section class="detail-section">
+		<h4 data-i18n="layoffStateHead">分州数据</h4>
+		<div class="fund-grid">
+		  <div class="fund-item"><div class="fund-label">California</div><div class="fund-value">40,992</div></div>
+		  <div class="fund-item"><div class="fund-label">Washington</div><div class="fund-value">25,299</div></div>
+		  <div class="fund-item"><div class="fund-label">New York</div><div class="fund-value">8,412</div></div>
+		  <div class="fund-item"><div class="fund-label" data-i18n="layoffCompanies">涉及公司</div><div class="fund-value">1,048</div></div>
+		</div>
+		<figure class="layoff-figure">
+		  <img src="/assets/layoff-by-state.png" alt="美国三州裁员人数对比" loading="lazy">
+		  <figcaption class="layoff-figcap" data-i18n="layoffFig1Cap">美国三州裁员人数对比（过去 6 个月）</figcaption>
+		</figure>
+	  </section>
+	  <section class="detail-section">
+		<h4 data-i18n="layoffTopHead">各州裁员 TOP 3</h4>
+		<p class="company-description">
+		  <b>California</b> — Amazon 988 · Dreyer's Grand Ice Cream 914 · Ojai Valley Inn 773<br>
+		  <b>Washington</b> — Amazon 4,986 · Gebbers Farms 3,465 · Stemilt Ag Services 1,561<br>
+		  <b>New York</b> — Pride Transportation 1,717 · Paramount Skydance 445 · L&M Bus 423
+		</p>
+		<figure class="layoff-figure">
+		  <img src="/assets/layoff-top-companies.png" alt="裁员最多的 10 家公司" loading="lazy">
+		  <figcaption class="layoff-figcap" data-i18n="layoffFig2Cap">裁员最多的 10 家公司（三州合并）</figcaption>
+		</figure>
+	  </section>
+	  <section class="detail-section">
+		<h4 data-i18n="layoffInsightHead">一句话洞察</h4>
+		<p class="company-description" data-i18n="layoffInsightBody">加州总人数最多，集中在湾区科技公司；华盛顿州平均每家公司裁员规模最大；纽约金融与零售业受冲击明显。</p>
+	  </section>
+	</div>
+  </section>
+
+  <!-- ── 彩票玄学 Result Page ── -->
+  <section class="page" id="p-lottery">
+	<div class="company-hdr">
+	  <button class="back-btn" data-go-home data-i18n="back">← 返回</button>
+	  <div class="company-hdr-info">
+		<div class="company-hdr-symbol">PROJECT 04 · FOR FUN</div>
+		<div class="company-hdr-name" data-i18n="lotteryTitle">彩票玄学</div>
+	  </div>
+	  <a class="website-btn visible" href="https://github.com/aiyingyun" target="_blank" rel="noopener noreferrer" data-i18n="viewCode">代码 →</a>
+	</div>
+	<div class="company-body">
+	  <p class="company-description" data-i18n="lotteryLead">统计过去 5 年 709 期 Powerball 的开奖频率，然后一本正经地套用一套带风险约束的 SLSQP 凸优化器去"预测"号码——本质上是在给一串随机数做投资组合优化。结果如下。</p>
+	  <section class="detail-section">
+		<h4 data-i18n="lottoHotHead">最常开出的号码</h4>
+		<div class="lotto-balls" style="justify-content:flex-start">
+		  <span class="lotto-ball">21</span>
+		  <span class="lotto-ball">36</span>
+		  <span class="lotto-ball">33</span>
+		  <span class="lotto-ball">27</span>
+		  <span class="lotto-ball">47</span>
+		  <span class="lotto-ball">39</span>
+		  <span class="lotto-ball red">14</span>
+		</div>
+		<p class="company-description" data-i18n="lottoHotNote">白球最热：21（70 次）；红球 Powerball 最热：14（41 次）。仅基于历史频率排序。</p>
+	  </section>
+	  <section class="detail-section">
+		<h4 data-i18n="lottoFreqHead">开奖频率分布</h4>
+		<div class="lotto-chart-label" data-i18n="lottoWhiteLabel">白球 1–69 · 按出现次数从高到低</div>
+		<div class="lotto-chart" id="lotto-white-chart"></div>
+		<div class="lotto-chart-label" data-i18n="lottoRedLabel">红球 Powerball 1–26</div>
+		<div class="lotto-chart" id="lotto-red-chart"></div>
+		<p class="company-description" data-i18n="lottoFreqNote">看出来了吗？柱子几乎一样高——因为开奖本来就是随机的，所谓"热号"只是噪声。</p>
+	  </section>
+	  <section class="detail-section">
+		<h4 data-i18n="lottoSampleHead">样本</h4>
+		<div class="fund-grid">
+		  <div class="fund-item"><div class="fund-label" data-i18n="lottoS1">开奖期数</div><div class="fund-value">709</div></div>
+		  <div class="fund-item"><div class="fund-label" data-i18n="lottoS2">时间范围</div><div class="fund-value">2020–2025</div></div>
+		  <div class="fund-item"><div class="fund-label" data-i18n="lottoS3">白球最热</div><div class="fund-value">21 · 70x</div></div>
+		  <div class="fund-item"><div class="fund-label" data-i18n="lottoS4">红球最热</div><div class="fund-value">14 · 41x</div></div>
+		</div>
+	  </section>
+	  <section class="detail-section">
+		<h4 data-i18n="lottoSeriousHead">认真的部分</h4>
+		<p class="company-description" data-i18n="lottoSeriousBody">代码里真的实现了一套带风险上限的收益最大化器：SLSQP 求解、因子协方差矩阵、PSD 投影、预算与边界约束，数学上完全站得住——只是把它喂给了一个独立同分布的随机过程。</p>
+	  </section>
+	  <section class="detail-section">
+		<h4 data-i18n="lottoVerdictHead">结论</h4>
+		<p class="company-description" data-i18n="lottoVerdictBody">⚠️ 历史频率对下一次开奖没有任何预测力。无论号码多"热"，中奖概率仍然是 1 / 292,201,338。纯属娱乐，切勿当真。</p>
+	  </section>
+	</div>
+  </section>
+
   <script>
 	/* ── Tab switching ─────────────────────── */
 	const tabBtns = document.querySelectorAll('.tab');
@@ -1442,7 +2243,7 @@
 		portfolioKicker: '独立开发者 · 纽约',
 		portfolioTitleMain: '做一些',
 		portfolioTitleSub: '有用也有趣的产品。',
-		portfolioIntro: '这里收录我正在构建的独立项目：从 AI 产业研究工具，到让人和猫更好玩地交流的小程序。',
+		portfolioIntro: '这里收录我正在构建的独立项目：从 AI 产业研究工具、数据分析，到让人和猫更好玩地交流的小程序。',
 		portfolioProjects: '当前项目', portfolioFormat: '产品形态',
 		selectedProjects: '项目作品', projectsNote: '持续更新中',
 		aiProjectTitle: 'AI 产业链',
@@ -1451,6 +2252,39 @@
 		catProjectDesc: '一个轻松的猫语互动小程序。输入文字或录音，让猫猫用自己的方式回应；还能听猫叫图鉴、制作猫咪分享海报。',
 		openProject: '打开项目 →', scanProject: '微信扫码体验 →',
 		qrLabel: '微信扫码打开小程序',
+		viewCode: '代码 →',
+		layoffTitle: '裁了么',
+		layoffDesc: '抓取加州、华盛顿州和纽约州官方 WARN 裁员数据，自动清洗、统计并生成对比图表与社媒图文。',
+		layoffCaption: '过去 6 个月 · 三州合计影响人数',
+		layoffTop: '裁员最多：Amazon',
+		lotteryTitle: '彩票玄学',
+		lotteryDesc: '统计过去 5 年 709 期 Powerball 开奖频率，还认真套了一套 SLSQP 凸优化去"预测"号码——给随机数做投资组合优化，主打一个一本正经。',
+		lotteryTag: '一本正经的胡说八道',
+		lottoCaption: '过去 5 年 · 709 期最常开出',
+		lottoDisclaimer: '⚠️ 用凸优化预测随机数 · 中奖率照样为零',
+		layoffLead: '用 Python 抓取加州、华盛顿州、纽约州官方 WARN 裁员通知，自动清洗、按州与公司聚合，并生成对比图表和一份可直接发布的社媒图文。下面是过去 6 个月的统计结果。',
+		layoffKeyHead: '核心数字',
+		layoffM1: '总影响人数', layoffM2: '覆盖州', layoffM3: '统计周期', layoffM4: '数据来源',
+		layoffPeriodVal: '过去 6 个月',
+		layoffStateHead: '分州数据', layoffCompanies: '涉及公司',
+		layoffFig1Cap: '美国三州裁员人数对比（过去 6 个月）',
+		layoffFig2Cap: '裁员最多的 10 家公司（三州合并）',
+		layoffTopHead: '各州裁员 TOP 3',
+		layoffInsightHead: '一句话洞察',
+		layoffInsightBody: '加州总人数最多，集中在湾区科技公司；华盛顿州平均每家公司裁员规模最大；纽约金融与零售业受冲击明显。',
+		lotteryLead: '统计过去 5 年 709 期 Powerball 的开奖频率，然后一本正经地套用一套带风险约束的 SLSQP 凸优化器去"预测"号码——本质上是在给一串随机数做投资组合优化。结果如下。',
+		lottoHotHead: '最常开出的号码',
+		lottoHotNote: '白球最热：21（70 次）；红球 Powerball 最热：14（41 次）。仅基于历史频率排序。',
+		lottoFreqHead: '开奖频率分布',
+		lottoWhiteLabel: '白球 1–69 · 按出现次数从高到低',
+		lottoRedLabel: '红球 Powerball 1–26',
+		lottoFreqNote: '看出来了吗？柱子几乎一样高——因为开奖本来就是随机的，所谓"热号"只是噪声。',
+		lottoSampleHead: '样本',
+		lottoS1: '开奖期数', lottoS2: '时间范围', lottoS3: '白球最热', lottoS4: '红球最热',
+		lottoSeriousHead: '认真的部分',
+		lottoSeriousBody: '代码里真的实现了一套带风险上限的收益最大化器：SLSQP 求解、因子协方差矩阵、PSD 投影、预算与边界约束，数学上完全站得住——只是把它喂给了一个独立同分布的随机过程。',
+		lottoVerdictHead: '结论',
+		lottoVerdictBody: '⚠️ 历史频率对下一次开奖没有任何预测力。无论号码多"热"，中奖概率仍然是 1 / 292,201,338。纯属娱乐，切勿当真。',
 		homeKicker: 'AI 产业情报实验室',
 		homeSub: '做一些有用也有趣的产品。',
 		homePrimary: '查看 AI 产业链', homeContact: '联系我',
@@ -1461,7 +2295,20 @@
 		featureMarketTitle: '市场数据', featureMarketText: '轻量接入公开行情，帮助快速判断产业分支的关注度和价格变化。',
 		featureBuildTitle: '持续构建', featureBuildText: '后续会加入更多指标、公司画像和产品展示，把研究过程产品化。',
 		chainTitle: 'AI 产业链',
-		chainSub: '追踪从芯片、网络、电力到云服务与应用的 AI 上市公司',
+		chainSub: '从产品外观和内部结构理解 AI 基础设施如何连接',
+		productMap: '产品地图', companyMap: '公司与行情',
+		insideProduct: '产品内部结构',
+		flowStart: '从芯片开始', flowMiddle: '数据与算力向右流动', flowEnd: '最终变成 AI 服务',
+		representativeCompanies: '代表厂商',
+		whoMakesIt: '这些公司具体做什么',
+		companyCardHint: '点击上市公司查看详情',
+		viewCompany: '查看公司与行情 →',
+		archKicker: '零基础架构实验室',
+		archTitle: 'CPU 和 GPU 里面到底有什么？',
+		archIntro: '把鼠标移到芯片区域上，看看数据进入芯片后分别由谁接收、保存、计算和送出。手机上可直接点击。',
+		archHoverHint: '悬停或点击图中区域',
+		archAnalogy: '打个比方',
+		archWhy: '为什么需要它',
 		refresh: '刷新',
 		chainNote: '分类覆盖 AI 基础设施、能源与应用生态。公司可能同时属于多个环节，行情可能延迟，仅供信息参考。',
 		comingTitle: '即将推出', comingSub: '更多产业链分析与产品展示正在开发中',
@@ -1490,7 +2337,7 @@
 		portfolioKicker: 'Independent builder · New York',
 		portfolioTitleMain: 'Build products',
 		portfolioTitleSub: 'that are useful and playful.',
-		portfolioIntro: 'A collection of independent projects in progress, from an AI industry research tool to a playful mini app for people and cats.',
+		portfolioIntro: 'A collection of independent projects in progress, from AI industry research and data analysis to a playful mini app for people and cats.',
 		portfolioProjects: 'active projects', portfolioFormat: 'product formats',
 		selectedProjects: 'Selected projects', projectsNote: 'More in progress',
 		aiProjectTitle: 'AI Value Chain',
@@ -1499,6 +2346,39 @@
 		catProjectDesc: 'A playful WeChat mini program that turns text or voice into cat responses, with a cat-sound encyclopedia and shareable posters.',
 		openProject: 'Open project →', scanProject: 'Scan in WeChat →',
 		qrLabel: 'Scan with WeChat to open',
+		viewCode: 'Code →',
+		layoffTitle: 'Layoff Radar',
+		layoffDesc: 'Scrapes official WARN layoff filings from California, Washington and New York, then cleans, aggregates and turns them into comparison charts and a social post.',
+		layoffCaption: 'Past 6 months · people affected across 3 states',
+		layoffTop: 'Top employer: Amazon',
+		lotteryTitle: 'Lottery Numerology',
+		lotteryDesc: 'Counts Powerball draw frequencies over the last 5 years (709 draws), then unironically runs an SLSQP convex optimizer to "predict" numbers — portfolio optimization for random noise, delivered with a straight face.',
+		lotteryTag: 'Overengineering',
+		lottoCaption: 'Most drawn · past 5 years, 709 draws',
+		lottoDisclaimer: '⚠️ Convex optimization on random draws · odds still zero',
+		layoffLead: 'A Python pipeline that scrapes official WARN layoff notices from California, Washington and New York, cleans and aggregates them by state and company, and generates comparison charts plus a ready-to-post social writeup. Here are the results from the past 6 months.',
+		layoffKeyHead: 'Key numbers',
+		layoffM1: 'People affected', layoffM2: 'States', layoffM3: 'Period', layoffM4: 'Source',
+		layoffPeriodVal: 'Past 6 months',
+		layoffStateHead: 'By state', layoffCompanies: 'Companies',
+		layoffFig1Cap: 'Total layoffs by state (past 6 months)',
+		layoffFig2Cap: 'Top 10 companies by layoffs (3 states combined)',
+		layoffTopHead: 'Top 3 per state',
+		layoffInsightHead: 'Takeaway',
+		layoffInsightBody: 'California has the highest headcount, concentrated in Bay Area tech; Washington has the largest average layoff per company; New York\'s finance and retail sectors were hit hardest.',
+		lotteryLead: 'Counts Powerball draw frequencies over the last 5 years (709 draws), then, with a completely straight face, runs a risk-constrained SLSQP convex optimizer to "predict" numbers — essentially portfolio optimization on a stream of random noise. Here are the results.',
+		lottoHotHead: 'Most-drawn numbers',
+		lottoHotNote: 'Hottest white ball: 21 (70x); hottest red Powerball: 14 (41x). Ranked by historical frequency only.',
+		lottoFreqHead: 'Draw frequency',
+		lottoWhiteLabel: 'White balls 1–69 · sorted high to low',
+		lottoRedLabel: 'Red Powerball 1–26',
+		lottoFreqNote: 'Notice how the bars are almost the same height? That\'s because draws are random — the "hot" numbers are just noise.',
+		lottoSampleHead: 'Sample',
+		lottoS1: 'Draws', lottoS2: 'Date range', lottoS3: 'Top white', lottoS4: 'Top red',
+		lottoSeriousHead: 'The serious bit',
+		lottoSeriousBody: 'The code actually implements a risk-capped yield maximizer: SLSQP solver, factor covariance matrix, PSD projection, budget and bound constraints — mathematically sound, just pointed at an i.i.d. random process.',
+		lottoVerdictHead: 'Verdict',
+		lottoVerdictBody: '⚠️ Historical frequency has zero predictive power over the next draw. No matter how "hot" a number is, the odds stay 1 in 292,201,338. Purely for fun — do not take it seriously.',
 		homeKicker: 'AI Intelligence Lab',
 		homeSub: 'Building things that are useful, and a little interesting.',
 		homePrimary: 'Explore AI Value Chain', homeContact: 'Contact',
@@ -1509,7 +2389,20 @@
 		featureMarketTitle: 'Market data', featureMarketText: 'Lightweight public quotes help you scan attention and price movement across AI segments.',
 		featureBuildTitle: 'Built in public', featureBuildText: 'More indicators, company profiles and product demos will turn the research process into usable tools.',
 		chainTitle: 'AI Value Chain',
-		chainSub: 'Track public companies across AI chips, networking, power, cloud and applications',
+		chainSub: 'See what AI infrastructure products look like, what is inside them, and how they connect',
+		productMap: 'Product Map', companyMap: 'Companies & Quotes',
+		insideProduct: 'Inside the product',
+		flowStart: 'Starts with silicon', flowMiddle: 'Data and compute flow right', flowEnd: 'Becomes an AI service',
+		representativeCompanies: 'Representative companies',
+		whoMakesIt: 'What each company actually does',
+		companyCardHint: 'Open listed companies for details',
+		viewCompany: 'View company and quote →',
+		archKicker: 'Beginner architecture lab',
+		archTitle: 'What is actually inside a CPU and GPU?',
+		archIntro: 'Hover over a chip region to see who receives, stores, computes and sends data. Tap a region on mobile.',
+		archHoverHint: 'Hover or tap a region',
+		archAnalogy: 'A simple analogy',
+		archWhy: 'Why it matters',
 		refresh: 'Refresh',
 		chainNote: 'Categories cover AI infrastructure, energy and applications. Companies may participate in multiple segments. Market data may be delayed and is for informational purposes only.',
 		comingTitle: 'Coming Soon', comingSub: 'More value-chain analysis and products are in development',
@@ -1597,12 +2490,296 @@
 	  NBIS: ['Nebius Group', 'Nebius is an AI-focused cloud provider that emerged from the international assets of Yandex, offering GPU compute, managed AI infrastructure and developer tooling. It builds and operates its own data centers with large NVIDIA GPU clusters, targeting AI startups and enterprises that want a full-stack, vertically integrated alternative to the major hyperscalers. Nebius also holds stakes in adjacent AI businesses (data labeling, autonomous driving, edtech), giving it diversified exposure to the AI build-out. As a younger neocloud, its growth hinges on filling capacity profitably and scaling fast enough to compete with far larger players.', ['GPU Cloud','AI Infrastructure']],
 	  IREN: ['IREN Limited', 'IREN (formerly Iris Energy) began as a bitcoin miner and is pivoting toward AI compute, repurposing its expertise in building and powering large-scale data centers. Its key advantage is control over low-cost, often renewable power and the ability to bring data-center capacity online quickly — power availability has become the primary constraint on AI infrastructure expansion. IREN is converting parts of its footprint to host NVIDIA GPUs for AI cloud services, positioning itself at the intersection of energy infrastructure and AI compute. Its transition from crypto mining to AI hosting is the defining variable for the business.', ['AI Data Center','Power']],
 	  SNDK: ['Sandisk', 'Sandisk is a leading NAND flash and SSD maker, spun off from Western Digital in 2025 to operate as a pure-play flash memory company. Its products span data-center SSDs, client storage and consumer flash. AI is reshaping storage demand: training datasets, model checkpoints and inference logs require enormous high-speed flash capacity, and inference increasingly relies on fast SSDs to feed data to GPUs. As a standalone company, Sandisk is directly exposed to the NAND pricing cycle, but AI-driven demand for high-performance flash provides a structural tailwind beneath the volatility.', ['NAND','SSD']],
+	  DRAM: ['Roundhill Memory ETF', 'DRAM is the Roundhill Memory ETF, which gives targeted exposure to the global semiconductor memory industry rather than a single company. Its holdings span the makers of high-bandwidth memory (HBM), DRAM, NAND flash and SSDs, NOR flash, hard disk drives and specialty memory — names like Micron, SK Hynix, Samsung, Sandisk, Seagate and Western Digital. Memory has become one of the most direct ways to play AI infrastructure: HBM is standard on every AI GPU and high-capacity storage scales with every training and inference workload. The ETF packages this notoriously cyclical but structurally AI-levered theme into one ticker, smoothing single-stock risk while staying fully exposed to the memory upcycle.', ['Memory ETF','HBM/NAND']],
 	  PLTR: ['Palantir Technologies', 'Palantir began in government intelligence analysis and is now a leading enterprise AI platform provider. Its AIP (AI Platform) helps organizations safely integrate large language models with proprietary internal data and operational workflows — solving the core problem of "how do you make AI actually usable in regulated, high-security environments." The US government business provides a stable, high-margin revenue base, while enterprise is growing rapidly. Palantir\'s Bootcamp sales motion — letting prospective customers see concrete results within days rather than months — is an unusual and effective customer acquisition approach. Its software is designed to make AI outputs explainable and auditable, which is increasingly valuable as AI is used in consequential decisions.', ['Enterprise AI','Data Platform']],
 	  NOW: ['ServiceNow', 'ServiceNow is the leading enterprise IT workflow automation platform, covering IT service management (ITSM), IT operations, customer service and HR. Its Now Intelligence platform embeds generative AI deeply into workflows, enabling employees to complete complex internal processes through natural language. The core competitive advantage is the workflow network effect: the more departments use ServiceNow within an enterprise, the greater the value of AI-automated handoffs between them. Average contract value (ACV) growth is the key health metric. ServiceNow\'s strong renewal rates and near-universal penetration in large enterprises make it one of the most resilient enterprise software businesses — AI is amplifying its value rather than threatening its model.', ['AI Workflows','Enterprise']],
 	  CRM: ['Salesforce', 'Salesforce is the world\'s largest CRM software company, and its Einstein AI platform and Agentforce AI agent system are central to its AI strategy. Agentforce allows enterprises to build and deploy AI agents that autonomously handle customer inquiries, sales follow-ups and service requests without human intervention. Salesforce owns massive customer data assets through its Data Cloud product — an invaluable foundation for personalizing AI applications at enterprise scale. In an environment of slowing SaaS growth, AI is Salesforce\'s primary lever for increasing revenue per customer and maintaining competitive moats. Its challenge is convincing existing customers that AI agents justify meaningful additional spend beyond existing subscription fees.', ['AI Agents','CRM']],
 	  SNOW: ['Snowflake', 'Snowflake provides a cloud-native data warehousing and data-sharing platform that helps enterprises consolidate, govern and analyze data scattered across systems. In the AI era, data preparation is the first and often most painful step in any AI deployment — Snowflake\'s Cortex AI platform lets enterprises run LLM queries directly against data where it lives, without moving it to an external AI service. Its Marketplace model allows companies to safely share and monetize data across organizational boundaries, a unique network effect. Snowflake\'s consumption-based pricing model means revenue is directly linked to how intensively customers use AI on their data — a double-edged sword when usage ramps (good) or is delayed (bad).', ['Data Cloud','AI Platform']],
 	  MDB: ['MongoDB', 'MongoDB is the most popular document database, widely adopted by developers for its flexible JSON document model that fits naturally with modern application architectures. In the AI era, MongoDB Atlas\'s vector search capability makes it a key infrastructure component for RAG (Retrieval-Augmented Generation) applications — converting user queries into vectors, retrieving the most semantically relevant context from the database, then passing it to an LLM to generate accurate, grounded responses. Atlas cloud service growth and developer ecosystem breadth position MongoDB as an important tool in AI application development. Its horizontal scaling and multi-cloud flexibility appeal to AI startups building at speed.', ['Developer Data','RAG']],
 	  ADBE: ['Adobe', 'Adobe is integrating generative AI under the Firefly brand across Photoshop, Illustrator, Premiere and other core creative products, enabling users to generate, edit and transform creative content through natural language prompts. Unlike many AI companies, Adobe emphasizes "commercial safety" — Firefly models are trained exclusively on licensed content, and Adobe compensates content contributors through its Stock marketplace, a stance that differentiates it amid widespread AI copyright controversy. Adobe Express and Acrobat AI Assistant extend AI capability to small businesses and document workflows. Its subscription model and deep integration into professional creative workflows give it pricing power and high switching costs that pure AI competitors lack.', ['Generative Media','Creative Software']],
+	};
+
+	const PRODUCTS = [
+	  {
+		id: 'wafer', type: 'wafer',
+		zh: {
+		  name: '先进晶圆', role: '先把芯片电路制造在硅片上',
+		  summary: '晶圆厂用光刻、沉积、刻蚀和检测设备，在一整片硅晶圆上同时制造许多 GPU、网络芯片和内存芯片。',
+		  parts: [['硅晶圆', '芯片的基础材料'], ['晶体管层', '数百亿个微型开关形成计算电路'], ['金属互连', '把晶体管连接成完整芯片']],
+		  companies: ['TSMC', 'ASML', 'Applied Materials', 'Lam Research'],
+		},
+		en: {
+		  name: 'Advanced Wafer', role: 'Circuits are fabricated on silicon first',
+		  summary: 'Foundries use lithography, deposition, etch and inspection to manufacture many GPU, networking and memory dies on a single silicon wafer.',
+		  parts: [['Silicon wafer', 'The base material of a chip'], ['Transistor layers', 'Billions of tiny switches form compute circuits'], ['Metal interconnects', 'Wire the transistors into a complete chip']],
+		  companies: ['TSMC', 'ASML', 'Applied Materials', 'Lam Research'],
+		},
+	  },
+	  {
+		id: 'gpu', type: 'gpu',
+		zh: {
+		  name: 'AI GPU', role: '执行大规模并行计算',
+		  summary: 'GPU 是 AI 服务器里的计算发动机。它同时处理大量矩阵运算，训练模型或执行推理，但需要 HBM 持续高速提供参数。',
+		  parts: [['计算核心', 'Tensor Core 与 CUDA Core 执行矩阵运算'], ['高速缓存', '保存正在反复使用的数据'], ['内存控制器', '管理 GPU 与 HBM 之间的数据流'], ['高速互连', '让多颗 GPU 像一个系统协同工作']],
+		  companies: ['NVIDIA', 'AMD', 'Intel'],
+		},
+		en: {
+		  name: 'AI GPU', role: 'Runs massive parallel computation',
+		  summary: 'The GPU is the compute engine inside an AI server. It processes matrix operations in parallel for training and inference, while HBM continuously feeds it model parameters.',
+		  parts: [['Compute cores', 'Tensor and CUDA cores execute matrix math'], ['Cache', 'Keeps frequently reused data close'], ['Memory controllers', 'Manage data moving between GPU and HBM'], ['High-speed links', 'Make many GPUs work as one system']],
+		  companies: ['NVIDIA', 'AMD', 'Intel'],
+		},
+	  },
+	  {
+		id: 'hbm', type: 'hbm',
+		zh: {
+		  name: 'HBM 高带宽内存', role: '像多层楼一样堆叠在 GPU 旁边',
+		  summary: 'HBM 把多层 DRAM 垂直堆叠，并用穿硅通孔连接。它离 GPU 很近、接口非常宽，解决 AI 芯片“算得快但喂不饱”的问题。',
+		  parts: [['DRAM 堆栈', '多层内存芯片垂直叠放'], ['TSV', '穿过硅片的垂直电连接'], ['Base Die', '控制堆栈与外部接口'], ['宽总线', '用大量并行线路连接 GPU']],
+		  companies: ['SK hynix', 'Samsung', 'Micron'],
+		},
+		en: {
+		  name: 'HBM', role: 'Memory dies stacked like floors beside the GPU',
+		  summary: 'HBM stacks multiple DRAM dies vertically and connects them with through-silicon vias. Its short distance and extremely wide interface prevent the GPU from waiting for data.',
+		  parts: [['DRAM stack', 'Memory dies are stacked vertically'], ['TSV', 'Vertical electrical paths through silicon'], ['Base die', 'Controls the stack and external interface'], ['Wide bus', 'Thousands of parallel connections to the GPU']],
+		  companies: ['SK hynix', 'Samsung', 'Micron'],
+		},
+	  },
+	  {
+		id: 'package', type: 'package',
+		zh: {
+		  name: 'GPU + HBM 封装', role: '把计算与内存装在同一块基板上',
+		  summary: '先进封装把 GPU 和多组 HBM 放在硅中介层上，再装到封装基板。这里的 die 指从晶圆切下来的一小块裸硅芯片；CPU die、GPU die 都是这个意思，只是内部电路不同。数据不必绕到远处的内存条，带宽更高、功耗更低。',
+		  parts: [['GPU 裸芯片（die）', '从晶圆切下来的中央计算硅片，计算核心和缓存都做在里面'], ['HBM × 6/8', '围绕 GPU 提供高带宽内存'], ['硅中介层', '承载 GPU 与 HBM 之间的超密集连线'], ['封装基板', '连接服务器主板、电源和外部信号']],
+		  companies: ['TSMC CoWoS', 'NVIDIA', 'Amkor'],
+		},
+		en: {
+		  name: 'GPU + HBM Package', role: 'Compute and memory share one substrate',
+		  summary: 'Advanced packaging places a GPU and multiple HBM stacks on a silicon interposer, then mounts them on a package substrate. Data travels a much shorter path at higher bandwidth and lower power.',
+		  parts: [['GPU die', 'The central compute chip'], ['HBM × 6/8', 'High-bandwidth memory around the GPU'], ['Silicon interposer', 'Carries dense die-to-die wiring'], ['Package substrate', 'Connects power, board and external signals']],
+		  companies: ['TSMC CoWoS', 'NVIDIA', 'Amkor'],
+		},
+	  },
+	  {
+		id: 'server', type: 'server',
+		zh: {
+		  name: 'AI 服务器', role: '把 8 张 GPU、CPU、网络和电源装进机箱',
+		  summary: '单颗 GPU 不能独立成为算力服务。服务器把多颗 GPU、CPU、内存、网卡、电源和散热系统组装在一起。',
+		  parts: [['GPU 模组 × 8', '承担主要 AI 计算'], ['CPU 与系统内存', '调度任务并准备数据'], ['高速网卡', '连接其他服务器和存储'], ['电源与冷板', '持续供电并带走高密度热量']],
+		  companies: ['Supermicro', 'Dell', 'HPE', 'NVIDIA DGX'],
+		},
+		en: {
+		  name: 'AI Server', role: 'Combines 8 GPUs, CPUs, networking and power',
+		  summary: 'A GPU alone is not a compute service. The server integrates multiple GPUs, CPUs, system memory, network adapters, power supplies and cooling.',
+		  parts: [['8 GPU modules', 'Perform the main AI computation'], ['CPU and system memory', 'Schedule work and prepare data'], ['High-speed NICs', 'Connect servers and storage'], ['Power and cold plates', 'Supply energy and remove dense heat']],
+		  companies: ['Supermicro', 'Dell', 'HPE', 'NVIDIA DGX'],
+		},
+	  },
+	  {
+		id: 'network', type: 'network',
+		zh: {
+		  name: '交换机 + 光模块', role: '让成千上万张 GPU 快速交换数据',
+		  summary: '交换机决定数据去向，800G/1.6T 光模块把电信号转换成光信号，通过光纤连接服务器、机架和数据中心。',
+		  parts: [['交换芯片', '高速转发不同端口的数据'], ['光模块', '完成电信号与光信号转换'], ['激光器与 DSP', '产生光并修正高速信号'], ['光纤', '低损耗传输到其他机架']],
+		  companies: ['Broadcom', 'Arista', 'Coherent', 'Lumentum'],
+		},
+		en: {
+		  name: 'Switch + Optics', role: 'Moves data across thousands of GPUs',
+		  summary: 'Switches route traffic, while 800G and 1.6T optical modules convert electrical signals into light that travels between servers, racks and data centers.',
+		  parts: [['Switch silicon', 'Forwards data between ports'], ['Optical module', 'Converts electrical and optical signals'], ['Laser and DSP', 'Generate light and correct high-speed signals'], ['Fiber', 'Carries data to other racks with low loss']],
+		  companies: ['Broadcom', 'Arista', 'Coherent', 'Lumentum'],
+		},
+	  },
+	  {
+		id: 'rack', type: 'rack',
+		zh: {
+		  name: '液冷 GPU 机架', role: '将服务器、网络、电力和冷却组成集群单元',
+		  summary: '多个 AI 服务器装进一个机架。高密度 GPU 产生大量热量，冷却液通过冷板和管路直接把热带走。',
+		  parts: [['计算托盘', '装载多个 GPU 服务器节点'], ['网络交换机', '连接机架内外的 GPU'], ['液冷分配单元', '循环并分配冷却液'], ['PDU 配电单元', '把高压电分配到每台服务器']],
+		  companies: ['Vertiv', 'Supermicro', 'Dell', 'Eaton'],
+		},
+		en: {
+		  name: 'Liquid-Cooled Rack', role: 'Combines servers, network, power and cooling',
+		  summary: 'Multiple AI servers are installed in a rack. Dense GPUs generate so much heat that liquid must flow through cold plates and pipes to remove it directly.',
+		  parts: [['Compute trays', 'Hold multiple GPU server nodes'], ['Network switches', 'Connect GPUs inside and outside the rack'], ['Coolant distribution unit', 'Circulates and distributes coolant'], ['Power distribution unit', 'Feeds power to each server']],
+		  companies: ['Vertiv', 'Supermicro', 'Dell', 'Eaton'],
+		},
+	  },
+	  {
+		id: 'datacenter', type: 'datacenter',
+		zh: {
+		  name: 'AI 数据中心', role: '最终把硬件转化成可租用的云算力',
+		  summary: '数据中心把大量 GPU 机架、电网、备用电源、冷却和存储组合成一座算力工厂，再通过云平台向模型公司和应用开发者提供服务。',
+		  parts: [['GPU 集群', '成百上千个机架协同计算'], ['电网与备用电源', '保证持续稳定供电'], ['冷却系统', '把热量排出建筑'], ['云调度软件', '分配 GPU、存储和网络资源']],
+		  companies: ['Microsoft Azure', 'AWS', 'Google Cloud', 'CoreWeave'],
+		},
+		en: {
+		  name: 'AI Data Center', role: 'Turns hardware into rentable cloud compute',
+		  summary: 'A data center combines GPU racks, grid connections, backup power, cooling and storage into a compute factory, then offers capacity through a cloud platform.',
+		  parts: [['GPU cluster', 'Hundreds or thousands of racks compute together'], ['Grid and backup power', 'Keep the facility continuously powered'], ['Cooling plant', 'Rejects heat outside the building'], ['Cloud orchestration', 'Allocates GPU, storage and network resources']],
+		  companies: ['Microsoft Azure', 'AWS', 'Google Cloud', 'CoreWeave'],
+		},
+	  },
+	];
+
+	const PRODUCT_COMPANY_ROLES = {
+	  wafer: {
+		zh: [
+		  { name: '台积电 TSMC', ticker: 'TSM', role: '先进晶圆代工', work: '用 3nm、2nm 等先进制程把 NVIDIA、AMD 等公司的芯片设计制造成真实硅片。' },
+		  { name: 'ASML', ticker: 'ASML', role: 'EUV 光刻设备', work: '提供先进制程最关键的极紫外光刻机，把极细电路图案投射到晶圆上。' },
+		  { name: 'Applied Materials', ticker: 'AMAT', role: '沉积与材料设备', work: '在晶圆上形成一层层薄膜与材料结构，是制造晶体管和互连层的基础。' },
+		  { name: 'Lam Research', ticker: 'LRCX', role: '刻蚀与薄膜设备', work: '精确移除晶圆材料并制造复杂结构，尤其受益于 HBM 与先进逻辑芯片扩产。' },
+		],
+		en: [
+		  { name: 'TSMC', ticker: 'TSM', role: 'Leading-edge foundry', work: 'Uses advanced nodes such as 3nm and 2nm to turn designs from NVIDIA, AMD and others into physical silicon.' },
+		  { name: 'ASML', ticker: 'ASML', role: 'EUV lithography', work: 'Supplies the critical EUV machines that project extremely small circuit patterns onto wafers.' },
+		  { name: 'Applied Materials', ticker: 'AMAT', role: 'Deposition and materials', work: 'Builds thin films and material layers used to form transistors and metal interconnects.' },
+		  { name: 'Lam Research', ticker: 'LRCX', role: 'Etch and thin film', work: 'Precisely removes material and forms complex structures for advanced logic and HBM production.' },
+		],
+	  },
+	  gpu: {
+		zh: [
+		  { name: 'NVIDIA', ticker: 'NVDA', role: 'GPU 与完整计算平台', work: '设计 H100、H200、Blackwell 等 AI GPU，并用 CUDA、NVLink 和系统软件把硬件变成开发平台。' },
+		  { name: 'AMD', ticker: 'AMD', role: 'Instinct AI 加速器', work: '提供 MI300X 等大容量 HBM 加速器与 ROCm 软件栈，是 NVIDIA 最主要的替代方案。' },
+		  { name: 'Intel', ticker: 'INTC', role: 'Gaudi 加速器与服务器 CPU', work: '同时提供 AI 加速器和 Xeon CPU，主打开放以太网与企业基础设施整合。' },
+		],
+		en: [
+		  { name: 'NVIDIA', ticker: 'NVDA', role: 'GPU and compute platform', work: 'Designs H100, H200 and Blackwell GPUs, then turns them into a platform with CUDA, NVLink and system software.' },
+		  { name: 'AMD', ticker: 'AMD', role: 'Instinct accelerators', work: 'Offers high-HBM-capacity accelerators such as MI300X with the ROCm software stack.' },
+		  { name: 'Intel', ticker: 'INTC', role: 'Gaudi accelerators and CPUs', work: 'Combines AI accelerators with Xeon CPUs and emphasizes open Ethernet-based infrastructure.' },
+		],
+	  },
+	  hbm: {
+		zh: [
+		  { name: 'SK hynix', role: 'HBM 领先供应商', work: '生产 HBM3、HBM3E 等堆叠内存，并为头部 AI GPU 提供大规模供货。' },
+		  { name: 'Samsung', role: 'DRAM 与 HBM 制造', work: '从 DRAM 芯片到先进封装均有布局，竞争下一代 HBM 容量、速度与良率。' },
+		  { name: 'Micron', ticker: 'MU', role: '美国 HBM 供应商', work: '生产 HBM3E、DRAM 与 NAND，直接向 AI 加速器提供高带宽内存。' },
+		],
+		en: [
+		  { name: 'SK hynix', role: 'Leading HBM supplier', work: 'Manufactures stacked HBM3 and HBM3E memory at scale for leading AI accelerators.' },
+		  { name: 'Samsung', role: 'DRAM and HBM manufacturing', work: 'Competes across DRAM, stacking and packaging for next-generation HBM capacity and speed.' },
+		  { name: 'Micron', ticker: 'MU', role: 'US HBM supplier', work: 'Produces HBM3E, DRAM and NAND, supplying high-bandwidth memory for AI accelerators.' },
+		],
+	  },
+	  package: {
+		zh: [
+		  { name: '台积电 TSMC', ticker: 'TSM', role: 'CoWoS 先进封装', work: '用硅中介层把 GPU 与多组 HBM 高密度连接，是高端 AI 芯片产能的关键瓶颈。' },
+		  { name: 'NVIDIA', ticker: 'NVDA', role: '封装架构设计', work: '决定 GPU、HBM 数量、互连方式和功耗设计，并将其定义成完整加速器产品。' },
+		  { name: 'Amkor', ticker: 'AMKR', role: '封装测试代工', work: '提供先进封装与测试能力，补充晶圆厂后段产能并扩大区域供应链。' },
+		],
+		en: [
+		  { name: 'TSMC', ticker: 'TSM', role: 'CoWoS advanced packaging', work: 'Uses silicon interposers to connect GPUs and multiple HBM stacks; capacity is a major AI supply constraint.' },
+		  { name: 'NVIDIA', ticker: 'NVDA', role: 'Package architecture', work: 'Defines the GPU, HBM count, interconnect and power architecture of the finished accelerator.' },
+		  { name: 'Amkor', ticker: 'AMKR', role: 'Outsourced packaging and test', work: 'Adds advanced assembly and test capacity beyond the foundry back end.' },
+		],
+	  },
+	  server: {
+		zh: [
+		  { name: 'Supermicro', ticker: 'SMCI', role: '高密度 GPU 服务器', work: '快速把新一代 GPU、主板、电源和液冷集成为可交付的服务器与整机柜。' },
+		  { name: 'Dell', ticker: 'DELL', role: '企业 AI 服务器', work: '通过 PowerEdge 和企业销售网络，把 GPU 基础设施交付给传统企业客户。' },
+		  { name: 'HPE', ticker: 'HPE', role: '服务器、超算与私有云', work: '整合 Cray 超算、AI 服务器和 GreenLake，服务本地部署与受监管行业。' },
+		  { name: 'NVIDIA', ticker: 'NVDA', role: 'DGX 参考系统', work: '定义 GPU、NVLink、网络和软件的标准化整机方案，供服务器厂商采用。' },
+		],
+		en: [
+		  { name: 'Supermicro', ticker: 'SMCI', role: 'Dense GPU servers', work: 'Rapidly integrates new GPUs, boards, power and liquid cooling into servers and complete racks.' },
+		  { name: 'Dell', ticker: 'DELL', role: 'Enterprise AI servers', work: 'Uses PowerEdge and its enterprise sales channel to deliver GPU infrastructure to traditional customers.' },
+		  { name: 'HPE', ticker: 'HPE', role: 'Servers, supercomputing and private cloud', work: 'Combines Cray, AI servers and GreenLake for on-premises and regulated workloads.' },
+		  { name: 'NVIDIA', ticker: 'NVDA', role: 'DGX reference systems', work: 'Defines standardized systems combining GPUs, NVLink, networking and software.' },
+		],
+	  },
+	  network: {
+		zh: [
+		  { name: 'Broadcom', ticker: 'AVGO', role: '交换芯片与高速 SerDes', work: '提供 Tomahawk 等交换 ASIC，负责数据中心以太网交换机内部的高速数据转发。' },
+		  { name: 'Arista Networks', ticker: 'ANET', role: 'AI 以太网交换机', work: '把交换芯片、端口和 EOS 软件组成可大规模管理的 AI 集群网络。' },
+		  { name: 'Coherent', ticker: 'COHR', role: '高速光模块与激光器', work: '生产 800G、1.6T 光收发器和关键激光器，将电信号变成光信号。' },
+		  { name: 'Lumentum', ticker: 'LITE', role: '光子器件', work: '提供激光器、光学组件和下一代共封装光学所需的核心器件。' },
+		],
+		en: [
+		  { name: 'Broadcom', ticker: 'AVGO', role: 'Switch silicon and SerDes', work: 'Supplies Tomahawk-class ASICs that forward high-speed Ethernet traffic inside switches.' },
+		  { name: 'Arista Networks', ticker: 'ANET', role: 'AI Ethernet switches', work: 'Combines switch silicon, ports and EOS software into scalable cluster networks.' },
+		  { name: 'Coherent', ticker: 'COHR', role: 'High-speed optics and lasers', work: 'Builds 800G and 1.6T transceivers that convert electrical signals into light.' },
+		  { name: 'Lumentum', ticker: 'LITE', role: 'Photonics components', work: 'Supplies lasers and optical components for transceivers and co-packaged optics.' },
+		],
+	  },
+	  rack: {
+		zh: [
+		  { name: 'Vertiv', ticker: 'VRT', role: '液冷与机房供电', work: '提供冷却液分配单元、冷板方案、UPS 和配电，把高功率机架稳定运行起来。' },
+		  { name: 'Eaton', ticker: 'ETN', role: '机架与数据中心配电', work: '提供 PDU、UPS、断路器和电源管理设备，将电力安全分配到服务器。' },
+		  { name: 'Supermicro', ticker: 'SMCI', role: '整机柜集成', work: '把服务器、交换机、液冷管路和管理组件预集成为可部署 GPU 机架。' },
+		],
+		en: [
+		  { name: 'Vertiv', ticker: 'VRT', role: 'Liquid cooling and facility power', work: 'Provides coolant distribution, cold plates, UPS systems and power equipment for dense racks.' },
+		  { name: 'Eaton', ticker: 'ETN', role: 'Rack and data-center power', work: 'Supplies PDUs, UPS systems, breakers and power management equipment.' },
+		  { name: 'Supermicro', ticker: 'SMCI', role: 'Rack-scale integration', work: 'Pre-integrates servers, switches, liquid loops and management into deployable GPU racks.' },
+		],
+	  },
+	  datacenter: {
+		zh: [
+		  { name: 'Microsoft Azure', ticker: 'MSFT', role: '超大规模 GPU 云', work: '建设全球 AI 数据中心，并通过 Azure 向企业提供模型训练、推理和 OpenAI 服务。' },
+		  { name: 'Amazon AWS', ticker: 'AMZN', role: '云平台与自研芯片', work: '同时出租 NVIDIA GPU，并部署 Trainium、Inferentia 等自研加速器。' },
+		  { name: 'Google Cloud', ticker: 'GOOGL', role: 'GPU、TPU 与模型平台', work: '运营 GPU/TPU 集群，并通过 Vertex AI 和 Gemini 向开发者提供 AI 服务。' },
+		  { name: 'CoreWeave', ticker: 'CRWV', role: '专用 GPU 云', work: '围绕 NVIDIA GPU 建设高利用率集群，专门服务大模型训练和推理客户。' },
+		],
+		en: [
+		  { name: 'Microsoft Azure', ticker: 'MSFT', role: 'Hyperscale GPU cloud', work: 'Builds global AI data centers and offers training, inference and OpenAI services through Azure.' },
+		  { name: 'Amazon AWS', ticker: 'AMZN', role: 'Cloud platform and custom silicon', work: 'Rents NVIDIA GPUs while deploying in-house Trainium and Inferentia accelerators.' },
+		  { name: 'Google Cloud', ticker: 'GOOGL', role: 'GPU, TPU and model platform', work: 'Operates GPU and TPU clusters and exposes AI services through Vertex AI and Gemini.' },
+		  { name: 'CoreWeave', ticker: 'CRWV', role: 'Specialized GPU cloud', work: 'Builds high-utilization NVIDIA clusters specifically for model training and inference.' },
+		],
+	  },
+	};
+
+	const ARCHITECTURES = {
+	  gpu: {
+		zh: {
+		  intro: ['GPU 适合什么？', '同时重复做大量相似计算，例如把模型中的矩阵乘法拆给成百上千个小计算单元。'],
+		  flow: ['PCIe 接收任务', 'HBM 提供数据', '计算核心并行运算', 'NVLink 汇总结果'],
+		  blocks: [
+			{ id: 'nvl', area: 'nvl', label: 'NVLink', kind: 'link', title: 'NVLink 高速互连', simple: '让多颗 GPU 直接高速交换数据，不必每次都绕回 CPU。', analogy: '像几栋工厂之间的专用高速铁路，比走普通公路快得多。', why: '训练大模型通常需要很多颗 GPU。如果互相传数据太慢，再快的计算核心也会停下来等待。' },
+			{ id: 'hbm', areas: ['hbm1','hbm2','hbm3','hbm4','hbm5','hbm6','hbm7','hbm8'], label: 'HBM CTRL', kind: 'memory', title: 'HBM 内存控制器', simple: '负责向旁边的 HBM 请求模型参数，并把数据送到缓存和计算核心。', analogy: '像仓库的出货口和调度员，决定哪批原料先送到生产线。', why: 'GPU 每秒需要读取海量数据。控制器越多、通道越宽，计算核心越不容易“饿着”。' },
+			{ id: 'compute', areas: ['core1','core2','core3','core4'], label: '计算核心群', kind: 'compute', title: '计算核心群 / SM', simple: '这里包含大量小型计算单元，Tensor Core 负责 AI 最常见的矩阵运算。', analogy: '像一座有很多相同工位的工厂，每个工位同时加工一小部分任务。', why: 'AI 计算大多可以拆成大量相似小任务，所以很多小核心并行工作比少数复杂核心更有效率。' },
+			{ id: 'cache', areas: ['cache1','cache2'], label: 'L2 CACHE', kind: 'cache', title: 'L2 高速缓存', simple: '保存刚刚用过、马上还会再用的数据，速度比 HBM 更快但容量更小。', analogy: '像工人手边的小桌子，常用零件放桌上，不必每次跑去仓库。', why: '如果每次计算都访问远处的 HBM，会浪费大量时间和电力。缓存用于减少重复搬运。' },
+			{ id: 'pcie', area: 'pcie', label: 'PCIe / I/O', kind: 'control', title: 'PCIe 与输入输出', simple: '连接 CPU、系统内存和网卡，让主机把任务交给 GPU。', analogy: '像工厂的普通货运大门，负责接收订单和外部货物。', why: 'GPU 不是独立电脑。CPU 仍要准备任务、启动程序，并通过 PCIe 与 GPU 协作。' },
+		  ],
+		},
+		en: {
+		  intro: ['What is a GPU good at?', 'Repeating a huge number of similar operations in parallel, such as the matrix math used by AI models.'],
+		  flow: ['PCIe receives work', 'HBM supplies data', 'Cores compute in parallel', 'NVLink combines results'],
+		  blocks: [
+			{ id: 'nvl', area: 'nvl', label: 'NVLink', kind: 'link', title: 'NVLink interconnect', simple: 'Lets multiple GPUs exchange data directly without routing every transfer through the CPU.', analogy: 'A dedicated high-speed railway between factories instead of ordinary roads.', why: 'Large models use many GPUs. Slow GPU-to-GPU communication leaves expensive compute cores waiting.' },
+			{ id: 'hbm', areas: ['hbm1','hbm2','hbm3','hbm4','hbm5','hbm6','hbm7','hbm8'], label: 'HBM CTRL', kind: 'memory', title: 'HBM memory controller', simple: 'Requests model data from nearby HBM and delivers it to caches and compute cores.', analogy: 'The warehouse loading dock and dispatcher deciding which materials reach the production line.', why: 'A GPU consumes enormous amounts of data. More controllers and wider channels help keep its cores fed.' },
+			{ id: 'compute', areas: ['core1','core2','core3','core4'], label: 'COMPUTE CLUSTER', kind: 'compute', title: 'Compute cluster / SM', simple: 'Contains many small execution units. Tensor cores handle the matrix operations common in AI.', analogy: 'A factory with many identical workstations, each processing a small piece at the same time.', why: 'AI work splits into many similar tasks, so many parallel cores are more efficient than a few complex ones.' },
+			{ id: 'cache', areas: ['cache1','cache2'], label: 'L2 CACHE', kind: 'cache', title: 'L2 cache', simple: 'Keeps recently used data very close to the cores. It is faster than HBM but much smaller.', analogy: 'A small workbench beside each worker, avoiding repeated trips to the warehouse.', why: 'Fetching everything from HBM wastes time and energy. Cache reduces repeated data movement.' },
+			{ id: 'pcie', area: 'pcie', label: 'PCIe / I/O', kind: 'control', title: 'PCIe and input/output', simple: 'Connects the GPU to the CPU, system memory and network devices.', analogy: 'The ordinary shipping entrance where the factory receives orders and outside cargo.', why: 'A GPU is not a standalone computer. The CPU prepares and launches work through this connection.' },
+		  ],
+		},
+	  },
+	  cpu: {
+		zh: {
+		  intro: ['CPU 适合什么？', '处理操作系统、程序逻辑和不断变化的任务，强调单个任务反应快、判断能力强。'],
+		  flow: ['内存送入指令', '大核心理解任务', '缓存保存常用数据', 'I/O 控制系统'],
+		  blocks: [
+			{ id: 'core', areas: ['core1','core2','core3','core4','core5','core6','core7','core8'], label: 'CPU CORE', kind: 'compute', title: 'CPU 大核心', simple: '每个核心都能独立理解复杂指令、做判断并快速切换不同任务。', analogy: '像少数经验丰富的项目经理，每个人都能处理不同问题和临时变化。', why: '操作系统和普通程序有大量分支与顺序依赖，不能简单拆成几千份同时执行。' },
+			{ id: 'l2', area: 'l2', label: 'L2 CACHE', kind: 'cache', title: '每核心附近的 L2 缓存', simple: '保存某几个 CPU 核心最近使用的数据和指令。', analogy: '每位项目经理自己的文件柜，拿资料比去档案室快。', why: 'CPU 追求低延迟。哪怕只等待内存几百个时钟周期，也会明显拖慢单个任务。' },
+			{ id: 'l3', area: 'l3', label: 'SHARED L3', kind: 'cache', title: '共享 L3 缓存', simple: '多个 CPU 核心共同使用的大缓存，用来共享数据并减少访问内存。', analogy: '整个办公室共用的资料室，比个人文件柜大，但仍比外部仓库近。', why: '不同核心经常处理相关任务，共享缓存可以避免反复从内存复制同一份数据。' },
+			{ id: 'memory', area: 'memory', label: 'DDR CTRL', kind: 'memory', title: '系统内存控制器', simple: '连接普通 DDR 内存，读取程序、文件和运行中的数据。', analogy: '连接大型仓库的调度中心，容量大，但来回需要更长时间。', why: '缓存装不下完整程序和数据，因此 CPU 仍需要大容量系统内存。' },
+			{ id: 'pcie', area: 'pcie', label: 'PCIe', kind: 'link', title: 'PCIe 通道', simple: '连接 GPU、SSD、网卡等外部高速设备。', analogy: '办公室通往其他专业部门的高速通道。', why: 'CPU 是系统协调中心，需要把不同设备的数据和任务连接起来。' },
+			{ id: 'io', area: 'io', label: 'I/O & CONTROL', kind: 'control', title: 'I/O 与控制逻辑', simple: '负责启动、时钟、安全、设备通信等让整台电脑正常运行的工作。', analogy: '像大楼的前台、门禁、电力和总调度室。', why: '电脑不仅要计算，还必须可靠地管理设备、权限和系统状态。' },
+		  ],
+		},
+		en: {
+		  intro: ['What is a CPU good at?', 'Running operating systems, program logic and changing tasks with fast response and strong decision-making.'],
+		  flow: ['Memory supplies instructions', 'Large cores interpret work', 'Caches keep hot data', 'I/O controls the system'],
+		  blocks: [
+			{ id: 'core', areas: ['core1','core2','core3','core4','core5','core6','core7','core8'], label: 'CPU CORE', kind: 'compute', title: 'Large CPU core', simple: 'Each core understands complex instructions, makes decisions and quickly switches between different tasks.', analogy: 'A small group of experienced project managers who can each handle changing problems.', why: 'Operating systems and applications contain branches and sequential dependencies that cannot simply be split thousands of ways.' },
+			{ id: 'l2', area: 'l2', label: 'L2 CACHE', kind: 'cache', title: 'Nearby L2 cache', simple: 'Stores instructions and data recently used by a small number of CPU cores.', analogy: 'Each manager has a personal filing cabinet instead of walking to the archive room.', why: 'CPUs optimize latency. Waiting hundreds of cycles for memory can noticeably slow one task.' },
+			{ id: 'l3', area: 'l3', label: 'SHARED L3', kind: 'cache', title: 'Shared L3 cache', simple: 'A larger cache shared by multiple cores for common data.', analogy: 'A shared office reference room: larger than a desk cabinet but closer than an outside warehouse.', why: 'Related tasks often run on different cores. Shared cache prevents repeatedly copying the same data from memory.' },
+			{ id: 'memory', area: 'memory', label: 'DDR CTRL', kind: 'memory', title: 'System memory controller', simple: 'Connects ordinary DDR memory containing programs, files and working data.', analogy: 'The dispatcher for a large warehouse: high capacity, but farther away.', why: 'Caches cannot hold entire programs and datasets, so the CPU still needs large system memory.' },
+			{ id: 'pcie', area: 'pcie', label: 'PCIe', kind: 'link', title: 'PCIe lanes', simple: 'Connect GPUs, SSDs, network cards and other high-speed devices.', analogy: 'Fast corridors connecting the office to specialist departments.', why: 'The CPU coordinates the system and must connect data and work across different devices.' },
+			{ id: 'io', area: 'io', label: 'I/O & CONTROL', kind: 'control', title: 'I/O and control logic', simple: 'Handles boot, clocks, security and device communication that keep the computer operating.', analogy: 'The building reception, access control, utilities and central operations desk.', why: 'A computer must manage devices, permissions and system state in addition to calculating.' },
+		  ],
+		},
+	  },
 	};
 
 	let currentStatus = { key: 'loading', args: [] };
@@ -1630,6 +2807,450 @@
 	  return { ...company, name, role, tags };
 	}
 
+	function productCopy(product) {
+	  return product[currentLang];
+	}
+
+	function productSvg(type, detailed = false) {
+	  const label = detailed ? 'diagram-label' : '';
+	  const sub = detailed ? 'diagram-sub' : '';
+	  const key = `${type}-${detailed ? 'detail' : 'card'}`;
+	  const terms = currentLang === 'zh' ? {
+		die: 'GPU 裸芯片（die）',
+		hbm: 'HBM 堆叠内存',
+		microbumps: '微凸点：芯片间触点',
+		interposer: '硅中介层：高速布线层',
+		substrate: '封装基板：连接主板',
+		balls: '焊球：电力与信号出口',
+		wafer: '晶圆',
+		cut: '切下这一小块',
+	  } : {
+		die: 'GPU die',
+		hbm: 'HBM stacks',
+		microbumps: 'Micro-bumps: die contacts',
+		interposer: 'Silicon interposer',
+		substrate: 'Package substrate',
+		balls: 'Solder balls',
+		wafer: 'Wafer',
+		cut: 'one die is cut out',
+	  };
+	  const common = `viewBox="0 0 360 220" preserveAspectRatio="xMidYMid meet" role="img" aria-hidden="true"`;
+	  const defs = `<defs>
+		<linearGradient id="metal-${key}" x1="0" y1="0" x2="1" y2="1">
+		  <stop stop-color="#203a45"/><stop offset=".48" stop-color="#0c1b22"/><stop offset="1" stop-color="#142a33"/>
+		</linearGradient>
+		<linearGradient id="blue-${key}" x1="0" y1="0" x2="0" y2="1">
+		  <stop stop-color="#1b7896"/><stop offset="1" stop-color="#0b3040"/>
+		</linearGradient>
+		<linearGradient id="board-${key}" x1="0" y1="0" x2="1" y2="1">
+		  <stop stop-color="#164b45"/><stop offset="1" stop-color="#092a2b"/>
+		</linearGradient>
+		<radialGradient id="glow-${key}">
+		  <stop stop-color="#55d7ff" stop-opacity=".45"/><stop offset="1" stop-color="#55d7ff" stop-opacity="0"/>
+		</radialGradient>
+	  </defs>`;
+	  const diagrams = {
+		wafer: `<svg ${common}>
+		  ${defs}
+		  <ellipse cx="181" cy="192" rx="91" ry="10" fill="#000" opacity=".35"/>
+		  <circle cx="180" cy="108" r="80" fill="url(#metal-${key})" class="hw-edge"/>
+		  <circle cx="161" cy="88" r="61" fill="url(#glow-${key})"/>
+		  <path d="M118 44c42-24 91-16 121 9" fill="none" stroke="#b5efff" stroke-opacity=".55" stroke-width="3"/>
+		  ${Array.from({ length: 7 }, (_, y) => Array.from({ length: 7 }, (_, x) => {
+			const cx = 123 + x * 19;
+			const cy = 51 + y * 19;
+			return (cx - 180) ** 2 + (cy - 108) ** 2 < 65 ** 2
+			  ? `<rect x="${cx - 7}" y="${cy - 7}" width="14" height="14" rx="1.8" fill="${(x + y) % 3 === 0 ? '#17627c' : '#0b2d3b'}" class="hw-fine"/>`
+			  : '';
+		  }).join('')).join('')}
+		  <path d="M180 28v160M100 108h160" stroke="#8de3ff" stroke-opacity=".14"/>
+		  <path d="M170 187h20l-4 5h-12z" fill="#081319"/>
+		  ${detailed ? `<text x="18" y="31" class="${label}">300 mm silicon wafer</text><line x1="112" y1="34" x2="136" y2="53" class="diagram-line"/><text x="259" y="190" class="${sub}">individual chip dies</text>` : ''}
+		</svg>`,
+		gpu: `<svg ${common}>
+		  ${defs}
+		  <ellipse cx="180" cy="194" rx="110" ry="10" fill="#000" opacity=".38"/>
+		  <polygon points="63,49 280,49 302,66 85,66" fill="#29444f" class="hw-fine"/>
+		  <polygon points="280,49 302,66 302,176 280,160" fill="#081218" class="hw-fine"/>
+		  <rect x="63" y="49" width="217" height="111" rx="8" fill="url(#metal-${key})" class="hw-edge"/>
+		  <rect x="104" y="69" width="135" height="78" rx="6" fill="#050b0f" class="hw-fine"/>
+		  <rect x="111" y="76" width="121" height="64" rx="3" fill="url(#blue-${key})"/>
+		  ${Array.from({ length: 5 }, (_, y) => Array.from({ length: 8 }, (_, x) => `<rect x="${118 + x * 14}" y="${82 + y * 11}" width="8" height="7" rx="1" fill="${(x * 2 + y) % 4 === 0 ? '#52d1ff' : '#14526a'}"/>`).join('')).join('')}
+		  ${[68,83,98,113,128,143].map(y => `<path d="M75 ${y}h19M249 ${y}h20" class="hw-gold"/>`).join('')}
+		  <rect x="88" y="165" width="184" height="8" rx="2" fill="#947326"/>
+		  ${Array.from({ length: 18 }, (_, i) => `<rect x="${92 + i * 10}" y="166" width="5" height="6" fill="#f4ca58"/>`).join('')}
+		  ${detailed ? `<text x="123" y="35" class="${label}">AI accelerator die</text><text x="14" y="78" class="${sub}">memory</text><text x="14" y="90" class="${sub}">controllers</text><line x1="57" y1="84" x2="75" y2="84" class="diagram-line"/><text x="119" y="190" class="${sub}">high-speed board connector</text>` : ''}
+		</svg>`,
+		hbm: `<svg ${common}>
+		  ${defs}
+		  <ellipse cx="183" cy="191" rx="99" ry="10" fill="#000" opacity=".38"/>
+		  <g transform="translate(92 33)">
+			${Array.from({ length: 8 }, (_, i) => {
+			  const y = i * 15;
+			  return `<polygon points="${i * 3},${y} ${152 + i * 3},${y} ${170 + i * 3},${y + 11} ${18 + i * 3},${y + 11}" fill="${i === 7 ? '#1d7895' : `rgb(${16 + i * 2},${49 + i * 5},${61 + i * 6})`}" class="hw-fine"/>
+				<path d="M${18 + i * 3} ${y + 11}h152" stroke="#07202a"/>`;
+			}).join('')}
+			${[35,65,95,125].map(x => `<path d="M${x} 3l24 116" class="hw-gold"/>`).join('')}
+			<polygon points="21,120 173,120 192,132 40,132" fill="#0a1d25" class="hw-edge"/>
+		  </g>
+		  ${detailed ? `<text x="14" y="46" class="${label}">8 / 12 DRAM dies</text><line x1="88" y1="49" x2="112" y2="62" class="diagram-line"/><text x="278" y="118" class="${label}">TSV</text><line x1="270" y1="112" x2="226" y2="92" class="diagram-line"/><text x="111" y="202" class="${sub}">base die and micro-bump interface</text>` : ''}
+		</svg>`,
+		package: detailed ? `<svg ${common}>
+		  ${defs}
+		  <ellipse cx="191" cy="207" rx="142" ry="8" fill="#000" opacity=".42"/>
+
+		  <!-- wafer-to-die beginner inset -->
+		  <g transform="translate(7 18)">
+			<circle cx="36" cy="33" r="25" fill="#102e39" class="hw-edge"/>
+			${Array.from({ length: 4 }, (_, y) => Array.from({ length: 4 }, (_, x) =>
+			  `<rect x="${22 + x * 8}" y="${19 + y * 8}" width="6" height="6" rx=".7" fill="${x === 2 && y === 1 ? '#55ccff' : '#16485a'}" stroke="#67cfff" stroke-width=".35"/>`
+			).join('')).join('')}
+			<rect x="37" y="27" width="6" height="6" fill="none" stroke="#f5bd3e" stroke-width="1.5"/>
+			<text x="8" y="70" class="${sub}">${terms.wafer}</text>
+			<path d="M45 25c17-10 29-3 37 8" fill="none" class="diagram-line"/>
+			<path d="M79 29l4 5-6 2" fill="none" stroke="#f5bd3e" stroke-width="1"/>
+			<text x="62" y="48" class="${sub}">${terms.cut}</text>
+		  </g>
+
+		  <!-- top dies -->
+		  <g>
+			<rect x="132" y="21" width="96" height="48" rx="4" fill="#061016" class="hw-edge"/>
+			<rect x="139" y="28" width="82" height="34" rx="2" fill="url(#blue-${key})"/>
+			${Array.from({ length: 5 }, (_, y) => Array.from({ length: 9 }, (_, x) =>
+			  `<rect x="${145 + x * 8}" y="${33 + y * 5}" width="4" height="3" rx=".5" fill="${(x + y) % 4 === 0 ? '#54d2ff' : '#15516a'}"/>`
+			).join('')).join('')}
+			${[[91,28],[98,44],[234,28],[241,44]].map(([x,y]) => `<g transform="translate(${x} ${y})">
+			  ${Array.from({ length: 4 }, (_, n) => `<polygon points="${n * 2},${n * 7} 28,${n * 7} 34,${5 + n * 7} 6,${5 + n * 7}" fill="${n === 3 ? '#19708c' : '#103f51'}" class="hw-fine"/>`).join('')}
+			</g>`).join('')}
+			<path d="M125 51h7M228 51h8" class="hw-gold"/>
+		  </g>
+
+		  <!-- micro bumps -->
+		  ${Array.from({ length: 22 }, (_, i) => `<circle cx="${88 + i * 9}" cy="82" r="1.5" fill="#f5bd3e"/>`).join('')}
+
+		  <!-- interposer -->
+		  <polygon points="64,91 276,91 302,105 90,105" fill="#184d5e" class="hw-edge"/>
+		  <polygon points="90,105 302,105 302,112 90,112" fill="#09232c" class="hw-fine"/>
+		  <path d="M103 98h54m11 0h78m-107-4v8m20-8v8m53-8v8m20-8v8" stroke="#f5bd3e" stroke-width=".65" opacity=".9"/>
+
+		  <!-- package substrate -->
+		  <polygon points="45,132 294,132 327,151 78,151" fill="url(#board-${key})" class="hw-edge"/>
+		  <polygon points="78,151 327,151 327,164 78,164" fill="#07171c" class="hw-fine"/>
+		  <path d="M77 141h76m18 0h78m-132 5h54m20 0h73" stroke="#35d07f" stroke-width=".7" opacity=".65"/>
+
+		  <!-- solder balls -->
+		  ${Array.from({ length: 18 }, (_, i) => `<circle cx="${91 + i * 12}" cy="174" r="3" fill="#dcae3a" stroke="#f7d876" stroke-width=".5"/>`).join('')}
+
+		  <!-- vertical relation guides -->
+		  <path d="M112 69v11M180 69v11M249 69v11M116 113v16M180 113v16M264 113v16M112 165v5M180 165v5M265 165v5" stroke="#68d7ff" stroke-width=".65" stroke-dasharray="2 2"/>
+
+		  <!-- callouts -->
+		  <text x="145" y="13" class="${label}">${terms.die}</text>
+		  <line x1="180" y1="16" x2="180" y2="21" class="diagram-line"/>
+		  <text x="252" y="33" class="${label}">${terms.hbm}</text>
+		  <line x1="250" y1="36" x2="242" y2="43" class="diagram-line"/>
+		  <text x="9" y="88" class="${sub}">${terms.microbumps}</text>
+		  <line x1="75" y1="84" x2="93" y2="82" class="diagram-line"/>
+		  <text x="223" y="124" class="${sub}">${terms.interposer}</text>
+		  <line x1="242" y1="119" x2="242" y2="107" class="diagram-line"/>
+		  <text x="9" y="145" class="${sub}">${terms.substrate}</text>
+		  <line x1="74" y1="141" x2="83" y2="141" class="diagram-line"/>
+		  <text x="220" y="194" class="${sub}">${terms.balls}</text>
+		  <line x1="238" y1="188" x2="238" y2="176" class="diagram-line"/>
+		</svg>` : `<svg ${common}>
+		  ${defs}
+		  <ellipse cx="182" cy="194" rx="135" ry="10" fill="#000" opacity=".4"/>
+		  <polygon points="37,157 292,157 327,179 72,179" fill="url(#board-${key})" class="hw-edge"/>
+		  <polygon points="72,179 327,179 327,188 72,188" fill="#061418" class="hw-fine"/>
+		  <polygon points="72,136 272,136 292,149 92,149" fill="#184959" class="hw-fine"/>
+		  <rect x="119" y="66" width="122" height="72" rx="5" fill="#061016" class="hw-edge"/>
+		  <rect x="128" y="74" width="104" height="56" rx="3" fill="url(#blue-${key})"/>
+		  ${[[65,76],[75,105],[250,76],[260,105]].map(([x,y]) => `<g transform="translate(${x} ${y})">${Array.from({ length: 4 }, (_, n) => `<polygon points="${n * 3},${n * 8} 39,${n * 8} 47,${7 + n * 8} 8,${7 + n * 8}" fill="${n === 3 ? '#196c86' : '#103e50'}" class="hw-fine"/>`).join('')}</g>`).join('')}
+		  <path d="M110 116h9M241 116h10M110 98h9M241 98h11" class="hw-gold"/>
+		  ${Array.from({ length: 20 }, (_, i) => `<circle cx="${91 + i * 10}" cy="171" r="1.4" fill="#dcae3a"/>`).join('')}
+		</svg>`,
+		server: `<svg ${common}>
+		  ${defs}
+		  <ellipse cx="180" cy="190" rx="138" ry="10" fill="#000" opacity=".4"/>
+		  <polygon points="37,60 302,60 324,75 59,75" fill="#304853" class="hw-fine"/>
+		  <polygon points="302,60 324,75 324,169 302,154" fill="#081217" class="hw-fine"/>
+		  <rect x="37" y="60" width="265" height="94" rx="6" fill="url(#metal-${key})" class="hw-edge"/>
+		  ${Array.from({ length: 8 }, (_, i) => {
+			const x = 56 + (i % 4) * 59;
+			const y = 75 + Math.floor(i / 4) * 39;
+			return `<rect x="${x}" y="${y}" width="46" height="30" rx="3" fill="#071318" class="hw-fine"/>
+			  <rect x="${x + 8}" y="${y + 6}" width="30" height="18" rx="2" fill="url(#blue-${key})"/>
+			  <path d="M${x + 5} ${y + 26}h36" stroke="#f5bd3e" stroke-width=".8"/>`;
+		  }).join('')}
+		  <rect x="51" y="143" width="62" height="5" rx="2" fill="#243b44"/>
+		  <circle cx="283" cy="145" r="4" fill="#35d07f"/><circle cx="270" cy="145" r="4" fill="#f5bd3e"/>
+		  ${detailed ? `<text x="132" y="42" class="${label}">8-GPU compute tray</text><text x="89" y="181" class="${sub}">GPU modules</text><text x="221" y="181" class="${sub}">NIC · PSU · cooling</text>` : ''}
+		</svg>`,
+		network: `<svg ${common}>
+		  ${defs}
+		  <ellipse cx="176" cy="184" rx="129" ry="9" fill="#000" opacity=".4"/>
+		  <polygon points="45,66 294,66 315,80 66,80" fill="#304853" class="hw-fine"/>
+		  <rect x="45" y="66" width="249" height="88" rx="5" fill="url(#metal-${key})" class="hw-edge"/>
+		  ${Array.from({ length: 16 }, (_, i) => {
+			const x = 61 + (i % 8) * 27;
+			const y = 86 + Math.floor(i / 8) * 34;
+			return `<rect x="${x}" y="${y}" width="20" height="17" rx="2" fill="#050d11" class="hw-fine"/>
+			  <rect x="${x + 3}" y="${y + 4}" width="14" height="8" fill="#123b4a"/>
+			  <circle cx="${x + 17}" cy="${y + 3}" r="1.5" fill="#35d07f"/>`;
+		  }).join('')}
+		  <path d="M294 91c24 0 27-24 46-24M294 126c24 0 27 25 46 25" fill="none" class="hw-edge"/>
+		  <circle cx="340" cy="67" r="3" fill="#55ccff"/><circle cx="340" cy="151" r="3" fill="#55ccff"/>
+		  ${detailed ? `<text x="48" y="48" class="${label}">800G Ethernet switch</text><text x="224" y="181" class="${sub}">optical transceivers and fiber</text>` : ''}
+		</svg>`,
+		rack: `<svg ${common}>
+		  ${defs}
+		  <ellipse cx="183" cy="202" rx="92" ry="8" fill="#000" opacity=".42"/>
+		  <polygon points="105,25 239,25 255,36 121,36" fill="#38505a" class="hw-fine"/>
+		  <polygon points="239,25 255,36 255,190 239,179" fill="#071116" class="hw-fine"/>
+		  <rect x="105" y="25" width="134" height="154" rx="5" fill="url(#metal-${key})" class="hw-edge"/>
+		  ${Array.from({ length: 7 }, (_, i) => `<rect x="117" y="${39 + i * 19}" width="110" height="13" rx="2" fill="${i === 1 ? '#145e77' : '#182d36'}" class="hw-fine"/><circle cx="218" cy="${45 + i * 19}" r="2" fill="${i < 2 ? '#55ccff' : '#35d07f'}"/>`).join('')}
+		  <path d="M267 44c31 21 31 104 0 126M279 44c31 21 31 104 0 126" fill="none" class="hw-edge"/>
+		  <path d="M267 44c31 21 31 104 0 126" fill="none" stroke="#b9f2ff" stroke-width=".7"/>
+		  <circle cx="267" cy="44" r="4" fill="#55ccff"/><circle cx="267" cy="170" r="4" fill="#55ccff"/>
+		  ${detailed ? `<text x="20" y="45" class="${label}">compute trays</text><line x1="91" y1="48" x2="117" y2="48" class="diagram-line"/><text x="263" y="27" class="${label}">liquid loop</text><text x="119" y="199" class="${sub}">rack PDU and coolant distribution</text>` : ''}
+		</svg>`,
+		datacenter: detailed ? `<svg ${common}>
+		  ${defs}
+		  <ellipse cx="183" cy="202" rx="162" ry="10" fill="#000" opacity=".42"/>
+
+		  <!-- campus floor and raised-floor hall -->
+		  <polygon points="26,157 174,91 337,145 187,209" fill="#07161b" class="hw-edge"/>
+		  <polygon points="63,139 174,91 300,133 187,181" fill="#102a32" class="hw-fine"/>
+		  <path d="M63 139l124 42 113-48M187 181v27" fill="none" stroke="#26718a" stroke-width=".8"/>
+		  <path d="M78 145l111 37M96 137l111 37M115 129l111 37M135 120l111 38M155 112l111 38" fill="none" stroke="#153f4d" stroke-width=".7"/>
+
+		  <!-- GPU rack rows -->
+		  ${[
+			[116,123],[139,114],[162,105],
+			[147,142],[170,133],[193,124],
+			[178,160],[201,151],[224,142],
+		  ].map(([x,y], i) => `<g>
+			<polygon points="${x},${y} ${x + 15},${y - 6} ${x + 15},${y + 27} ${x},${y + 33}" fill="#050c10" stroke="${i % 3 === 1 ? '#69d9ff' : '#2d7d96'}" stroke-width=".8"/>
+			<polygon points="${x + 15},${y - 6} ${x + 21},${y - 3} ${x + 21},${y + 29} ${x + 15},${y + 27}" fill="#10242b" stroke="#2d7d96" stroke-width=".6"/>
+			<path d="M${x + 3} ${y + 7}l9-3m-9 8l9-3m-9 8l9-3m-9 8l9-3" stroke="#38bdf8" stroke-width=".75"/>
+			<circle cx="${x + 18}" cy="${y + 2}" r="1.2" fill="#35d07f"/>
+		  </g>`).join('')}
+
+		  <!-- network spine above rack rows -->
+		  <polygon points="113,101 180,72 245,94 178,122" fill="#0b2028" class="hw-edge"/>
+		  <polygon points="128,98 179,76 229,93 178,114" fill="#071116" class="hw-fine"/>
+		  ${Array.from({ length: 8 }, (_, i) => `<circle cx="${143 + i * 10}" cy="${96 - i * 3.25}" r="1.3" fill="#e78dba"/>`).join('')}
+		  <path d="M139 99l-12 18M159 91l2 14M180 83l14 41M200 87l25 55M220 91l27 49" fill="none" stroke="#e78dba" stroke-width=".75" stroke-dasharray="2 2"/>
+
+		  <!-- utility yard: grid, transformer, UPS -->
+		  <g>
+			<polygon points="30,148 69,131 96,140 57,157" fill="#10252c" class="hw-fine"/>
+			${[38,53,68].map((x, i) => `<g>
+			  <polygon points="${x},${143 - i * 5} ${x + 9},${139 - i * 5} ${x + 15},${142 - i * 5} ${x + 6},${146 - i * 5}" fill="#152d34" class="hw-fine"/>
+			  <path d="M${x + 3} ${141 - i * 5}v-16m6 13v-16m-9 9h12" class="hw-power"/>
+			</g>`).join('')}
+			<polygon points="52,162 75,152 91,157 68,167" fill="#0b171c" class="hw-fine"/>
+			<polygon points="52,162 68,167 68,181 52,176" fill="#102830" class="hw-fine"/>
+			<polygon points="68,167 91,157 91,171 68,181" fill="#081318" class="hw-fine"/>
+			<circle cx="58" cy="168" r="1.4" fill="#35d07f"/><circle cx="63" cy="170" r="1.4" fill="#35d07f"/>
+		  </g>
+		  <path d="M26 187h48l22-31 30-13" fill="none" class="hw-power"/>
+		  <path d="M27 191h50l22-31 30-13" fill="none" stroke="#a6f0c8" stroke-width=".55" opacity=".7"/>
+
+		  <!-- cooling plant, chillers and liquid loop -->
+		  <g>
+			${[283,306].map((x, i) => `<g>
+			  <ellipse cx="${x}" cy="${91 + i * 7}" rx="13" ry="5" fill="#173540" class="hw-edge"/>
+			  <path d="M${x - 13} ${91 + i * 7}v18c0 7 26 7 26 0v-18" fill="#0c222a" class="hw-fine"/>
+			  <ellipse cx="${x}" cy="${109 + i * 7}" rx="13" ry="5" fill="#08171d" class="hw-fine"/>
+			  <path d="M${x - 8} ${88 + i * 7}l16 6m-16 0l16-6" stroke="#67d7ff" stroke-width=".7"/>
+			</g>`).join('')}
+			<polygon points="273,132 302,120 324,127 295,140" fill="#12313b" class="hw-fine"/>
+			<polygon points="273,132 295,140 295,154 273,146" fill="#0b1c22" class="hw-fine"/>
+			<polygon points="295,140 324,127 324,141 295,154" fill="#071318" class="hw-fine"/>
+			<path d="M285 136l7 2m-7 3l7 2m8-4l16-7m-16 12l16-7" stroke="#55ccff" stroke-width=".8"/>
+		  </g>
+		  <path d="M296 153c-8 17-36 23-58 17-18-5-27-13-40-18M302 157c-8 18-38 28-65 20-19-6-28-14-42-18" fill="none" class="hw-edge"/>
+		  <path d="M296 153c-8 17-36 23-58 17-18-5-27-13-40-18" fill="none" stroke="#b9f2ff" stroke-width=".6"/>
+
+		  <!-- storage / operations block -->
+		  <g>
+			<polygon points="77,105 100,95 116,100 93,110" fill="#18323b" class="hw-fine"/>
+			<polygon points="77,105 93,110 93,132 77,126" fill="#0c1e25" class="hw-fine"/>
+			<polygon points="93,110 116,100 116,122 93,132" fill="#071318" class="hw-fine"/>
+			<path d="M81 112l8 3m-8 4l8 3m9-9l13-6m-13 12l13-6" stroke="#38bdf8" stroke-width=".75"/>
+		  </g>
+
+		  <!-- callouts -->
+		  <text x="9" y="112" class="${label}">GRID + SUBSTATION</text>
+		  <line x1="72" y1="115" x2="61" y2="132" class="diagram-line"/>
+		  <text x="129" y="58" class="${label}">NETWORK SPINE</text>
+		  <line x1="178" y1="62" x2="178" y2="75" class="diagram-line"/>
+		  <text x="131" y="205" class="${label}">GPU RACKS</text>
+		  <line x1="172" y1="197" x2="183" y2="165" class="diagram-line"/>
+		  <text x="270" y="65" class="${label}">COOLING PLANT</text>
+		  <line x1="298" y1="69" x2="298" y2="86" class="diagram-line"/>
+		  <text x="9" y="211" class="${sub}">POWER → UPS / PDU</text>
+		</svg>` : `<svg ${common}>
+		  ${defs}
+		  <ellipse cx="181" cy="196" rx="144" ry="9" fill="#000" opacity=".4"/>
+		  <polygon points="40,83 180,29 320,83 180,129" fill="#1a3039" class="hw-fine"/>
+		  <polygon points="40,83 180,129 180,182 40,158" fill="#0b171d" class="hw-edge"/>
+		  <polygon points="180,129 320,83 320,158 180,182" fill="#0d1d24" class="hw-edge"/>
+		  ${[63,95,127,205,237,269].map((x, i) => {
+			const right = i > 2;
+			const y = right ? 111 - (i - 3) * 10 : 111 + i * 10;
+			return `<polygon points="${x},${y} ${x + 21},${right ? y - 7 : y + 7} ${x + 21},${right ? y + 37 : y + 44} ${x},${y + 38}" fill="#050d11" class="hw-fine"/>
+			  <path d="M${x + 5} ${y + 10}l11 ${right ? -4 : 4}m-11 10l11 ${right ? -4 : 4}m-11 10l11 ${right ? -4 : 4}" stroke="#17617a"/>`;
+		  }).join('')}
+		  <path d="M25 191h310M180 191v-9" class="hw-power"/>
+		  <path d="M292 49l13-16 13 16v21" fill="#102a33" class="hw-fine"/>
+		</svg>`,
+	  };
+	  return diagrams[type] || diagrams.gpu;
+	}
+
+	let activeProduct = 'gpu';
+	let activeChainView = 'products';
+	let activeArchitecture = 'gpu';
+	let activeArchitectureBlock = 'compute';
+
+	function renderProductMap() {
+	  const map = document.getElementById('product-map');
+	  map.innerHTML = `
+		<div class="flow-label">
+		  <span>${text('flowStart')}</span><span>${text('flowMiddle')}</span><span>${text('flowEnd')}</span>
+		</div>
+		${PRODUCTS.map(product => {
+		  const copy = productCopy(product);
+		  return `<button class="product-node${product.id === activeProduct ? ' on' : ''}" data-product="${product.id}">
+			<div class="product-visual">${productSvg(product.type)}</div>
+			<div class="product-node-copy">
+			  <div class="product-node-title">${copy.name}</div>
+			  <div class="product-node-role">${copy.role}</div>
+			</div>
+		  </button>`;
+		}).join('')}
+	  `;
+	  map.querySelectorAll('.product-node').forEach(button => {
+		button.addEventListener('click', () => selectProduct(button.dataset.product));
+	  });
+	}
+
+	function selectProduct(productId) {
+	  activeProduct = productId;
+	  const product = PRODUCTS.find(item => item.id === productId);
+	  if (!product) return;
+	  const copy = productCopy(product);
+	  document.querySelectorAll('.product-node').forEach(node => {
+		node.classList.toggle('on', node.dataset.product === productId);
+	  });
+	  const exploded = document.getElementById('product-exploded');
+	  exploded.dataset.product = productId;
+	  exploded.innerHTML = productSvg(product.type, true);
+	  document.getElementById('product-detail-title').textContent = copy.name;
+	  document.getElementById('product-detail-summary').textContent = copy.summary;
+	  document.getElementById('product-parts').innerHTML = copy.parts.map(([name, desc]) => `
+		<div class="product-part">
+		  <span class="part-dot"></span>
+		  <span class="part-name">${name}</span>
+		  <span class="part-desc">${desc}</span>
+		</div>
+	  `).join('');
+
+	  const listedTickers = new Set(
+		INDUSTRIES.flatMap(industry => industry.companies.map(company => company.t))
+	  );
+	  const companyRoles = PRODUCT_COMPANY_ROLES[productId]?.[currentLang] || [];
+	  const companies = document.getElementById('product-companies');
+	  companies.innerHTML = companyRoles.map(company => {
+		const clickable = company.ticker && listedTickers.has(company.ticker);
+		const tag = clickable ? 'button' : 'article';
+		return `<${tag} class="product-company"${clickable ? ` type="button" data-company="${company.ticker}"` : ''}>
+		  <div class="product-company-top">
+			<span class="product-company-name">${escapeHtml(company.name)}</span>
+			${company.ticker ? `<span class="product-company-ticker">${escapeHtml(company.ticker)}</span>` : ''}
+		  </div>
+		  <div class="product-company-role">${escapeHtml(company.role)}</div>
+		  <div class="product-company-work">${escapeHtml(company.work)}</div>
+		  ${clickable ? `<span class="product-company-link">${text('viewCompany')}</span>` : ''}
+		</${tag}>`;
+	  }).join('');
+	  companies.querySelectorAll('[data-company]').forEach(button => {
+		button.addEventListener('click', () => openCompanyDetail(button.dataset.company));
+	  });
+	}
+
+	function architectureCopy() {
+	  return ARCHITECTURES[activeArchitecture][currentLang];
+	}
+
+	function renderArchitecture() {
+	  const architecture = architectureCopy();
+	  const board = document.getElementById('arch-board');
+	  if (!board) return;
+	  document.querySelectorAll('.arch-tab').forEach(button => {
+		button.classList.toggle('on', button.dataset.arch === activeArchitecture);
+	  });
+
+	  board.innerHTML = `<div class="arch-die ${activeArchitecture}">
+		${architecture.blocks.flatMap(block => (block.areas || [block.area]).map(area => `
+		  <button class="arch-block ${block.kind}${block.id === activeArchitectureBlock ? ' on' : ''}"
+			type="button" style="grid-area:${area}" data-arch-block="${block.id}">
+			<span>${escapeHtml(block.label)}</span>
+		  </button>
+		`)).join('')}
+	  </div>`;
+
+	  board.querySelectorAll('[data-arch-block]').forEach(block => {
+		const activate = () => selectArchitectureBlock(block.dataset.archBlock);
+		block.addEventListener('pointerenter', activate);
+		block.addEventListener('focus', activate);
+		block.addEventListener('click', activate);
+	  });
+	  selectArchitectureBlock(activeArchitectureBlock);
+	}
+
+	function selectArchitecture(type) {
+	  activeArchitecture = type;
+	  activeArchitectureBlock = type === 'gpu' ? 'compute' : 'core';
+	  renderArchitecture();
+	}
+
+	function selectArchitectureBlock(blockId) {
+	  const architecture = architectureCopy();
+	  const block = architecture.blocks.find(item => item.id === blockId) || architecture.blocks[0];
+	  activeArchitectureBlock = block.id;
+	  document.querySelectorAll('[data-arch-block]').forEach(element => {
+		element.classList.toggle('on', element.dataset.archBlock === block.id);
+	  });
+	  document.getElementById('arch-explain').innerHTML = `
+		<div class="arch-mode-summary">
+		  <strong>${escapeHtml(architecture.intro[0])}</strong>
+		  <span>${escapeHtml(architecture.intro[1])}</span>
+		</div>
+		<div class="arch-selected">${text('archHoverHint')}</div>
+		<h4>${escapeHtml(block.title)}</h4>
+		<p class="arch-simple">${escapeHtml(block.simple)}</p>
+		<div class="arch-analogy"><strong>${text('archAnalogy')}：</strong>${escapeHtml(block.analogy)}</div>
+		<p class="arch-why"><strong>${text('archWhy')}：</strong>${escapeHtml(block.why)}</p>
+		<div class="arch-flow">
+		  ${architecture.flow.map(step => `<div class="arch-flow-step">${escapeHtml(step)}</div>`).join('')}
+		</div>
+	  `;
+	}
+
+	function selectChainView(view) {
+	  activeChainView = view;
+	  document.querySelectorAll('.chain-view-tab').forEach(button => {
+		button.classList.toggle('on', button.dataset.chainView === view);
+	  });
+	  document.getElementById('chain-products').classList.toggle('on', view === 'products');
+	  document.getElementById('chain-companies').classList.toggle('on', view === 'companies');
+	  document.getElementById('market-status').style.display = view === 'companies' ? 'flex' : 'none';
+	  if (view === 'companies') selectIndustry(activeIndustry);
+	}
+
 	function applyLanguage() {
 	  document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
 	  document.querySelectorAll('[data-i18n]').forEach(element => {
@@ -1639,11 +3260,14 @@
 	  localStorage.setItem('language', currentLang);
 
 	  if (aiInited) {
+		renderProductMap();
+		selectProduct(activeProduct);
+		renderArchitecture();
 		document.querySelectorAll('.industry-tab').forEach(button => {
 		  const industry = INDUSTRIES.find(item => item.id === button.dataset.industry);
 		  button.textContent = localizedIndustry(industry).label;
 		});
-		selectIndustry(activeIndustry);
+		if (activeChainView === 'companies') selectIndustry(activeIndustry);
 	  } else {
 		setStatus(currentStatus.key, ...currentStatus.args);
 	  }
@@ -1692,6 +3316,65 @@
 	  button.addEventListener('click', () => switchPage(button.dataset.goPage));
 	});
 
+	function openStandalonePage(id) {
+	  const el = document.getElementById(id);
+	  if (!el) return;
+	  currentDetailSymbol = null;
+	  tabBtns.forEach(b => b.classList.remove('on'));
+	  pages.forEach(s => s.classList.remove('on'));
+	  el.classList.add('on');
+	  el.scrollTop = 0;
+	}
+
+	document.querySelectorAll('[data-open-page]').forEach(button => {
+	  button.addEventListener('click', () => openStandalonePage(button.dataset.openPage));
+	});
+
+	document.querySelectorAll('[data-go-home]').forEach(button => {
+	  button.addEventListener('click', () => switchPage('home'));
+	});
+
+	/* ── Lottery frequency bar charts (real data, sorted desc) ── */
+	const LOTTO_WHITE = [[21,70],[36,69],[33,68],[27,64],[47,64],[39,64],[61,63],[37,62],[63,60],[6,58],[44,58],[2,58],[11,57],[45,57],[69,57],[62,56],[58,56],[38,56],[67,55],[64,55],[24,54],[12,54],[19,54],[30,53],[53,53],[40,53],[52,53],[20,53],[18,52],[31,52],[1,52],[32,52],[23,51],[55,51],[4,51],[22,51],[3,50],[28,50],[16,50],[54,50],[35,50],[50,49],[17,49],[66,49],[59,49],[43,48],[65,48],[15,48],[51,48],[60,47],[34,47],[68,47],[7,46],[46,46],[56,45],[10,45],[48,45],[57,45],[9,45],[42,44],[8,43],[5,42],[49,41],[26,41],[41,40],[25,40],[14,38],[29,38],[13,36]];
+	const LOTTO_RED = [[14,41],[4,40],[18,36],[5,36],[20,33],[9,32],[1,32],[24,30],[21,29],[26,28],[7,26],[25,26],[23,25],[3,25],[6,24],[10,24],[16,24],[19,23],[11,23],[2,23],[17,23],[13,22],[8,22],[12,22],[22,20],[15,20]];
+
+	function lottoBarChartSvg(data, accent) {
+	  const W = 860, H = 200, padT = 8, padB = 30, padX = 4;
+	  const n = data.length;
+	  const maxC = Math.max(...data.map(d => d[1]));
+	  const colW = (W - padX * 2) / n;
+	  const gap = Math.min(3, colW * 0.18);
+	  const bw = colW - gap;
+	  const chartH = H - padT - padB;
+	  let body = '';
+	  data.forEach(([num, cnt], i) => {
+		const x = padX + i * colW + gap / 2;
+		const h = Math.max(2, chartH * cnt / maxC);
+		const y = padT + chartH - h;
+		const fill = i === 0 ? accent : 'rgba(255,255,255,0.16)';
+		body += `<rect x="${x.toFixed(1)}" y="${y.toFixed(1)}" width="${bw.toFixed(1)}" height="${h.toFixed(1)}" rx="1" fill="${fill}"/>`;
+		const lx = x + bw / 2, ly = H - padB + 9;
+		body += `<text x="${lx.toFixed(1)}" y="${ly.toFixed(1)}" font-size="7" fill="rgba(255,255,255,0.42)" text-anchor="middle" transform="rotate(90 ${lx.toFixed(1)} ${ly.toFixed(1)})">${num}</text>`;
+	  });
+	  return `<svg viewBox="0 0 ${W} ${H}" preserveAspectRatio="xMidYMid meet" role="img">${body}</svg>`;
+	}
+
+	function renderLottoCharts() {
+	  const white = document.getElementById('lotto-white-chart');
+	  const red = document.getElementById('lotto-red-chart');
+	  if (white) white.innerHTML = lottoBarChartSvg(LOTTO_WHITE, '#fafaf9');
+	  if (red) red.innerHTML = lottoBarChartSvg(LOTTO_RED, '#ef4444');
+	}
+	renderLottoCharts();
+
+	document.getElementById('scan-project-btn')?.addEventListener('click', () => {
+	  const qr = document.getElementById('project-qr');
+	  if (!qr) return;
+	  qr.scrollIntoView({ behavior: 'smooth', block: 'center' });
+	  qr.classList.add('qr-flash');
+	  setTimeout(() => qr.classList.remove('qr-flash'), 1200);
+	});
+
 	/* ── Industry data ─────────────────────── */
 	const INDUSTRIES = [
 	  {
@@ -1728,6 +3411,7 @@
 		  { t: 'P', name: 'Pure Storage', role: 'Pure Storage 是一家全闪存企业存储公司，提供高性能存储阵列和云原生数据服务。其 DirectFlash 技术消除了传统存储协议的延迟，为 AI 训练数据管线提供稳定低延迟的存储访问——存储 I/O 瓶颈会直接拖低 GPU 利用率。Pure 的 Evergreen 订阅模式让客户持续付费，而非一次性购买硬件，提供更好的营收可预测性。随着企业构建内部 AI 基础设施，全闪存存储越来越被视为快速数据管线的必备基础。', tags: ['全闪存','数据平台'] },
 		  { t: 'NTAP', name: 'NetApp', role: 'NetApp 提供企业级混合云数据管理解决方案，帮助大型企业在本地和多云环境中统一管理数据。其 ONTAP 软件平台被广泛用于 AI 数据准备、数据湖建设和 MLOps 工作流。NetApp 在金融、医疗和政府等对数据合规要求严格的行业有深厚客户基础，随着更多 AI 工作负载迁移到混合云，专业数据管理平台的需求持续增长。与三大云厂商的原生集成，使 NetApp 存储可在云端与本地部署无缝协同运行。', tags: ['数据管理','混合云'] },
 		  { t: 'SNDK', name: 'Sandisk', role: 'Sandisk 是领先的 NAND 闪存和 SSD 厂商，2025 年从 Western Digital 分拆独立，成为纯闪存存储公司。产品覆盖数据中心 SSD、客户端存储和消费级闪存。AI 正在重塑存储需求：训练数据集、模型检查点和推理日志需要巨大的高速闪存容量，推理环节也越来越依赖高速 SSD 向 GPU 喂数据。作为独立公司，Sandisk 直接暴露于 NAND 价格周期，但 AI 驱动的高性能闪存需求在波动之下提供了结构性顺风。', tags: ['NAND','SSD'] },
+		  { t: 'DRAM', name: 'Roundhill Memory ETF', role: 'DRAM 是 Roundhill Memory ETF，提供对全球半导体存储产业的集中敞口，而非单一公司。其持仓覆盖高带宽内存（HBM）、DRAM、NAND 闪存与 SSD、NOR 闪存、机械硬盘和特种存储的厂商——包括美光、SK 海力士、三星、Sandisk、希捷和西部数据等。存储已成为押注 AI 基础设施最直接的方式之一：HBM 是每颗 AI GPU 的标配，大容量存储则随每一次训练和推理负载同步扩张。这只 ETF 把周期性强、却在结构上深度受益于 AI 的存储主题打包进一个代号，在平滑个股风险的同时完整保留对存储上行周期的敞口。', tags: ['存储ETF','HBM/NAND'] },
 		],
 	  },
 	  {
@@ -1957,6 +3641,16 @@
 
 	/* ── Init ────────────────────────────────── */
 	function initChain() {
+	  renderProductMap();
+	  selectProduct(activeProduct);
+	  renderArchitecture();
+	  document.querySelectorAll('.arch-tab').forEach(button => {
+		button.addEventListener('click', () => selectArchitecture(button.dataset.arch));
+	  });
+	  document.querySelectorAll('.chain-view-tab').forEach(button => {
+		button.addEventListener('click', () => selectChainView(button.dataset.chainView));
+	  });
+
 	  const tabs = document.getElementById('industry-tabs');
 	  INDUSTRIES.forEach((industry, index) => {
 		const displayIndustry = localizedIndustry(industry);
@@ -1967,7 +3661,7 @@
 		button.addEventListener('click', () => selectIndustry(industry.id));
 		tabs.appendChild(button);
 	  });
-	  selectIndustry(activeIndustry);
+	  selectChainView(activeChainView);
 	}
 
 	function selectIndustry(industryId) {
@@ -2341,8 +4035,14 @@
 
 	document.getElementById('back-btn').addEventListener('click', () => switchPage('ai'));
 	document.addEventListener('keydown', event => {
-	  if (event.key === 'Escape' && document.getElementById('p-company').classList.contains('on')) {
+	  if (event.key !== 'Escape') return;
+	  if (document.getElementById('p-company').classList.contains('on')) {
 		switchPage('ai');
+	  } else if (
+		document.getElementById('p-layoff').classList.contains('on') ||
+		document.getElementById('p-lottery').classList.contains('on')
+	  ) {
+		switchPage('home');
 	  }
 	});
 
