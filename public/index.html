@@ -1559,6 +1559,7 @@
 	  LRCX: ['Lam Research', 'Lam Research specializes in plasma etch and thin-film deposition (ALD/CVD) equipment, both of which are indispensable in NAND flash and DRAM production. The explosive demand for HBM high-bandwidth memory and data-center SSD expansion directly drives Lam\'s equipment orders. Its etch systems for 3D NAND multi-layer stacking have near-zero substitutability for customers — once a fab standardizes on Lam, switching costs are enormous. Customer concentration is high, but so are barriers to entry. As memory makers ramp HBM capacity aggressively to meet AI demand, Lam is one of the most direct beneficiaries in the equipment space.', ['Etch','Thin Film']],
 	  KLAC: ['KLA', 'KLA focuses on process-control and wafer-defect inspection equipment — the systems that find and eliminate manufacturing defects to improve chip yield. As process nodes shrink and a single GPU wafer becomes worth tens of thousands of dollars, yield control\'s value increases dramatically. A 1% improvement in yield at advanced nodes can be worth hundreds of millions of dollars annually to a major fab. KLA holds a commanding market share in process control, and the proprietary data accumulated over years of inspections creates a meaningful first-mover advantage. It is the least cyclical of the major equipment companies because fabs run inspection tools continuously regardless of production levels.', ['Inspection','Yield Control']],
 	  WOLF: ['Wolfspeed', 'Wolfspeed produces silicon carbide materials and power semiconductors used in high-efficiency data-center power systems, energy infrastructure and electrification. Its role in the AI chain is upstream power conversion: silicon carbide devices reduce switching losses, heat and equipment size when electricity is converted and distributed to dense compute loads.', ['Silicon Carbide','Power Semiconductors']],
+	  AMKR: ['Amkor Technology', 'Amkor is one of the world\'s largest outsourced semiconductor assembly and test (OSAT) providers, packaging and testing chips for fabless designers and foundries. Advanced packaging — 2.5D/3D integration, chiplets and fan-out — has become as critical to AI performance as the transistors themselves, because stitching GPUs, HBM stacks and interconnects into a single package is what determines real-world bandwidth and power. As TSMC\'s CoWoS capacity stays constrained, Amkor\'s advanced-packaging investments and its new Arizona facility position it as a key Western node in the AI back-end supply chain.', ['Advanced Packaging','OSAT']],
 	  MU: ['Micron Technology', 'Micron is the only US-based company producing both DRAM and NAND, and one of only three suppliers globally capable of making HBM (High Bandwidth Memory). HBM is standard equipment on AI GPUs: an H100 ships with 80 GB of HBM3, while the B200 packs 192 GB of HBM3e. Micron is aggressively expanding HBM production capacity to meet demand from NVIDIA, AMD and others. The memory industry is notoriously cyclical, but AI\'s structural demand for HBM is smoothing out some of the boom-bust volatility that has historically defined Micron\'s earnings profile. Its ability to ramp HBM faster than competitors is the key variable to watch.', ['HBM','DRAM']],
 	  WDC: ['Western Digital', 'Western Digital produces both HDDs (hard disk drives) and SSDs (solid-state drives) for data centers, PCs and consumer electronics. The data center is its most important revenue segment: AI-generated datasets, model checkpoints and inference logs are growing at a pace that keeps demand for high-capacity storage robust. WDC has been in the process of separating its flash business (formerly shared with Kioxia) from its HDD business to allow each to focus on its own market dynamics. The AI workload explosion creates a multi-year demand tailwind for large-capacity storage, even as per-gigabyte storage prices continue to decline over time.', ['HDD','Data Center']],
 	  STX: ['Seagate Technology', 'Seagate is the world\'s largest HDD manufacturer, focused exclusively on hard-disk drives with a particular emphasis on high-capacity nearline storage for data centers. Its HAMR (Heat-Assisted Magnetic Recording) technology enables single-drive capacities above 30 TB, addressing the storage density challenge of rapidly growing AI data. Cloud providers\' appetite for cheap, dense, petabyte-scale storage keeps demand for Seagate\'s products structurally elevated. Revenue is highly sensitive to the capex cycle of its top hyperscaler customers — when Microsoft, Amazon or Google modulate data-center spending, Seagate feels it quickly.', ['Nearline Storage','Data Lakes']],
@@ -1592,6 +1593,10 @@
 	  GOOGL: ['Alphabet', 'Google is an AI pioneer — the 2017 Transformer paper that underpins nearly all modern LLMs came from Google Brain, and its research teams have been central to AI progress for over a decade. Google Cloud offers both GPU instances and proprietary TPUs (Tensor Processing Units) as parallel compute paths. The Gemini model series competes directly with OpenAI\'s GPT across reasoning, coding and multimodal tasks. Google Search, Gmail, Maps and Workspace are being comprehensively rebuilt around AI. The central business risk is that AI assistants may disrupt search as the primary way people find information — a business that generates most of Alphabet\'s profit. How Google navigates that transition is the defining strategic question of the next decade.', ['Google Cloud','TPU']],
 	  ORCL: ['Oracle', 'Oracle has won significant AI model training customers on OCI (Oracle Cloud Infrastructure) by offering low-latency GPU superclusters with fast InfiniBand interconnects at competitive pricing — xAI, Mistral and others have publicly chosen OCI for frontier model training. Simultaneously, Oracle\'s database and enterprise application software (ERP, HCM, SCM) are deeply embedded in thousands of large enterprises globally; integrating AI into these applications is a major growth lever. Compared to Microsoft, Amazon and Google, Oracle is the smallest cloud player — but its aggressive AI infrastructure investment and differentiated supercluster architecture are closing the gap in the workloads that matter most: large-scale model training.', ['OCI','GPU Clusters']],
 	  TSLA: ['Tesla', 'Tesla is simultaneously one of the largest self-consumers of AI compute and a builder of AI infrastructure. Its Dojo supercomputer platform is purpose-built for training vision-based AI models on driving data. The fleet of more than 5 million Teslas on roads worldwide continuously uploads real-world driving data, creating a dataset of unmatched scale and diversity for autonomous-driving AI training — a data flywheel competitors cannot easily replicate. FSD (Full Self-Driving) V12 marked a shift to end-to-end neural network architecture, eliminating hand-coded rules in favor of learned behavior. Tesla\'s GPU procurement and Dojo investment make it a significant consumer of AI infrastructure even before counting its robotics and energy storage AI applications.', ['Autonomy','Dojo']],
+	  CRWV: ['CoreWeave', 'CoreWeave is a specialized GPU cloud provider — a "neocloud" built from the ground up for AI workloads rather than general-purpose computing. It deploys massive fleets of NVIDIA GPUs and rents them to AI labs, model developers and enterprises that need training and inference capacity faster than the traditional hyperscalers can provide it. Its close relationship with NVIDIA gives it priority access to the latest GPUs, and its bare-metal, Kubernetes-native architecture is optimized for the highest possible GPU utilization. The business is capital-intensive and heavily reliant on debt-financed GPU purchases and a concentrated customer base, making the durability of AI compute demand the central question for its model.', ['GPU Cloud','Neocloud']],
+	  NBIS: ['Nebius Group', 'Nebius is an AI-focused cloud provider that emerged from the international assets of Yandex, offering GPU compute, managed AI infrastructure and developer tooling. It builds and operates its own data centers with large NVIDIA GPU clusters, targeting AI startups and enterprises that want a full-stack, vertically integrated alternative to the major hyperscalers. Nebius also holds stakes in adjacent AI businesses (data labeling, autonomous driving, edtech), giving it diversified exposure to the AI build-out. As a younger neocloud, its growth hinges on filling capacity profitably and scaling fast enough to compete with far larger players.', ['GPU Cloud','AI Infrastructure']],
+	  IREN: ['IREN Limited', 'IREN (formerly Iris Energy) began as a bitcoin miner and is pivoting toward AI compute, repurposing its expertise in building and powering large-scale data centers. Its key advantage is control over low-cost, often renewable power and the ability to bring data-center capacity online quickly — power availability has become the primary constraint on AI infrastructure expansion. IREN is converting parts of its footprint to host NVIDIA GPUs for AI cloud services, positioning itself at the intersection of energy infrastructure and AI compute. Its transition from crypto mining to AI hosting is the defining variable for the business.', ['AI Data Center','Power']],
+	  SNDK: ['Sandisk', 'Sandisk is a leading NAND flash and SSD maker, spun off from Western Digital in 2025 to operate as a pure-play flash memory company. Its products span data-center SSDs, client storage and consumer flash. AI is reshaping storage demand: training datasets, model checkpoints and inference logs require enormous high-speed flash capacity, and inference increasingly relies on fast SSDs to feed data to GPUs. As a standalone company, Sandisk is directly exposed to the NAND pricing cycle, but AI-driven demand for high-performance flash provides a structural tailwind beneath the volatility.', ['NAND','SSD']],
 	  PLTR: ['Palantir Technologies', 'Palantir began in government intelligence analysis and is now a leading enterprise AI platform provider. Its AIP (AI Platform) helps organizations safely integrate large language models with proprietary internal data and operational workflows — solving the core problem of "how do you make AI actually usable in regulated, high-security environments." The US government business provides a stable, high-margin revenue base, while enterprise is growing rapidly. Palantir\'s Bootcamp sales motion — letting prospective customers see concrete results within days rather than months — is an unusual and effective customer acquisition approach. Its software is designed to make AI outputs explainable and auditable, which is increasingly valuable as AI is used in consequential decisions.', ['Enterprise AI','Data Platform']],
 	  NOW: ['ServiceNow', 'ServiceNow is the leading enterprise IT workflow automation platform, covering IT service management (ITSM), IT operations, customer service and HR. Its Now Intelligence platform embeds generative AI deeply into workflows, enabling employees to complete complex internal processes through natural language. The core competitive advantage is the workflow network effect: the more departments use ServiceNow within an enterprise, the greater the value of AI-automated handoffs between them. Average contract value (ACV) growth is the key health metric. ServiceNow\'s strong renewal rates and near-universal penetration in large enterprises make it one of the most resilient enterprise software businesses — AI is amplifying its value rather than threatening its model.', ['AI Workflows','Enterprise']],
 	  CRM: ['Salesforce', 'Salesforce is the world\'s largest CRM software company, and its Einstein AI platform and Agentforce AI agent system are central to its AI strategy. Agentforce allows enterprises to build and deploy AI agents that autonomously handle customer inquiries, sales follow-ups and service requests without human intervention. Salesforce owns massive customer data assets through its Data Cloud product — an invaluable foundation for personalizing AI applications at enterprise scale. In an environment of slowing SaaS growth, AI is Salesforce\'s primary lever for increasing revenue per customer and maintaining competitive moats. Its challenge is convincing existing customers that AI agents justify meaningful additional spend beyond existing subscription fees.', ['AI Agents','CRM']],
@@ -1642,12 +1647,33 @@
 	  } else {
 		setStatus(currentStatus.key, ...currentStatus.args);
 	  }
+
+	  if (currentDetailSymbol && document.getElementById('p-company').classList.contains('on')) {
+		rerenderCompanyDetail(currentDetailSymbol);
+	  }
+	}
+
+	function rerenderCompanyDetail(symbol) {
+	  const company = INDUSTRIES
+		.flatMap(industry => industry.companies)
+		.find(item => item.t === symbol);
+	  if (!company) return;
+	  const localized = localizedCompany(company);
+	  document.getElementById('detail-name').textContent = localized.name;
+	  const data = companyCache.get(symbol) || {
+		symbol,
+		overview: null,
+		history: historyCache.get(symbol) || readStoredHistory(symbol),
+		news: [],
+	  };
+	  renderCompanyDetail(data, localized.role);
 	}
 
 	function switchPage(page) {
 	  const activeTab = document.querySelector(`.tab[data-page="${page}"]`);
 	  if (!activeTab) return;
 
+	  currentDetailSymbol = null;
 	  tabBtns.forEach(button => button.classList.remove('on'));
 	  pages.forEach(section => section.classList.remove('on'));
 	  activeTab.classList.add('on');
@@ -1689,6 +1715,7 @@
 		  { t: 'LRCX', name: 'Lam Research', role: 'Lam Research 专注薄膜沉积（ALD/CVD）和等离子刻蚀设备，是 NAND 闪存和 DRAM 生产中不可或缺的设备供应商。AI 对 HBM 高带宽内存的旺盛需求和数据中心 SSD 扩容，直接拉动 Lam 的设备订单。其在 3D NAND 多层堆叠工艺中的刻蚀设备几乎没有可替代方案，客户一旦采用，切换成本极高。随着内存厂商激进扩产 HBM 以满足 AI 需求，Lam 是设备行业中最直接的受益者之一。', tags: ['刻蚀','薄膜'] },
 		  { t: 'KLAC', name: 'KLA', role: 'KLA 专注晶圆缺陷检测和制程控制设备，帮助芯片厂在生产过程中发现并消除缺陷以提高良率。制程节点越精密、单张 GPU 晶圆价值越高，良率控制的价值就越大——先进节点良率提升 1% 每年可为大型晶圆厂带来数亿美元的额外价值。KLA 在制程控制市场占有极高份额，且多年积累的检测数据形成显著的先发优势。其设备在生产过程中持续运行，使其成为半导体设备中周期性最弱的公司之一。', tags: ['检测','良率控制'] },
 		  { t: 'WOLF', name: 'Wolfspeed', role: 'Wolfspeed 生产碳化硅材料与功率半导体，用于数据中心高效供电、能源基础设施和电气化设备。在 AI 产业链中，它属于供电转换上游：碳化硅器件可降低电能转换过程中的损耗和发热，并缩小高功率供电设备体积，更适合高密度算力负载。', tags: ['碳化硅','功率半导体'] },
+		  { t: 'AMKR', name: 'Amkor Technology', role: 'Amkor 是全球最大的封装测试外包（OSAT）厂商之一，为无晶圆设计公司和代工厂提供芯片封装与测试服务。在 AI 时代，先进封装（2.5D/3D 集成、Chiplet、扇出型封装）的重要性已不亚于晶体管本身——把 GPU、HBM 堆栈和互连整合进同一封装内，直接决定了实际带宽和功耗表现。在台积电 CoWoS 产能持续紧张的背景下，Amkor 的先进封装投资和新建的亚利桑那工厂，使其成为 AI 后端供应链中关键的西方节点。', tags: ['先进封装','封测代工'] },
 		],
 	  },
 	  {
@@ -1700,6 +1727,7 @@
 		  { t: 'STX', name: 'Seagate Technology', role: 'Seagate 是全球最大的机械硬盘制造商，专注数据中心近线存储，其 HAMR（热辅助磁记录）技术可将单盘容量提升至 30TB 以上。云厂商对廉价、高密度、PB 级存储的需求保持结构性旺盛，Seagate 的产品正是这一需求的核心解决方案。其营收对头部超大规模客户的资本开支节奏高度敏感——当微软、亚马逊或谷歌调整数据中心支出时，Seagate 很快感受到影响。', tags: ['近线存储','数据湖'] },
 		  { t: 'P', name: 'Pure Storage', role: 'Pure Storage 是一家全闪存企业存储公司，提供高性能存储阵列和云原生数据服务。其 DirectFlash 技术消除了传统存储协议的延迟，为 AI 训练数据管线提供稳定低延迟的存储访问——存储 I/O 瓶颈会直接拖低 GPU 利用率。Pure 的 Evergreen 订阅模式让客户持续付费，而非一次性购买硬件，提供更好的营收可预测性。随着企业构建内部 AI 基础设施，全闪存存储越来越被视为快速数据管线的必备基础。', tags: ['全闪存','数据平台'] },
 		  { t: 'NTAP', name: 'NetApp', role: 'NetApp 提供企业级混合云数据管理解决方案，帮助大型企业在本地和多云环境中统一管理数据。其 ONTAP 软件平台被广泛用于 AI 数据准备、数据湖建设和 MLOps 工作流。NetApp 在金融、医疗和政府等对数据合规要求严格的行业有深厚客户基础，随着更多 AI 工作负载迁移到混合云，专业数据管理平台的需求持续增长。与三大云厂商的原生集成，使 NetApp 存储可在云端与本地部署无缝协同运行。', tags: ['数据管理','混合云'] },
+		  { t: 'SNDK', name: 'Sandisk', role: 'Sandisk 是领先的 NAND 闪存和 SSD 厂商，2025 年从 Western Digital 分拆独立，成为纯闪存存储公司。产品覆盖数据中心 SSD、客户端存储和消费级闪存。AI 正在重塑存储需求：训练数据集、模型检查点和推理日志需要巨大的高速闪存容量，推理环节也越来越依赖高速 SSD 向 GPU 喂数据。作为独立公司，Sandisk 直接暴露于 NAND 价格周期，但 AI 驱动的高性能闪存需求在波动之下提供了结构性顺风。', tags: ['NAND','SSD'] },
 		],
 	  },
 	  {
@@ -1758,6 +1786,9 @@
 		  { t: 'GOOGL', name: 'Alphabet', role: '谷歌是 AI 的先驱——2017 年奠定现代 AI 基础的 Transformer 论文来自 Google Brain，其研究团队在 AI 进步中持续发挥核心作用。Google Cloud 提供 GPU 实例和自研 TPU（张量处理器）两条算力路线，Gemini 模型系列在推理、编程和多模态任务上与 OpenAI 的 GPT 正面竞争。谷歌搜索、Gmail、地图和 Workspace 正在全面集成 AI 能力。核心战略挑战在于：AI 助手可能颠覆搜索这一核心商业模式——谷歌如何在不损害搜索广告收入的前提下完成 AI 转型，是未来十年最关键的战略问题。', tags: ['Google Cloud','TPU'] },
 		  { t: 'ORCL', name: 'Oracle', role: 'Oracle 凭借 OCI（Oracle Cloud Infrastructure）超集群的低延迟 GPU 网络架构，赢得了 xAI、Mistral 等 AI 公司作为前沿模型训练客户。同时，Oracle 的数据库和企业应用软件（ERP、HCM、SCM）在全球数千家大型企业中深度部署，将 AI 融入这些企业软件是其重要的应用战略。与微软、亚马逊、谷歌相比，Oracle 是最小的云厂商，但激进的 AI 基础设施投资和差异化的超集群架构，正在快速缩小在最重要工作负载（大规模模型训练）上的差距。', tags: ['OCI','GPU集群'] },
 		  { t: 'TSLA', name: 'Tesla', role: '特斯拉同时是 AI 算力的最大自消费者之一和 AI 基础设施的建设者。其 Dojo 超算平台专为训练基于视觉的 AI 驾驶模型而设计。全球超过 500 万辆在路特斯拉持续上传真实世界驾驶数据，形成了规模无可匹敌的自动驾驶训练数据集——这是竞争对手无法轻易复制的数据飞轮。FSD（全自动驾驶）V12 标志着向端到端神经网络架构的重大转变，彻底去除了手工编码规则。特斯拉在 GPU 采购和 Dojo 建设上的大规模投入，使其成为 AI 基础设施的重要需求来源，甚至在计算机视觉 AI 的发展方向上具有塑造力。', tags: ['自动驾驶','Dojo'] },
+		  { t: 'CRWV', name: 'CoreWeave', role: 'CoreWeave 是专注 AI 的 GPU 云服务商——一家从底层为 AI 工作负载而非通用计算重新设计的"新云"（neocloud）。它部署大规模 NVIDIA GPU 集群，出租给需要快速获得训练和推理算力、又等不及传统超大规模云厂商排期的 AI 实验室、模型开发者和企业。与 NVIDIA 的紧密关系使其能优先拿到最新 GPU，其裸金属、Kubernetes 原生架构则为最大化 GPU 利用率而优化。这是一门资本极度密集的生意，高度依赖债务融资采购 GPU 且客户集中度高，AI 算力需求的持续性是其商业模式的核心命题。', tags: ['GPU云','新云'] },
+		  { t: 'NBIS', name: 'Nebius Group', role: 'Nebius 是一家专注 AI 的云服务商，脱胎于 Yandex 的国际资产，提供 GPU 算力、托管 AI 基础设施和开发者工具。它自建并运营带有大规模 NVIDIA GPU 集群的数据中心，瞄准希望获得全栈、垂直整合替代方案的 AI 初创公司和企业。Nebius 还持有数据标注、自动驾驶、教育科技等相邻 AI 业务的股权，对 AI 建设浪潮形成多元化敞口。作为较年轻的新云，其增长取决于能否盈利地填满产能、并以足够快的速度扩张以与体量大得多的对手竞争。', tags: ['GPU云','AI基础设施'] },
+		  { t: 'IREN', name: 'IREN Limited', role: 'IREN（前身 Iris Energy）起家于比特币挖矿，正转向 AI 算力，把建设和供电大规模数据中心的能力复用到 AI 上。其核心优势在于掌控低成本（且多为可再生）电力，并能快速让数据中心产能上线——电力可用性已成为 AI 基础设施扩张的首要约束。IREN 正将部分场地改造为托管 NVIDIA GPU 的 AI 云服务，使自己处于能源基础设施与 AI 算力的交汇点。从加密挖矿向 AI 托管的转型，是其业务的决定性变量。', tags: ['AI数据中心','电力'] },
 		],
 	  },
 	  {
@@ -1778,6 +1809,7 @@
 	const historyCache = new Map();
 	const companyCache = new Map();
 	let activeIndustry = INDUSTRIES[0].id;
+	let currentDetailSymbol = null;
 
 	async function fetchQuotes(tickers) {
 	  const syms = tickers.join(',');
@@ -2197,7 +2229,7 @@
 		</a>
 	  `).join('');
 
-	  const description = overview.Description || fallbackDescription || '—';
+	  const description = fallbackDescription || overview.Description || '—';
 	  document.getElementById('detail-content').innerHTML = `
 		<div class="detail-price-row">
 		  <span class="detail-price">${fmtPrice(latestPrice)}</span>
@@ -2244,6 +2276,7 @@
 	}
 
 	async function openCompanyDetail(symbol) {
+	  currentDetailSymbol = symbol;
 	  const company = INDUSTRIES
 		.flatMap(industry => industry.companies)
 		.find(item => item.t === symbol);
