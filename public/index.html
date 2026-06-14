@@ -1,0 +1,2136 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>yingyun.ai</title>
+  <style>
+	*, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+	:root {
+	  --bg: #0a0a0a;
+	  --card: rgba(255,255,255,0.03);
+	  --card-hover: rgba(255,255,255,0.055);
+	  --border: rgba(255,255,255,0.08);
+	  --border-hover: rgba(56,189,248,0.25);
+	  --accent: #38bdf8;
+	  --accent-bg: rgba(14,116,144,0.15);
+	  --accent-border: rgba(56,189,248,0.45);
+	  --nvgreen: #76b900;
+	  --text: #f0f0f0;
+	  --text2: #888;
+	  --text3: #4a4a4a;
+	  --up: #22c55e;
+	  --up-bg: rgba(34,197,94,0.1);
+	  --down: #ef4444;
+	  --down-bg: rgba(239,68,68,0.1);
+	}
+
+	body {
+	  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+	  background: var(--bg);
+	  color: var(--text);
+	  min-height: 100vh;
+	  display: flex;
+	  flex-direction: column;
+	}
+
+	/* ── Header ─────────────────────────────── */
+	.hdr {
+	  position: sticky;
+	  top: 0;
+	  z-index: 50;
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  padding: 0 1.75rem;
+	  height: 54px;
+	  background: rgba(10,10,10,0.88);
+	  backdrop-filter: blur(16px);
+	  -webkit-backdrop-filter: blur(16px);
+	  border-bottom: 1px solid rgba(255,255,255,0.06);
+	  gap: 1rem;
+	}
+
+	.brand {
+	  font-size: 0.95rem;
+	  font-weight: 700;
+	  letter-spacing: -0.01em;
+	  background: linear-gradient(135deg, #fff 0%, #777 100%);
+	  -webkit-background-clip: text;
+	  -webkit-text-fill-color: transparent;
+	  background-clip: text;
+	  flex-shrink: 0;
+	}
+
+	.tabs {
+	  display: flex;
+	  gap: 0.2rem;
+	  overflow-x: auto;
+	  scrollbar-width: none;
+	}
+	.tabs::-webkit-scrollbar { display: none; }
+
+	.tab {
+	  padding: 0.3rem 0.85rem;
+	  border: 1px solid transparent;
+	  border-radius: 999px;
+	  background: transparent;
+	  color: var(--text2);
+	  font-size: 0.82rem;
+	  font-weight: 500;
+	  cursor: pointer;
+	  transition: all 0.18s;
+	  white-space: nowrap;
+	}
+	.tab:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+	.tab.on {
+	  color: var(--accent);
+	  background: var(--accent-bg);
+	  border-color: var(--accent-border);
+	}
+
+	.dev-pill {
+	  flex-shrink: 0;
+	  font-size: 0.62rem;
+	  font-weight: 700;
+	  letter-spacing: 0.16em;
+	  color: #7dd3fc;
+	  padding: 0.22rem 0.6rem;
+	  border: 1px solid var(--accent-border);
+	  border-radius: 999px;
+	  background: var(--accent-bg);
+	}
+
+	.header-actions { display: flex; align-items: center; gap: 0.5rem; flex-shrink: 0; }
+
+	.lang-toggle {
+	  border: 1px solid var(--border);
+	  border-radius: 999px;
+	  background: var(--card);
+	  color: var(--text2);
+	  padding: 0.24rem 0.58rem;
+	  font-size: 0.65rem;
+	  font-weight: 650;
+	  cursor: pointer;
+	}
+	.lang-toggle:hover { color: var(--text); border-color: var(--border-hover); }
+
+	/* ── Tab pages ──────────────────────────── */
+	.page { display: none; flex: 1; }
+	.page.on { display: flex; flex-direction: column; }
+
+	/* ── Home ──────────────────────────────── */
+	#p-home {
+	  align-items: stretch;
+	  justify-content: flex-start;
+	  min-height: calc(100vh - 54px);
+	  background:
+		radial-gradient(circle at 18% 8%, rgba(56,189,248,0.2), transparent 34%),
+		radial-gradient(circle at 82% 22%, rgba(118,185,0,0.13), transparent 30%),
+		linear-gradient(180deg, rgba(255,255,255,0.025), transparent 38%),
+		var(--bg);
+	  overflow: hidden;
+	}
+
+	.home-inner {
+	  width: min(1120px, 100%);
+	  margin: 0 auto;
+	  padding: clamp(3rem, 8vw, 6.5rem) 1.75rem 4rem;
+	}
+
+	.hero-grid {
+	  display: grid;
+	  grid-template-columns: minmax(0, 1.1fr) minmax(280px, 0.75fr);
+	  gap: clamp(2rem, 6vw, 4.5rem);
+	  align-items: center;
+	}
+
+	.home-kicker {
+	  display: inline-flex;
+	  align-items: center;
+	  gap: 0.45rem;
+	  color: #7dd3fc;
+	  font-size: 0.72rem;
+	  font-weight: 750;
+	  letter-spacing: 0.14em;
+	  text-transform: uppercase;
+	  padding: 0.34rem 0.65rem;
+	  border: 1px solid rgba(56,189,248,0.24);
+	  border-radius: 999px;
+	  background: rgba(14,116,144,0.1);
+	}
+
+	.home-kicker::before {
+	  content: '';
+	  width: 6px;
+	  height: 6px;
+	  border-radius: 50%;
+	  background: var(--accent);
+	  box-shadow: 0 0 18px rgba(56,189,248,0.8);
+	}
+
+	.home-name {
+	  margin-top: 1.2rem;
+	  font-size: clamp(3rem, 9vw, 6.6rem);
+	  line-height: 0.92;
+	  font-weight: 760;
+	  letter-spacing: -0.065em;
+	  background: linear-gradient(135deg, #fff 0%, #d7f3ff 42%, #777 100%);
+	  -webkit-background-clip: text;
+	  -webkit-text-fill-color: transparent;
+	  background-clip: text;
+	}
+
+	.home-sub {
+	  max-width: 640px;
+	  margin-top: 1.35rem;
+	  font-size: clamp(0.88rem, 1.6vw, 1.05rem);
+	  color: var(--text2);
+	  line-height: 1.75;
+	}
+
+	.home-actions {
+	  margin-top: 2rem;
+	  display: flex;
+	  align-items: center;
+	  gap: 0.8rem;
+	  flex-wrap: wrap;
+	}
+
+	.home-btn {
+	  border: 1px solid transparent;
+	  border-radius: 999px;
+	  padding: 0.78rem 1.05rem;
+	  font-size: 0.86rem;
+	  font-weight: 700;
+	  cursor: pointer;
+	  text-decoration: none;
+	  transition: transform 0.18s, border-color 0.18s, background 0.18s;
+	}
+	.home-btn:hover { transform: translateY(-1px); }
+	.home-btn.primary {
+	  color: #001018;
+	  background: linear-gradient(135deg, #7dd3fc, #38bdf8);
+	  box-shadow: 0 18px 48px rgba(56,189,248,0.18);
+	}
+	.home-btn.ghost {
+	  color: var(--text2);
+	  border-color: var(--border);
+	  background: rgba(255,255,255,0.035);
+	}
+	.home-btn.ghost:hover { color: #fff; border-color: var(--border-hover); }
+
+	.home-panel {
+	  position: relative;
+	  border: 1px solid rgba(255,255,255,0.09);
+	  border-radius: 24px;
+	  padding: 1rem;
+	  background: linear-gradient(180deg, rgba(255,255,255,0.07), rgba(255,255,255,0.025));
+	  box-shadow: 0 32px 90px rgba(0,0,0,0.34);
+	}
+
+	.home-panel::before {
+	  content: '';
+	  position: absolute;
+	  inset: -1px;
+	  border-radius: inherit;
+	  background: linear-gradient(135deg, rgba(56,189,248,0.34), transparent 35%, rgba(118,185,0,0.22));
+	  opacity: 0.42;
+	  pointer-events: none;
+	  z-index: -1;
+	}
+
+	.signal-card {
+	  padding: 1rem;
+	  border: 1px solid rgba(255,255,255,0.08);
+	  border-radius: 18px;
+	  background: rgba(5,9,12,0.62);
+	}
+
+	.signal-top {
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  color: var(--text3);
+	  font-size: 0.68rem;
+	  letter-spacing: 0.11em;
+	  text-transform: uppercase;
+	}
+
+	.signal-live {
+	  color: var(--up);
+	  letter-spacing: 0.08em;
+	}
+
+	.signal-title {
+	  margin-top: 1.2rem;
+	  font-size: 1.45rem;
+	  font-weight: 760;
+	  letter-spacing: -0.03em;
+	}
+
+	.signal-list { margin-top: 1rem; display: grid; gap: 0.65rem; }
+
+	.signal-row {
+	  display: grid;
+	  grid-template-columns: 78px 1fr auto;
+	  gap: 0.65rem;
+	  align-items: center;
+	  color: var(--text2);
+	  font-size: 0.75rem;
+	}
+
+	.signal-bar {
+	  height: 6px;
+	  border-radius: 999px;
+	  background: rgba(255,255,255,0.07);
+	  overflow: hidden;
+	}
+
+	.signal-fill {
+	  display: block;
+	  height: 100%;
+	  border-radius: inherit;
+	  background: linear-gradient(90deg, var(--accent), var(--nvgreen));
+	}
+
+	.home-stats {
+	  margin-top: 1rem;
+	  display: grid;
+	  grid-template-columns: repeat(3, 1fr);
+	  gap: 0.65rem;
+	}
+
+	.home-stat {
+	  padding: 0.85rem;
+	  border: 1px solid rgba(255,255,255,0.08);
+	  border-radius: 14px;
+	  background: rgba(255,255,255,0.035);
+	}
+
+	.home-stat strong {
+	  display: block;
+	  font-size: 1.15rem;
+	  letter-spacing: -0.03em;
+	}
+
+	.home-stat span {
+	  display: block;
+	  margin-top: 0.24rem;
+	  color: var(--text3);
+	  font-size: 0.66rem;
+	  line-height: 1.35;
+	}
+
+	.home-features {
+	  margin-top: clamp(2.5rem, 6vw, 4rem);
+	  display: grid;
+	  grid-template-columns: repeat(3, 1fr);
+	  gap: 0.85rem;
+	}
+
+	.home-feature {
+	  min-height: 150px;
+	  padding: 1rem;
+	  border: 1px solid var(--border);
+	  border-radius: 18px;
+	  background: rgba(255,255,255,0.028);
+	}
+
+	.home-feature b {
+	  display: block;
+	  font-size: 0.95rem;
+	  letter-spacing: -0.01em;
+	}
+
+	.home-feature p {
+	  margin-top: 0.65rem;
+	  color: var(--text3);
+	  font-size: 0.78rem;
+	  line-height: 1.65;
+	}
+
+	/* Portfolio home */
+	#p-home {
+	  overflow: visible;
+	  background:
+		radial-gradient(circle at 12% 4%, rgba(56,189,248,0.15), transparent 30%),
+		radial-gradient(circle at 88% 16%, rgba(255,154,108,0.12), transparent 26%),
+		var(--bg);
+	}
+
+	.portfolio-hero {
+	  display: grid;
+	  grid-template-columns: minmax(0, 1fr) auto;
+	  gap: 2rem;
+	  align-items: end;
+	  padding-bottom: clamp(3rem, 7vw, 5.5rem);
+	  border-bottom: 1px solid var(--border);
+	}
+
+	.portfolio-kicker {
+	  color: var(--accent);
+	  font: 700 0.7rem ui-monospace, monospace;
+	  letter-spacing: 0.16em;
+	  text-transform: uppercase;
+	}
+
+	.portfolio-title {
+	  max-width: 820px;
+	  margin-top: 1rem;
+	  font-size: clamp(2.2rem, 6vw, 4.8rem);
+	  line-height: 0.98;
+	  font-weight: 760;
+	  letter-spacing: -0.065em;
+	  overflow-wrap: anywhere;
+	}
+
+	.portfolio-title span {
+	  display: block;
+	  color: var(--text2);
+	}
+
+	.portfolio-title .title-main { color: var(--text); }
+
+	.portfolio-intro {
+	  max-width: 650px;
+	  margin-top: 1.35rem;
+	  color: var(--text2);
+	  font-size: clamp(0.98rem, 2vw, 1.15rem);
+	  line-height: 1.75;
+	  overflow-wrap: anywhere;
+	}
+
+	.portfolio-meta {
+	  display: grid;
+	  gap: 0.65rem;
+	  min-width: 150px;
+	}
+
+	.portfolio-meta-item {
+	  padding: 0.9rem 1rem;
+	  border: 1px solid var(--border);
+	  border-radius: 14px;
+	  background: rgba(255,255,255,0.025);
+	}
+
+	.portfolio-meta-item strong {
+	  display: block;
+	  font-size: 1.05rem;
+	}
+
+	.portfolio-meta-item span {
+	  display: block;
+	  margin-top: 0.18rem;
+	  color: var(--text3);
+	  font-size: 0.67rem;
+	}
+
+	.projects-section {
+	  padding-top: clamp(2.5rem, 6vw, 4.5rem);
+	}
+
+	.projects-heading {
+	  display: flex;
+	  align-items: end;
+	  justify-content: space-between;
+	  gap: 1rem;
+	  margin-bottom: 1.25rem;
+	}
+
+	.projects-heading h2 {
+	  font-size: clamp(1.4rem, 3vw, 2rem);
+	  letter-spacing: -0.035em;
+	}
+
+	.projects-heading p {
+	  color: var(--text3);
+	  font-size: 0.75rem;
+	}
+
+	.project-list {
+	  display: grid;
+	  gap: 1rem;
+	}
+
+	.project-card {
+	  position: relative;
+	  display: grid;
+	  grid-template-columns: minmax(0, 1.05fr) minmax(280px, 0.95fr);
+	  min-height: 390px;
+	  overflow: hidden;
+	  border: 1px solid var(--border);
+	  border-radius: 26px;
+	  background: rgba(255,255,255,0.025);
+	  transition: transform 0.22s, border-color 0.22s;
+	}
+
+	.project-card > * { min-width: 0; }
+
+	.project-card:hover {
+	  transform: translateY(-2px);
+	  border-color: rgba(255,255,255,0.16);
+	}
+
+	.project-copy {
+	  display: flex;
+	  flex-direction: column;
+	  padding: clamp(1.5rem, 4vw, 2.6rem);
+	}
+
+	.project-index {
+	  color: var(--text3);
+	  font: 700 0.65rem ui-monospace, monospace;
+	  letter-spacing: 0.14em;
+	}
+
+	.project-title {
+	  margin-top: auto;
+	  font-size: clamp(2rem, 5vw, 3.6rem);
+	  line-height: 1;
+	  letter-spacing: -0.055em;
+	}
+
+	.project-desc {
+	  max-width: 540px;
+	  margin-top: 1rem;
+	  color: var(--text2);
+	  font-size: 0.88rem;
+	  line-height: 1.7;
+	}
+
+	.project-tags {
+	  display: flex;
+	  flex-wrap: wrap;
+	  gap: 0.4rem;
+	  margin-top: 1.2rem;
+	}
+
+	.project-tag {
+	  padding: 0.28rem 0.55rem;
+	  border: 1px solid var(--border);
+	  border-radius: 999px;
+	  color: var(--text2);
+	  font-size: 0.65rem;
+	}
+
+	.project-link {
+	  align-self: flex-start;
+	  margin-top: 1.5rem;
+	  border: 0;
+	  background: transparent;
+	  color: var(--text);
+	  font-size: 0.78rem;
+	  font-weight: 700;
+	  cursor: pointer;
+	  text-decoration: none;
+	}
+
+	.project-link:hover { color: var(--accent); }
+
+	.project-visual {
+	  position: relative;
+	  display: grid;
+	  place-items: center;
+	  min-height: 320px;
+	  overflow: hidden;
+	}
+
+	.project-card.ai-card .project-visual {
+	  background:
+		radial-gradient(circle at 30% 20%, rgba(56,189,248,0.26), transparent 34%),
+		linear-gradient(145deg, #071820, #0d1115);
+	}
+
+	.mini-dashboard {
+	  width: min(84%, 430px);
+	  padding: 1rem;
+	  border: 1px solid rgba(125,211,252,0.24);
+	  border-radius: 18px;
+	  background: rgba(5,9,12,0.75);
+	  box-shadow: 0 28px 60px rgba(0,0,0,0.35);
+	  transform: rotate(-2deg);
+	}
+
+	.mini-dashboard-head {
+	  display: flex;
+	  justify-content: space-between;
+	  color: var(--text3);
+	  font-size: 0.62rem;
+	  letter-spacing: 0.1em;
+	}
+
+	.mini-dashboard-grid {
+	  display: grid;
+	  grid-template-columns: repeat(2, 1fr);
+	  gap: 0.5rem;
+	  margin-top: 1rem;
+	}
+
+	.mini-tile {
+	  min-height: 76px;
+	  padding: 0.65rem;
+	  border: 1px solid rgba(255,255,255,0.07);
+	  border-radius: 10px;
+	  background: rgba(255,255,255,0.035);
+	}
+
+	.mini-tile b { color: var(--accent); font-size: 0.68rem; }
+	.mini-tile span { display: block; margin-top: 0.55rem; font-size: 0.9rem; }
+	.mini-tile small { display: block; margin-top: 0.2rem; color: var(--up); font-size: 0.6rem; }
+
+	.project-card.cat-card {
+	  border-color: rgba(255,154,108,0.18);
+	}
+
+	.project-card.cat-card .project-visual {
+	  background:
+		radial-gradient(circle at 65% 20%, rgba(255,255,255,0.7), transparent 22%),
+		linear-gradient(145deg, #ffd8c4, #ff9a6c);
+	}
+
+	.phone-mockup {
+	  width: 210px;
+	  padding: 10px;
+	  border: 1px solid rgba(0,0,0,0.16);
+	  border-radius: 32px;
+	  background: #1b1715;
+	  box-shadow: 0 30px 70px rgba(91,44,24,0.28);
+	  transform: rotate(3deg);
+	}
+
+	.phone-screen {
+	  min-height: 355px;
+	  padding: 1.15rem 0.9rem;
+	  border-radius: 24px;
+	  background: #fff8f0;
+	  color: #44352f;
+	}
+
+	.phone-brand { font-size: 1.05rem; font-weight: 800; }
+	.phone-sub { margin-top: 0.2rem; color: #9c7d70; font-size: 0.58rem; }
+
+	.phone-cta {
+	  margin-top: 1rem;
+	  padding: 0.85rem;
+	  border-radius: 16px;
+	  background: #ff9a6c;
+	  color: white;
+	  text-align: center;
+	  font-size: 0.75rem;
+	  font-weight: 750;
+	}
+
+	.phone-word {
+	  margin-top: 0.75rem;
+	  padding: 0.85rem;
+	  border: 1px solid #f2dfd4;
+	  border-radius: 16px;
+	  background: white;
+	  text-align: center;
+	}
+
+	.phone-word span { display: block; font-size: 1.7rem; }
+	.phone-word b { display: block; margin-top: 0.4rem; font-size: 0.7rem; }
+	.phone-word small { display: block; margin-top: 0.35rem; color: #aa8a7c; font-size: 0.54rem; line-height: 1.4; }
+
+	.project-qr {
+	  position: absolute;
+	  right: 1.25rem;
+	  bottom: 1.25rem;
+	  display: flex;
+	  align-items: center;
+	  gap: 0.55rem;
+	  padding: 0.45rem 0.55rem;
+	  border-radius: 12px;
+	  background: rgba(255,255,255,0.9);
+	  color: #49362e;
+	  box-shadow: 0 10px 30px rgba(83,45,29,0.16);
+	}
+
+	.project-qr img {
+	  width: 52px;
+	  height: 52px;
+	  border-radius: 6px;
+	}
+
+	.project-qr span {
+	  max-width: 60px;
+	  font-size: 0.56rem;
+	  line-height: 1.35;
+	}
+
+	.portfolio-footer {
+	  display: flex;
+	  justify-content: space-between;
+	  gap: 1rem;
+	  padding: 3.5rem 0 0.5rem;
+	  color: var(--text3);
+	  font-size: 0.7rem;
+	}
+
+	/* ── AI Value Chain ────────────────────── */
+	#p-ai {
+	  padding: 1.75rem 1.75rem 3rem;
+	  overflow-y: auto;
+	}
+
+	.chain-hdr { margin-bottom: 1.75rem; }
+
+	.chain-title {
+	  font-size: 1.4rem;
+	  font-weight: 700;
+	  letter-spacing: -0.02em;
+	}
+
+	.chain-sub {
+	  margin-top: 0.3rem;
+	  font-size: 0.82rem;
+	  color: var(--text2);
+	}
+
+	.chain-ts {
+	  margin-top: 0.4rem;
+	  font-size: 0.72rem;
+	  color: var(--text3);
+	  display: flex;
+	  align-items: center;
+	  gap: 0.5rem;
+	}
+
+	.refresh {
+	  background: none;
+	  border: none;
+	  color: var(--accent);
+	  font-size: 0.72rem;
+	  cursor: pointer;
+	  padding: 0;
+	}
+	.refresh:hover { text-decoration: underline; }
+
+	.industry-tabs {
+	  display: flex;
+	  gap: 0.45rem;
+	  margin-bottom: 1rem;
+	  overflow-x: auto;
+	  scrollbar-width: none;
+	}
+	.industry-tabs::-webkit-scrollbar { display: none; }
+
+	.industry-tab {
+	  flex: 0 0 auto;
+	  padding: 0.48rem 0.78rem;
+	  border: 1px solid var(--border);
+	  border-radius: 8px;
+	  background: var(--card);
+	  color: var(--text2);
+	  font-size: 0.72rem;
+	  cursor: pointer;
+	  transition: all 0.18s;
+	}
+	.industry-tab:hover { color: var(--text); border-color: var(--border-hover); }
+	.industry-tab.on {
+	  color: var(--accent);
+	  border-color: var(--accent-border);
+	  background: var(--accent-bg);
+	}
+
+	.industry-head {
+	  display: flex;
+	  align-items: flex-start;
+	  justify-content: space-between;
+	  gap: 1rem;
+	  margin-bottom: 0.85rem;
+	}
+
+	.industry-title { font-size: 0.95rem; font-weight: 650; }
+	.industry-desc {
+	  margin-top: 0.25rem;
+	  color: var(--text3);
+	  font-size: 0.7rem;
+	  line-height: 1.5;
+	}
+	.industry-count {
+	  flex-shrink: 0;
+	  color: var(--text3);
+	  font-size: 0.68rem;
+	}
+
+	.industry-grid {
+	  display: grid;
+	  grid-template-columns: repeat(3, minmax(0, 1fr));
+	  gap: 0.55rem;
+	}
+
+	.chain-note {
+	  margin-top: 1rem;
+	  color: var(--text3);
+	  font-size: 0.65rem;
+	  line-height: 1.55;
+	}
+
+	/* Three-column chain layout */
+	.chain-grid {
+	  display: grid;
+	  grid-template-columns: 1fr 52px 200px 52px 1fr;
+	  align-items: start;
+	  gap: 0;
+	}
+
+	.col-wrap { display: flex; flex-direction: column; }
+
+	.col-label {
+	  font-size: 0.65rem;
+	  font-weight: 700;
+	  letter-spacing: 0.14em;
+	  text-transform: uppercase;
+	  color: var(--text3);
+	  margin-bottom: 0.85rem;
+	  padding-bottom: 0.5rem;
+	  border-bottom: 1px solid rgba(255,255,255,0.05);
+	}
+
+	.col-cards { display: flex; flex-direction: column; gap: 0.5rem; }
+
+	/* Compact company card */
+	.ccard {
+	  background: var(--card);
+	  border: 1px solid var(--border);
+	  border-radius: 10px;
+	  padding: 0.7rem 0.9rem;
+	  transition: border-color 0.2s, background 0.2s;
+	  cursor: pointer;
+	}
+	.ccard:hover { border-color: var(--border-hover); background: var(--card-hover); }
+
+	.ccard-top {
+	  display: flex;
+	  align-items: center;
+	  justify-content: space-between;
+	  margin-bottom: 0.3rem;
+	  gap: 0.4rem;
+	}
+
+	.ticker {
+	  font-size: 0.7rem;
+	  font-weight: 700;
+	  letter-spacing: 0.08em;
+	  color: var(--accent);
+	  background: var(--accent-bg);
+	  padding: 0.12rem 0.45rem;
+	  border-radius: 4px;
+	  flex-shrink: 0;
+	}
+
+	.price-wrap { display: flex; align-items: center; gap: 0.4rem; }
+
+	.price {
+	  font-size: 0.82rem;
+	  font-weight: 600;
+	  font-family: 'SF Mono', ui-monospace, monospace;
+	}
+
+	.chg {
+	  font-size: 0.7rem;
+	  font-weight: 600;
+	  font-family: ui-monospace, monospace;
+	  padding: 0.1rem 0.32rem;
+	  border-radius: 4px;
+	}
+	.chg.up   { color: var(--up);   background: var(--up-bg); }
+	.chg.dn   { color: var(--down); background: var(--down-bg); }
+	.chg.load { color: var(--text3); background: rgba(255,255,255,0.04); }
+
+	.ccard-name {
+	  font-size: 0.78rem;
+	  font-weight: 500;
+	  color: var(--text);
+	  margin-bottom: 0.2rem;
+	  white-space: nowrap;
+	  overflow: hidden;
+	  text-overflow: ellipsis;
+	}
+
+	.ccard-role {
+	  font-size: 0.67rem;
+	  color: var(--text3);
+	  line-height: 1.45;
+	  display: -webkit-box;
+	  -webkit-line-clamp: 2;
+	  -webkit-box-orient: vertical;
+	  overflow: hidden;
+	}
+
+	.ccard-tags { margin-top: 0.45rem; display: flex; gap: 0.28rem; flex-wrap: wrap; }
+
+	.spark-wrap {
+	  height: 46px;
+	  margin: 0.55rem -0.1rem 0.1rem;
+	  color: var(--accent);
+	}
+	.spark-wrap.down { color: var(--down); }
+	.spark-wrap svg { display: block; width: 100%; height: 100%; overflow: visible; }
+	.spark-line { fill: none; stroke: currentColor; stroke-width: 1.7; vector-effect: non-scaling-stroke; }
+	.spark-area { fill: currentColor; opacity: 0.08; }
+	.spark-empty {
+	  height: 100%;
+	  display: grid;
+	  place-items: center;
+	  color: var(--text3);
+	  font-size: 0.62rem;
+	}
+
+	/* ── Company Detail Page ─────────────── */
+	#p-company { overflow-y: auto; }
+
+	.company-hdr {
+	  display: flex;
+	  align-items: center;
+	  gap: 0.85rem;
+	  padding: 0.9rem 1.75rem;
+	  border-bottom: 1px solid var(--border);
+	  background: rgba(10,10,10,0.92);
+	  backdrop-filter: blur(12px);
+	  position: sticky;
+	  top: 0;
+	  z-index: 10;
+	}
+
+	.back-btn {
+	  display: flex;
+	  align-items: center;
+	  gap: 0.35rem;
+	  background: var(--card);
+	  border: 1px solid var(--border);
+	  border-radius: 8px;
+	  color: var(--text2);
+	  padding: 0.36rem 0.7rem;
+	  font-size: 0.78rem;
+	  cursor: pointer;
+	  flex-shrink: 0;
+	  transition: border-color 0.18s, color 0.18s;
+	}
+	.back-btn:hover { border-color: var(--border-hover); color: var(--text); }
+
+	.company-hdr-info { flex: 1; min-width: 0; }
+	.company-hdr-symbol { font-size: 0.68rem; font-weight: 700; color: var(--accent); letter-spacing: 0.1em; font-family: ui-monospace, monospace; }
+	.company-hdr-name { font-size: 1.05rem; font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+	.website-btn {
+	  flex-shrink: 0;
+	  display: none;
+	  align-items: center;
+	  gap: 0.3rem;
+	  padding: 0.36rem 0.7rem;
+	  border: 1px solid var(--border);
+	  border-radius: 8px;
+	  background: var(--card);
+	  color: var(--text2);
+	  font-size: 0.75rem;
+	  text-decoration: none;
+	  transition: border-color 0.18s, color 0.18s;
+	}
+	.website-btn:hover { border-color: var(--border-hover); color: var(--accent); }
+	.website-btn.visible { display: inline-flex; }
+	.stock-page-btn {
+	  display: inline-flex;
+	  background: var(--accent);
+	  border-color: var(--accent);
+	  color: #000;
+	  font-weight: 600;
+	}
+	.stock-page-btn:hover { background: #6fe09a; border-color: #6fe09a; color: #000; }
+
+	.company-body {
+	  width: min(900px, 100%);
+	  margin: 0 auto;
+	  padding: 1.75rem;
+	}
+
+	.detail-symbol { color: var(--accent); font: 700 0.72rem ui-monospace, monospace; letter-spacing: 0.1em; }
+	.detail-name { margin-top: 0.25rem; font-size: 1.35rem; }
+	.detail-chart { height: 220px; margin: 1.2rem 0; color: var(--accent); }
+	.detail-chart.down { color: var(--down); }
+	.detail-chart svg { width: 100%; height: 100%; }
+	.detail-section { margin-top: 1.35rem; }
+	.detail-section h4 {
+	  margin-bottom: 0.7rem;
+	  color: var(--text2);
+	  font-size: 0.7rem;
+	  letter-spacing: 0.12em;
+	  text-transform: uppercase;
+	}
+	.fund-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.5rem; }
+	.fund-item { padding: 0.7rem; border: 1px solid var(--border); border-radius: 8px; background: var(--card); }
+	.fund-label { color: var(--text3); font-size: 0.62rem; }
+	.fund-value { margin-top: 0.25rem; font: 650 0.78rem ui-monospace, monospace; }
+	.company-description { color: var(--text2); font-size: 0.76rem; line-height: 1.65; }
+	.news-list { display: flex; flex-direction: column; gap: 0.55rem; }
+	.news-item {
+	  display: block;
+	  padding: 0.75rem;
+	  border: 1px solid var(--border);
+	  border-radius: 8px;
+	  color: inherit;
+	  text-decoration: none;
+	  background: var(--card);
+	}
+	.news-item:hover { border-color: var(--border-hover); }
+	.news-title { font-size: 0.78rem; line-height: 1.45; }
+	.news-meta { margin-top: 0.35rem; color: var(--text3); font-size: 0.62rem; }
+	.detail-loading { padding: 4rem 0; text-align: center; color: var(--text3); }
+
+	@media (max-width: 520px) {
+	  .fund-grid { grid-template-columns: repeat(2, 1fr); }
+	  .company-hdr { padding: 0.7rem 1rem; }
+	  .company-body { padding: 1.25rem 1rem; }
+	}
+
+	.ctag {
+	  font-size: 0.6rem;
+	  padding: 0.08rem 0.42rem;
+	  border-radius: 999px;
+	  border: 1px solid rgba(255,255,255,0.09);
+	  color: var(--text3);
+	  letter-spacing: 0.03em;
+	}
+
+	/* Skeleton shimmer */
+	.sk {
+	  background: linear-gradient(90deg,
+		rgba(255,255,255,0.05) 25%,
+		rgba(255,255,255,0.1) 50%,
+		rgba(255,255,255,0.05) 75%);
+	  background-size: 200% 100%;
+	  animation: shim 1.6s ease-in-out infinite;
+	  border-radius: 3px;
+	  color: transparent !important;
+	  user-select: none;
+	}
+	@keyframes shim {
+	  0%   { background-position: 200% 0; }
+	  100% { background-position: -200% 0; }
+	}
+
+	/* Arrow columns */
+	.arrow-col {
+	  display: flex;
+	  flex-direction: column;
+	  align-items: center;
+	  padding-top: 68px;
+	}
+
+	.arr-line {
+	  width: 1px;
+	  height: 60px;
+	  background: linear-gradient(to bottom, transparent, rgba(56,189,248,0.25));
+	}
+
+	.arr-head {
+	  font-size: 1.1rem;
+	  color: rgba(56,189,248,0.4);
+	  line-height: 1;
+	  margin: 2px 0;
+	}
+
+	.arr-line2 {
+	  width: 1px;
+	  flex: 1;
+	  background: linear-gradient(to bottom, rgba(56,189,248,0.15), transparent);
+	}
+
+	/* NVIDIA center card */
+	.nv-col { display: flex; flex-direction: column; }
+
+	.nv-card {
+	  background: linear-gradient(150deg,
+		rgba(118,185,0,0.07) 0%,
+		rgba(56,189,248,0.05) 100%);
+	  border: 1px solid rgba(118,185,0,0.3);
+	  border-radius: 14px;
+	  padding: 1.5rem 1.25rem 1.25rem;
+	  text-align: center;
+	  position: relative;
+	  overflow: hidden;
+	}
+
+	.nv-card::before {
+	  content: '';
+	  position: absolute;
+	  inset: 0;
+	  background: radial-gradient(ellipse at 50% 0%, rgba(118,185,0,0.06), transparent 70%);
+	  pointer-events: none;
+	}
+
+	.nv-wordmark {
+	  font-size: 0.58rem;
+	  font-weight: 800;
+	  letter-spacing: 0.22em;
+	  color: var(--nvgreen);
+	  margin-bottom: 0.2rem;
+	}
+
+	.nv-sym {
+	  font-size: 1.35rem;
+	  font-weight: 800;
+	  letter-spacing: -0.02em;
+	  color: var(--text);
+	  margin-bottom: 1rem;
+	}
+
+	.nv-price {
+	  font-size: 1.5rem;
+	  font-weight: 700;
+	  font-family: 'SF Mono', ui-monospace, monospace;
+	  color: var(--text);
+	  margin-bottom: 0.3rem;
+	  min-height: 2rem;
+	}
+
+	.nv-chg {
+	  font-size: 0.95rem;
+	  font-weight: 600;
+	  font-family: ui-monospace, monospace;
+	  margin-bottom: 1rem;
+	  min-height: 1.4rem;
+	  color: var(--text3);
+	}
+
+	.nv-desc {
+	  font-size: 0.68rem;
+	  color: var(--text2);
+	  line-height: 1.65;
+	  margin-bottom: 1rem;
+	}
+
+	.nv-tags { display: flex; flex-wrap: wrap; gap: 0.28rem; justify-content: center; }
+
+	.nv-tag {
+	  font-size: 0.59rem;
+	  padding: 0.12rem 0.48rem;
+	  border-radius: 999px;
+	  border: 1px solid rgba(118,185,0,0.35);
+	  color: var(--nvgreen);
+	  background: rgba(118,185,0,0.06);
+	  letter-spacing: 0.03em;
+	}
+
+	/* Coming soon page */
+	#p-coming {
+	  align-items: center;
+	  justify-content: center;
+	  min-height: calc(100vh - 54px);
+	}
+
+	.cs-inner { text-align: center; padding: 2rem; }
+	.cs-title { font-size: 1.15rem; font-weight: 600; color: var(--text2); }
+	.cs-sub { margin-top: 0.5rem; font-size: 0.85rem; color: var(--text3); }
+
+	/* Responsive */
+	@media (max-width: 860px) {
+	  .hero-grid { grid-template-columns: 1fr; }
+	  .home-features { grid-template-columns: 1fr; }
+	  .portfolio-hero { grid-template-columns: 1fr; align-items: start; }
+	  .portfolio-meta { grid-template-columns: repeat(2, minmax(0, 1fr)); min-width: 0; }
+	  .project-card { grid-template-columns: 1fr; }
+	  .project-visual { min-height: 360px; }
+	  .industry-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+
+	  .chain-grid {
+		grid-template-columns: 1fr;
+		gap: 1.25rem;
+	  }
+
+	  .arrow-col {
+		flex-direction: row;
+		padding-top: 0;
+		height: 28px;
+		justify-content: center;
+	  }
+
+	  .arr-line, .arr-line2 {
+		width: 48px;
+		height: 1px;
+		background: linear-gradient(to right, transparent, rgba(56,189,248,0.25), transparent);
+	  }
+
+	  .nv-col { order: -1; }
+	}
+
+	@media (max-width: 520px) {
+	  .hdr { padding: 0 1rem; }
+	  .home-inner { padding: 2.5rem 1rem 3rem; }
+	  .home-stats { grid-template-columns: 1fr; }
+	  .portfolio-title {
+		max-width: 100%;
+		font-size: clamp(2.45rem, 12.5vw, 3.25rem);
+		letter-spacing: -0.055em;
+	  }
+	  .portfolio-intro { max-width: 100%; font-size: 0.92rem; }
+	  .portfolio-meta { grid-template-columns: 1fr 1fr; }
+	  .projects-heading { align-items: start; flex-direction: column; }
+	  .project-card { min-height: 0; border-radius: 20px; }
+	  .project-copy { min-height: 345px; }
+	  .project-visual { min-height: 330px; }
+	  .project-qr { right: 0.75rem; bottom: 0.75rem; }
+	  .portfolio-footer { flex-direction: column; }
+	  .signal-row { grid-template-columns: 64px 1fr auto; }
+	  #p-ai { padding: 1.25rem 1rem 2.5rem; }
+	  .dev-pill { display: none; }
+	  .industry-grid { grid-template-columns: 1fr; }
+	  .fund-grid { grid-template-columns: repeat(2, 1fr); }
+	}
+  </style>
+</head>
+<body>
+
+  <!-- Header -->
+  <header class="hdr">
+	<div class="brand">yingyun.ai</div>
+	<nav class="tabs">
+	  <button class="tab on" data-page="home" data-i18n="navHome">首页</button>
+	  <button class="tab" data-page="ai" data-i18n="navChain">AI 产业链</button>
+	</nav>
+	<div class="header-actions">
+	  <button class="lang-toggle" id="lang-toggle" aria-label="Switch language">EN</button>
+	  <span class="dev-pill">DEV</span>
+	</div>
+  </header>
+
+  <!-- ── Home ── -->
+  <section class="page on" id="p-home">
+	<div class="home-inner">
+	  <div class="portfolio-hero">
+		<div>
+		  <h1 class="portfolio-title">
+			<span class="title-main" data-i18n="portfolioTitleMain">做一些</span>
+			<span data-i18n="portfolioTitleSub">有用也有趣的产品。</span>
+		  </h1>
+		  <p class="portfolio-intro" data-i18n="portfolioIntro">
+			这里收录我正在构建的独立项目：从 AI 产业研究工具，到让人和猫更好玩地交流的小程序。
+		  </p>
+		</div>
+		<aside class="portfolio-meta" aria-label="Portfolio summary">
+		  <div class="portfolio-meta-item">
+			<strong>02</strong>
+			<span data-i18n="portfolioProjects">当前项目</span>
+		  </div>
+		  <div class="portfolio-meta-item">
+			<strong>Web + App</strong>
+			<span data-i18n="portfolioFormat">产品形态</span>
+		  </div>
+		</aside>
+	  </div>
+
+	  <section class="projects-section">
+		<div class="projects-heading">
+		  <h2 data-i18n="selectedProjects">Selected projects</h2>
+		  <p data-i18n="projectsNote">持续更新中</p>
+		</div>
+
+		<div class="project-list">
+		  <article class="project-card ai-card">
+			<div class="project-copy">
+			  <span class="project-index">PROJECT 01 · WEB</span>
+			  <h3 class="project-title" data-i18n="aiProjectTitle">AI 产业链</h3>
+			  <p class="project-desc" data-i18n="aiProjectDesc">
+				把芯片、网络、服务器、电力、云和应用公司整理成可浏览的产业地图，并接入实时行情与公司信息。
+			  </p>
+			  <div class="project-tags">
+				<span class="project-tag">Cloudflare Workers</span>
+				<span class="project-tag">Market Data</span>
+				<span class="project-tag">Research Tool</span>
+			  </div>
+			  <button class="project-link" type="button" data-go-page="ai" data-i18n="openProject">打开项目 →</button>
+			</div>
+			<div class="project-visual" aria-hidden="true">
+			  <div class="mini-dashboard">
+				<div class="mini-dashboard-head"><span>AI VALUE CHAIN</span><span>LIVE</span></div>
+				<div class="mini-dashboard-grid">
+				  <div class="mini-tile"><b>NVDA</b><span>$---</span><small>AI Compute</small></div>
+				  <div class="mini-tile"><b>VRT</b><span>$---</span><small>Power & Cooling</small></div>
+				  <div class="mini-tile"><b>ANET</b><span>$---</span><small>Networking</small></div>
+				  <div class="mini-tile"><b>MSFT</b><span>$---</span><small>Cloud</small></div>
+				</div>
+			  </div>
+			</div>
+		  </article>
+
+		  <article class="project-card cat-card">
+			<div class="project-copy">
+			  <span class="project-index">PROJECT 02 · WECHAT MINI PROGRAM</span>
+			  <h3 class="project-title" data-i18n="catProjectTitle">喵言喵语</h3>
+			  <p class="project-desc" data-i18n="catProjectDesc">
+				一个轻松的猫语互动小程序。输入文字或录音，让猫猫用自己的方式回应；还能听猫叫图鉴、制作猫咪分享海报。
+			  </p>
+			  <div class="project-tags">
+				<span class="project-tag">WeChat Mini Program</span>
+				<span class="project-tag">TypeScript</span>
+				<span class="project-tag">Audio</span>
+				<span class="project-tag">Canvas</span>
+			  </div>
+			  <span class="project-link" data-i18n="scanProject">微信扫码体验 →</span>
+			</div>
+			<div class="project-visual">
+			  <div class="phone-mockup" aria-hidden="true">
+				<div class="phone-screen">
+				  <div class="phone-brand">喵言喵语</div>
+				  <div class="phone-sub">听懂主子，和猫聊聊</div>
+				  <div class="phone-cta">💬 说给猫猫听</div>
+				  <div class="phone-word">
+					<span>😽</span>
+					<b>今日猫语</b>
+					<small>贴贴可以，抱太久不行，喵呜。</small>
+				  </div>
+				  <div class="phone-word">
+					<span>🐾</span>
+					<b>喵喵图鉴</b>
+					<small>听声音，了解主子的每一种心情。</small>
+				  </div>
+				</div>
+			  </div>
+			  <div class="project-qr">
+				<img src="/assets/miaoyan-code.jpg" alt="喵言喵语微信小程序码">
+				<span data-i18n="qrLabel">微信扫码打开小程序</span>
+			  </div>
+			</div>
+		  </article>
+		</div>
+	  </section>
+
+	  <footer class="portfolio-footer">
+		<span>© 2026 yingyun.ai</span>
+		<a href="mailto:aiyingyun@gmail.com" class="project-link" data-i18n="homeContact">联系我</a>
+	  </footer>
+	</div>
+  </section>
+
+  <!-- ── AI Value Chain ── -->
+  <section class="page" id="p-ai">
+	<div class="chain-hdr">
+	  <h2 class="chain-title" data-i18n="chainTitle">AI 产业链</h2>
+	  <p class="chain-sub" data-i18n="chainSub">追踪从芯片、网络、电力到云服务与应用的 AI 上市公司</p>
+	  <div class="chain-ts">
+		<span id="ts-text" data-status="loading">正在加载数据…</span>
+		<button class="refresh" id="refresh-btn" data-i18n="refresh">刷新</button>
+	  </div>
+	</div>
+
+	<div class="industry-tabs" id="industry-tabs"></div>
+	<div class="industry-head">
+	  <div>
+		<h3 class="industry-title" id="industry-title"></h3>
+		<p class="industry-desc" id="industry-desc"></p>
+	  </div>
+	  <span class="industry-count" id="industry-count"></span>
+	</div>
+	<div class="industry-grid" id="industry-cards"></div>
+	<p class="chain-note" data-i18n="chainNote">
+	  分类覆盖 AI 基础设施、能源与应用生态。公司可能同时属于多个环节，
+	  行情可能延迟，仅供信息参考。
+	</p>
+  </section>
+
+  <!-- ── Coming soon ── -->
+  <section class="page" id="p-coming">
+	<div class="cs-inner">
+	  <p class="cs-title" data-i18n="comingTitle">即将推出</p>
+	  <p class="cs-sub" data-i18n="comingSub">更多产业链分析与产品展示正在开发中</p>
+	</div>
+  </section>
+
+  <!-- ── Company Detail Page ── -->
+  <section class="page" id="p-company">
+	<div class="company-hdr">
+	  <button class="back-btn" id="back-btn" data-i18n="back">← 返回</button>
+	  <div class="company-hdr-info">
+		<div class="company-hdr-symbol" id="detail-symbol"></div>
+		<div class="company-hdr-name" id="detail-name"></div>
+	  </div>
+	  <a class="website-btn" id="company-website" href="#" target="_blank" rel="noopener noreferrer" data-i18n="officialWebsite">官网 ↗</a>
+	  <a class="website-btn stock-page-btn" id="company-stockpage" href="#" target="_blank" rel="noopener noreferrer" data-i18n="stockPage">股价 ↗</a>
+	</div>
+	<div class="company-body" id="detail-content"></div>
+  </section>
+
+  <script>
+	/* ── Tab switching ─────────────────────── */
+	const tabBtns = document.querySelectorAll('.tab');
+	const pages   = document.querySelectorAll('.page');
+	let aiInited = false;
+	let currentLang = localStorage.getItem('language') === 'en' ? 'en' : 'zh';
+
+	const UI_TEXT = {
+	  zh: {
+		navHome: '首页', navChain: 'AI 产业链', navMore: '更多',
+		portfolioKicker: '独立开发者 · 纽约',
+		portfolioTitleMain: '做一些',
+		portfolioTitleSub: '有用也有趣的产品。',
+		portfolioIntro: '这里收录我正在构建的独立项目：从 AI 产业研究工具，到让人和猫更好玩地交流的小程序。',
+		portfolioProjects: '当前项目', portfolioFormat: '产品形态',
+		selectedProjects: '项目作品', projectsNote: '持续更新中',
+		aiProjectTitle: 'AI 产业链',
+		aiProjectDesc: '把芯片、网络、服务器、电力、云和应用公司整理成可浏览的产业地图，并接入实时行情与公司信息。',
+		catProjectTitle: '喵言喵语',
+		catProjectDesc: '一个轻松的猫语互动小程序。输入文字或录音，让猫猫用自己的方式回应；还能听猫叫图鉴、制作猫咪分享海报。',
+		openProject: '打开项目 →', scanProject: '微信扫码体验 →',
+		qrLabel: '微信扫码打开小程序',
+		homeKicker: 'AI 产业情报实验室',
+		homeSub: '做一些有用也有趣的产品。',
+		homePrimary: '查看 AI 产业链', homeContact: '联系我',
+		signalLabel: '产业信号', signalTitle: '从算力到电力的 AI 地图',
+		signalCompute: '算力', signalPower: '电力', signalApps: '应用',
+		statSectors: '产业环节', statCompanies: '上市公司', statRefresh: '行情缓存',
+		featureMapTitle: '产业链地图', featureMapText: '按芯片、网络、服务器、电力、云和应用拆解 AI 生态，而不是只看单一热门股票。',
+		featureMarketTitle: '市场数据', featureMarketText: '轻量接入公开行情，帮助快速判断产业分支的关注度和价格变化。',
+		featureBuildTitle: '持续构建', featureBuildText: '后续会加入更多指标、公司画像和产品展示，把研究过程产品化。',
+		chainTitle: 'AI 产业链',
+		chainSub: '追踪从芯片、网络、电力到云服务与应用的 AI 上市公司',
+		refresh: '刷新',
+		chainNote: '分类覆盖 AI 基础设施、能源与应用生态。公司可能同时属于多个环节，行情可能延迟，仅供信息参考。',
+		comingTitle: '即将推出', comingSub: '更多产业链分析与产品展示正在开发中',
+		loading: '正在获取数据…', cached: '已显示缓存行情，点击刷新可更新',
+		updated: time => `数据更新于 ${time}，来源公开市场数据`,
+		partial: (time, count) => `数据更新于 ${time}，${count} 项暂不可用`,
+		timeout: '行情请求超时，产业资料仍可浏览',
+		unavailable: '行情暂不可用，产业资料仍可浏览',
+		companyCount: count => `${count} 家公司`,
+		chartUnavailable: '30 日走势暂不可用',
+		detailLoading: '正在加载公司详情…',
+		fundamentals: '基本面',
+		companyProfile: '公司简介',
+		latestNews: '最新新闻',
+		noNews: '暂无相关新闻',
+		detailError: '公司详情暂时无法加载',
+		back: '← 返回',
+		officialWebsite: '官网 ↗',
+		stockPage: '股价 ↗',
+	  },
+	  en: {
+		navHome: 'Home', navChain: 'AI Value Chain', navMore: 'More',
+		portfolioKicker: 'Independent builder · New York',
+		portfolioTitleMain: 'Build products',
+		portfolioTitleSub: 'that are useful and playful.',
+		portfolioIntro: 'A collection of independent projects in progress, from an AI industry research tool to a playful mini app for people and cats.',
+		portfolioProjects: 'active projects', portfolioFormat: 'product formats',
+		selectedProjects: 'Selected projects', projectsNote: 'More in progress',
+		aiProjectTitle: 'AI Value Chain',
+		aiProjectDesc: 'An interactive map of companies across chips, networking, servers, power, cloud and applications, with live market and company data.',
+		catProjectTitle: 'Meow Translator',
+		catProjectDesc: 'A playful WeChat mini program that turns text or voice into cat responses, with a cat-sound encyclopedia and shareable posters.',
+		openProject: 'Open project →', scanProject: 'Scan in WeChat →',
+		qrLabel: 'Scan with WeChat to open',
+		homeKicker: 'AI Intelligence Lab',
+		homeSub: 'Building things that are useful, and a little interesting.',
+		homePrimary: 'Explore AI Value Chain', homeContact: 'Contact',
+		signalLabel: 'Industry Signal', signalTitle: 'AI map from compute to power',
+		signalCompute: 'Compute', signalPower: 'Power', signalApps: 'Apps',
+		statSectors: 'sectors', statCompanies: 'public companies', statRefresh: 'quote cache',
+		featureMapTitle: 'Value-chain map', featureMapText: 'Break down AI by chips, networking, servers, power, cloud and applications instead of a single hot ticker.',
+		featureMarketTitle: 'Market data', featureMarketText: 'Lightweight public quotes help you scan attention and price movement across AI segments.',
+		featureBuildTitle: 'Built in public', featureBuildText: 'More indicators, company profiles and product demos will turn the research process into usable tools.',
+		chainTitle: 'AI Value Chain',
+		chainSub: 'Track public companies across AI chips, networking, power, cloud and applications',
+		refresh: 'Refresh',
+		chainNote: 'Categories cover AI infrastructure, energy and applications. Companies may participate in multiple segments. Market data may be delayed and is for informational purposes only.',
+		comingTitle: 'Coming Soon', comingSub: 'More value-chain analysis and products are in development',
+		loading: 'Loading market data…', cached: 'Showing cached quotes. Refresh to update.',
+		updated: time => `Updated at ${time} · Public market data`,
+		partial: (time, count) => `Updated at ${time} · ${count} unavailable`,
+		timeout: 'Quote request timed out. Industry profiles remain available.',
+		unavailable: 'Quotes are temporarily unavailable. Industry profiles remain available.',
+		companyCount: count => `${count} companies`,
+		chartUnavailable: '30-day chart unavailable',
+		detailLoading: 'Loading company details…',
+		fundamentals: 'Fundamentals',
+		companyProfile: 'Company Profile',
+		latestNews: 'Latest News',
+		noNews: 'No related news available',
+		detailError: 'Company details are temporarily unavailable',
+		back: '← Back',
+		officialWebsite: 'Website ↗',
+		stockPage: 'Quote ↗',
+	  },
+	};
+
+	const INDUSTRY_EN = {
+	  compute: ['AI Chips', 'Accelerators, CPUs & Compute Platforms', 'GPUs are the engines of modern AI. Whether training large language models, serving real-time inference, or running on-device AI, every workload depends on massively parallel compute. NVIDIA built a decade-long moat through its CUDA software ecosystem. AMD and Intel are closing the gap on hardware, while Arm licenses CPU architecture IP to virtually every chip designer from cloud to smartphone. As inference demand explodes, the competitive frontier is shifting from "who can train the biggest model" to "who can serve it at the lowest cost per token."'],
+	  chips: ['Chip Manufacturing', 'Chip Design, Foundry & Equipment', 'Building an AI chip requires an extraordinarily precise manufacturing chain. TSMC and other foundries turn chip designs into silicon wafers at nodes as small as 3nm. ASML\'s EUV lithography machines — the only ones in the world — are indispensable for producing those advanced chips. Applied Materials, Lam Research and KLA cover deposition, etch and yield inspection across every critical step. AI demand is driving fierce competition for leading-edge capacity and advanced packaging (CoWoS, SoIC), and the entire semiconductor equipment industry benefits. This supply chain is highly concentrated: a handful of companies control the chokepoints of global AI chip production.'],
+	  memory: ['Memory & Storage', 'HBM, Enterprise Storage & Data Pipelines', 'Training a large model means constantly shuttling billions of parameters between compute units and memory — memory bandwidth is one of the hardest bottlenecks in AI. HBM (High Bandwidth Memory) stacks DRAM dies next to the GPU in the same package, dramatically easing that bottleneck; Micron is one of only three suppliers. At the same time, AI datasets, model checkpoints and inference logs are growing exponentially, driving data center demand for SSDs and high-capacity HDDs. From HBM on the GPU to nearline spinning disk in the storage tier, every layer of the memory hierarchy is being redesigned for AI workloads.'],
+	  network: ['Networking', 'Switch Silicon, Interconnects & AI Networks', 'When a GPU cluster scales from hundreds to tens of thousands of cards, the network becomes the nervous system of the entire system. Scale-up fabrics (NVLink, InfiniBand) carry gradients between GPUs and demand nanosecond latency; scale-out fabrics (Ethernet) connect racks, pods and data centers across a campus. Broadcom and Marvell supply switch silicon and custom AI ASICs; Arista builds the Ethernet switching backbone; Cisco covers broader data-center networking and silicon photonics. As clusters keep growing, networking as a share of total data-center capex keeps rising.'],
+	  optics: ['Optical Networking', 'High-Speed Transceivers, Lasers & Photonics', 'The fiber links inside and between data centers are the physical foundation on which AI scale is built. 800G and 1.6T optical transceivers move enormous amounts of data between switches and servers at low latency and lower power than copper. Coherent and Lumentum design the lasers and transceivers; Fabrinet manufactures them with extreme precision; Corning lays the fiber highways; Ciena handles long-haul coherent transmission between data centers. The relentless stacking of AI compute is accelerating the migration from 400G to 800G and beyond across the entire optical ecosystem.'],
+	  systems: ['Servers & Infra', 'AI Servers, Racks & Liquid Cooling', 'GPUs, memory, networking and cooling are integrated into AI servers, then assembled into racks and clusters before they can deliver compute as a service. Super Micro iterates at exceptional speed to build dense servers around each new NVIDIA GPU generation. Dell and HPE sell AI infrastructure to enterprise customers through their broad sales networks. Vertiv specializes in the power and liquid-cooling challenge that high-density GPU racks create — a single rack can now exceed 100 kW, making liquid cooling a requirement rather than an option. The thermal infrastructure market is undergoing its biggest upgrade cycle in a decade.'],
+	  power: ['Power & Energy', 'Generation, Grid Equipment & Data-Center Power', 'A large AI data center consumes as much electricity as a mid-sized city. Global data-center power demand is projected to multiply several times over by 2030, driving investment in nuclear power (24/7 carbon-free baseload), natural gas (fast-ramping peaker capacity), and the transformers, switchgear and backup generators that connect it all. Constellation and Vistra are restarting retired nuclear plants under long-term power purchase agreements with tech companies. GE Vernova is receiving record gas turbine orders. Eaton and Quanta Services benefit from grid expansion and electrical construction. Power availability has become the primary constraint on data-center siting and growth.'],
+	  cloud: ['Cloud & Compute', 'GPU Cloud, Hyperscalers & AI Applications', 'Microsoft, Amazon, Google and Meta are the world\'s largest consumers of AI compute and the ultimate demand signal for the entire GPU supply chain. They collectively spend hundreds of billions of dollars per year on GPUs and data-center construction, while also offering GPU cloud services to external developers. Oracle has won major model-training customers on OCI\'s low-latency GPU superclusters. Tesla builds its own compute to train autonomous-driving models. The capex plans of these hyperscalers almost entirely determine the business cycle for chips, networking, power and cooling upstream.'],
+	  software: ['Software & Apps', 'AI Software, Data Platforms & Enterprise Applications', 'Compute and data alone do not create business value — software is what turns them into deployable AI products. Palantir and ServiceNow embed AI into enterprise decision-making and workflows. Salesforce deploys AI agents to automate customer relationship management. Snowflake and MongoDB provide the data infrastructure on which AI applications run. Adobe integrates generative AI into creative tools. The competitive question at this layer is who can translate general-purpose model capability into specific, sticky enterprise applications — not just a legacy product with an AI wrapper bolted on.'],
+	};
+
+	const COMPANY_EN = {
+	  NVDA: ['NVIDIA', 'NVIDIA is the central infrastructure provider of AI compute. Its GPU lineup — H100, H200, B200 and beyond — dominates large model training, and the CUDA software ecosystem, built over more than a decade, creates a moat that competitors find nearly impossible to replicate. Beyond GPUs, NVIDIA also provides InfiniBand high-speed interconnects (from the Mellanox acquisition), Spectrum networking switches and DGX integrated systems, evolving from a chip company into a full-stack AI infrastructure platform. Data-center revenue now represents roughly 90% of total sales, and quarterly revenue growth has exceeded 200% year-over-year. NVIDIA\'s biggest risk is a slowdown in hyperscaler capex or a competitor achieving CUDA-level software parity.', ['GPU','AI Platform']],
+	  AMD: ['Advanced Micro Devices', 'AMD\'s Instinct MI300X accelerator ships with up to 192 GB of HBM3 — more on-package memory than any competing GPU — making it attractive for inference workloads that need to keep large models fully resident in memory. The ROCm open-source software stack still lags CUDA in ecosystem breadth but is improving steadily. On the CPU side, EPYC server processors have recaptured significant data-center market share from Intel. AMD\'s challenge is competing simultaneously against NVIDIA on GPU software ecosystem depth, against custom ASICs from hyperscalers, and against Intel in CPUs — but its close relationship with TSMC and continued R&D investment make it the most credible alternative to NVIDIA today.', ['Accelerators','Server CPU']],
+	  INTC: ['Intel', 'Once the undisputed semiconductor king, Intel is in the midst of a deep strategic transformation. Its Gaudi AI accelerators offer competitive price-performance but suffer from a thin software ecosystem. Xeon server CPUs still have massive installed-base momentum in data centers. Intel Foundry — the effort to build leading-edge manufacturing capacity in the US and Europe — is the company\'s biggest strategic bet, but yield and timeline challenges have persisted. Intel faces a three-front war: AMD chasing it in CPUs, NVIDIA dominating AI accelerators, and TSMC leading in foundry. How well it executes IFS (Intel Foundry Services) over the next three years will largely determine its long-term position.', ['Xeon','Foundry']],
+	  QCOM: ['Qualcomm', 'Qualcomm\'s Snapdragon platform dominates the smartphone SoC market, and its integrated NPU (Neural Processing Unit) enables phones to run sophisticated AI models locally without sending data to the cloud. This on-device AI positioning grows more important as privacy requirements tighten and low-latency applications proliferate. Qualcomm is expanding into PCs (Snapdragon X Elite), automotive and industrial IoT, extending its AI processing capabilities to a broader range of edge device categories. Its key advantage is extreme power efficiency — running complex models on a battery-powered device is a fundamentally different engineering challenge than running them in a data center.', ['Edge AI','On-Device']],
+	  ARM: ['Arm Holdings', 'Arm does not manufacture chips — it licenses CPU architecture IP to Apple, Qualcomm, Samsung, NVIDIA and virtually every other major chip company. Arm-based data-center chips (AWS Graviton, Apple M-series) are gaining share from x86 thanks to their superior performance-per-watt. Arm\'s business model collects architecture license fees upfront and per-chip royalties on volume, meaning the AI chip shipment boom directly translates to royalty growth. Since re-listing in 2023, Arm has become one of the most watched AI infrastructure equities — its IP touches nearly every device in the AI ecosystem from cloud server to smartphone.', ['CPU Architecture','IP Licensing']],
+	  TSM: ['TSMC', 'TSMC is the indispensable node in the global AI chip supply chain, manufacturing the vast majority of high-end AI accelerators including NVIDIA GPUs, Apple chips and AMD processors. Its 3nm process and forthcoming 2nm node, along with CoWoS advanced packaging (the key technology that bonds HBM stacks to GPU dies), give it an unmatched and largely unreplicable position. The concentration of TSMC\'s capacity in Taiwan is the focal point of geopolitical risk, driving new fab construction in Arizona and Japan — at significantly higher cost than Taiwan. TSMC commands extraordinary pricing power because most of its customers have no credible alternative for leading-edge production.', ['Foundry','Advanced Packaging']],
+	  ASML: ['ASML Holding', 'ASML is the sole manufacturer of EUV (Extreme Ultraviolet) lithography machines, each priced at roughly $150–200 million. Without EUV, advanced-node chips below 7nm cannot be produced economically at scale. ASML\'s moat is extraordinarily deep: EUV technology involves tens of thousands of precision components and decades of accumulated know-how that no new entrant can realistically replicate. As AI chip demand drives TSMC, Samsung and Intel to aggressively expand leading-edge capacity, ASML\'s order backlog has reached record levels. The Dutch government\'s export restrictions on EUV to China have placed ASML at the center of geopolitical semiconductor competition.', ['EUV','Semicap Equipment']],
+	  AMAT: ['Applied Materials', 'Applied Materials is one of the world\'s largest semiconductor equipment companies, with products covering thin-film deposition, etch and materials characterization used in both logic and memory manufacturing. The AI-driven surge in HBM demand and advanced logic chip production directly increases Applied\'s equipment shipments. Its materials engineering solutions also have significant exposure to advanced packaging — benefiting from the trend of integrating GPU and HBM dies in a single package. Applied Materials\' breadth across process steps makes it one of the most diversified ways to invest in semiconductor capex growth.', ['Deposition','Materials']],
+	  LRCX: ['Lam Research', 'Lam Research specializes in plasma etch and thin-film deposition (ALD/CVD) equipment, both of which are indispensable in NAND flash and DRAM production. The explosive demand for HBM high-bandwidth memory and data-center SSD expansion directly drives Lam\'s equipment orders. Its etch systems for 3D NAND multi-layer stacking have near-zero substitutability for customers — once a fab standardizes on Lam, switching costs are enormous. Customer concentration is high, but so are barriers to entry. As memory makers ramp HBM capacity aggressively to meet AI demand, Lam is one of the most direct beneficiaries in the equipment space.', ['Etch','Thin Film']],
+	  KLAC: ['KLA', 'KLA focuses on process-control and wafer-defect inspection equipment — the systems that find and eliminate manufacturing defects to improve chip yield. As process nodes shrink and a single GPU wafer becomes worth tens of thousands of dollars, yield control\'s value increases dramatically. A 1% improvement in yield at advanced nodes can be worth hundreds of millions of dollars annually to a major fab. KLA holds a commanding market share in process control, and the proprietary data accumulated over years of inspections creates a meaningful first-mover advantage. It is the least cyclical of the major equipment companies because fabs run inspection tools continuously regardless of production levels.', ['Inspection','Yield Control']],
+	  MU: ['Micron Technology', 'Micron is the only US-based company producing both DRAM and NAND, and one of only three suppliers globally capable of making HBM (High Bandwidth Memory). HBM is standard equipment on AI GPUs: an H100 ships with 80 GB of HBM3, while the B200 packs 192 GB of HBM3e. Micron is aggressively expanding HBM production capacity to meet demand from NVIDIA, AMD and others. The memory industry is notoriously cyclical, but AI\'s structural demand for HBM is smoothing out some of the boom-bust volatility that has historically defined Micron\'s earnings profile. Its ability to ramp HBM faster than competitors is the key variable to watch.', ['HBM','DRAM']],
+	  WDC: ['Western Digital', 'Western Digital produces both HDDs (hard disk drives) and SSDs (solid-state drives) for data centers, PCs and consumer electronics. The data center is its most important revenue segment: AI-generated datasets, model checkpoints and inference logs are growing at a pace that keeps demand for high-capacity storage robust. WDC has been in the process of separating its flash business (formerly shared with Kioxia) from its HDD business to allow each to focus on its own market dynamics. The AI workload explosion creates a multi-year demand tailwind for large-capacity storage, even as per-gigabyte storage prices continue to decline over time.', ['HDD','Data Center']],
+	  STX: ['Seagate Technology', 'Seagate is the world\'s largest HDD manufacturer, focused exclusively on hard-disk drives with a particular emphasis on high-capacity nearline storage for data centers. Its HAMR (Heat-Assisted Magnetic Recording) technology enables single-drive capacities above 30 TB, addressing the storage density challenge of rapidly growing AI data. Cloud providers\' appetite for cheap, dense, petabyte-scale storage keeps demand for Seagate\'s products structurally elevated. Revenue is highly sensitive to the capex cycle of its top hyperscaler customers — when Microsoft, Amazon or Google modulate data-center spending, Seagate feels it quickly.', ['Nearline Storage','Data Lakes']],
+	  P: ['Pure Storage', 'Pure Storage is an all-flash enterprise storage company, providing high-performance storage arrays and cloud-native data services. Its DirectFlash technology eliminates legacy storage protocols to deliver consistent low-latency access — important for AI training pipelines where slow storage I/O can bottleneck GPU utilization. Pure\'s Evergreen subscription model means customers pay ongoing subscription fees rather than buying hardware outright, providing revenue visibility. As enterprises build internal AI infrastructure, all-flash storage is increasingly seen as the foundation for fast data pipelines rather than a premium option.', ['All-Flash','Data Platform']],
+	  NTAP: ['NetApp', 'NetApp provides enterprise hybrid-cloud data management solutions, helping large organizations unify data governance across on-premises and multi-cloud environments. Its ONTAP software platform is widely used for AI data preparation, data lake construction and MLOps workflows. As enterprises migrate more AI workloads to hybrid cloud, demand for specialized data management platforms grows — NetApp has deep customer relationships in financial services, healthcare and government, sectors with strict data compliance requirements. Its partnership with hyperscalers (AWS, Azure, Google Cloud) enables NetApp storage to run natively in the cloud alongside on-premises deployments.', ['Data Management','Hybrid Cloud']],
+	  MRVL: ['Marvell Technology', 'Marvell is a critical supplier of AI data-center interconnect silicon, with products spanning switch chips, optical DSPs, high-speed SerDes interfaces and PCIe/CXL controllers. Its OCTEON DPU (Data Processing Unit) series accelerates data-center networking. Beyond merchant silicon, Marvell has a significant and growing custom ASIC business, designing dedicated AI chips for Amazon (Trainium/Inferentia) and Google — providing a direct revenue stream tied to hyperscaler AI investment. Custom silicon is becoming Marvell\'s most important growth engine, and its design wins with multiple hyperscalers suggest that diversified AI exposure continues to expand.', ['AI Interconnect','Custom Silicon']],
+	  AVGO: ['Broadcom', 'Broadcom is one of the largest suppliers of networking chips and custom AI accelerators in the world. Its Tomahawk and Jericho switch chip families form the Ethernet switching backbone of major data centers. Its SerDes IP underpins virtually all high-speed interconnects. More importantly, Broadcom designs custom AI ASICs for Google (TPU) and Meta at massive scale — this custom silicon business is a uniquely large revenue stream that few competitors can match. The $61 billion VMware acquisition in 2023 significantly boosted software revenue, but AI chip business remains the primary stock catalyst. Broadcom is simultaneously a networking company, a custom silicon foundry and an enterprise software business.', ['Switch Silicon','ASIC']],
+	  ANET: ['Arista Networks', 'Arista dominates cloud and AI data-center networking with high-performance, programmable Ethernet switches. Its EOS (Extensible Operating System) is known for stability, openness and deep programmability — the reasons Meta, Microsoft and others have standardized on Arista at scale. As AI clusters migrate from InfiniBand toward Ethernet (using RoCE — RDMA over Converged Ethernet), Arista benefits directly from that architectural shift. Its 400G and 800G product lines are generating strong demand as AI infrastructure build-outs accelerate. Arista\'s strong gross margins and recurring software revenue give it a more attractive financial profile than most networking hardware companies.', ['AI Ethernet','Switching']],
+	  CSCO: ['Cisco Systems', 'Cisco is the world\'s largest networking equipment company, with products spanning enterprise and data-center switching, routing, security and collaboration. In AI infrastructure, Cisco offers data-center switches, silicon photonics products and Ethernet AI network solutions as part of its transition from traditional enterprise IT toward AI-era network architecture. Its silicon photonics technology and collaboration with NVIDIA on AI Ethernet are important growth vectors. Cisco\'s enormous installed base and high-margin services and software revenue provide earnings stability — but the company must accelerate its AI networking portfolio to remain relevant as AI data-center architecture evolves rapidly.', ['Networking','Silicon Photonics']],
+	  AAOI: ['Applied Optoelectronics', 'Applied Optoelectronics is a vertically integrated optical transceiver manufacturer that designs and produces its own laser chips, transceivers and sub-components. Its 100G/400G/800G data-center optical modules benefit directly from the AI data-center buildout. Compared to larger peers, AAOI is smaller but its vertical integration gives it the ability to respond quickly to custom specifications. The company is accelerating 1.6T product development to capture the next generation of AI cluster interconnect upgrades. Its small size means revenue can be lumpy, but the long-term tailwind from AI-driven optical demand is real and durable.', ['800G','Transceivers']],
+	  COHR: ['Coherent', 'Coherent is a global leader in high-speed photonics and laser technology, with products covering 800G/1.6T data-center transceivers, EML lasers, silicon photonics modules, and industrial and medical lasers. Its datacom business is growing rapidly as AI data-center expansion accelerates, though the company is still digesting integration challenges from the II-VI acquisition. Coherent\'s differentiation lies in its vertical integration — it can design and manufacture from laser chip to finished module in-house, providing a competitive edge in high-end 800G+ products where co-packaged optics (CPO) technology is becoming critical. Laser supply constraints in the industry benefit vertically integrated players like Coherent.', ['Transceivers','Lasers']],
+	  LITE: ['Lumentum', 'Lumentum is a leading photonics company focused on optical communications, industrial lasers and 3D sensing (VCSEL). Its pump lasers are critical components in fiber amplifiers used for long-haul data transmission. In data-center short-reach interconnects, it supplies high-speed lasers and transceivers for AI cluster links. As AI data-center demand for high-speed optical interconnects surges, Lumentum\'s datacom business is recovering strongly. Co-Packaged Optics (CPO) — integrating optical components directly onto switch ASICs — is a key next-generation technology where Lumentum has active design-in work. Its 3D sensing business (used in Face ID and automotive LiDAR) adds diversification outside AI infrastructure.', ['Photonics','CPO']],
+	  FN: ['Fabrinet', 'Fabrinet is a precision optical and electronic contract manufacturer, providing manufacturing and assembly services for Coherent, Lumentum, Ciena and many other optical communications customers. Its Thailand-based facilities are known for extreme precision and consistent yield — qualities that matter enormously in optical components where even small manufacturing variations affect signal integrity. Fabrinet does not own products; it is the "manufacturing back-end of the AI infrastructure supply chain," sharing in industry growth without taking product risk. Revenue is highly concentrated among a small number of large customers, which is the primary risk, but also reflects how dominant it is in its niche.', ['Optical Manufacturing','EMS']],
+	  CIEN: ['Ciena', 'Ciena specializes in data-center interconnect (DCI) and coherent optical networking platforms, helping enterprises and carriers transmit massive volumes of data across metro, long-haul and subsea fiber networks. Its WaveLogic coherent optical chipset achieves industry-leading spectral efficiency and is the core of its competitive moat. AI workloads are dramatically increasing bandwidth demand between data centers — distributed training requires constant synchronization of model parameters across sites, and inference serving requires low-latency links between compute and storage locations. This is accelerating carriers\' and hyperscalers\' DCI upgrade cycles, directly benefiting Ciena.', ['DCI','Coherent Optics']],
+	  GLW: ['Corning', 'Corning is the world\'s largest optical fiber and cable manufacturer — its products are the physical medium through which all data center and wide-area network traffic flows. AI data-center high-density cabling and inter-data-center fiber connections are driving optical fiber shipment growth. Corning\'s business also spans display glass (for OLED and LCD screens), specialty glass and life sciences — but optical communications is its most direct connection to AI infrastructure investment. Longer term, the global expansion of fiber-to-the-home and 5G backhaul networks provides a structural demand baseline that complements AI-driven data-center demand.', ['Fiber','Cabling']],
+	  SMCI: ['Super Micro Computer', 'Super Micro Computer is known for its exceptional product iteration speed and flexible customization, and was among the first manufacturers to achieve volume delivery of next-generation GPU servers (H100, H200, B200). Its high-density rack-scale servers and liquid-cooling solutions benefit directly from AI infrastructure investment. However, the company previously faced concerns over delayed financial reporting and accounting issues — context that is important when assessing SMCI as an investment. When those concerns were resolved, the stock recovered sharply, underscoring how central Super Micro is to the AI server supply chain. Its ability to ship new GPU-based systems faster than Dell or HPE is its primary competitive advantage.', ['GPU Servers','Rack Scale']],
+	  DELL: ['Dell Technologies', 'Dell provides enterprise AI infrastructure through its PowerEdge AI server lineup, covering deployment scenarios from edge to data center. Its close partnership with NVIDIA allows DGX systems to reach a large base of enterprise customers through Dell\'s established sales network — customers who might be reluctant to purchase directly from a hyperscaler. Dell\'s strength is its massive enterprise customer relationships and end-to-end IT solution capability, though margins are thin and competition is intense. AI server business is its most important growth driver in recent years, with backlog for GPU-based PowerEdge servers extending out many quarters.', ['AI Servers','Enterprise']],
+	  HPE: ['Hewlett Packard Enterprise', 'HPE\'s AI product portfolio spans supercomputing (Cray systems), AI servers, networking (Aruba) and private cloud (GreenLake). Cray supercomputer platforms are deployed at multiple US national laboratories and are increasingly used by commercial AI customers for large-scale training. GreenLake is HPE\'s strategic pivot toward "compute as a service" — offering enterprises a controlled, customizable AI computing environment outside the public cloud. HPE tends to serve industries (defense, research, regulated financial services) that require on-premises AI infrastructure for compliance or security reasons, which is a differentiated niche from pure cloud-based AI compute.', ['Supercomputing','Private Cloud']],
+	  VRT: ['Vertiv', 'Vertiv is the global leader in data-center power and cooling infrastructure, providing UPS systems, power distribution units (PDUs), precision air cooling and liquid-cooling solutions. AI GPU power density — a single H100 draws ~700W, and a single rack can exceed 100 kW — makes traditional air cooling inadequate, making liquid cooling a hard requirement. Vertiv is a direct beneficiary of this shift. Its order backlog growth rate is one of the best leading indicators of AI data-center construction activity. Customers include hyperscalers, co-location providers and enterprises building their own AI infrastructure. Vertiv\'s pricing power and backlog visibility make it one of the more predictable ways to invest in AI infrastructure buildout.', ['Liquid Cooling','Power']],
+	  ETN: ['Eaton', 'Eaton is a major supplier of data-center electrical infrastructure, providing power distribution units (PDUs), UPS systems, electrical switchgear and power management software. As AI data-center electricity demand surges, Eaton\'s electrical products are in high demand for both new construction and capacity expansion projects. Its business spans aerospace, vehicles and industrial sectors as well — data center is one important vertical among several, but the AI-driven demand increment is the most significant near-term growth driver. Eaton\'s strong position in electrical infrastructure gives it exposure to the power side of AI growth without the binary technology risk of the chip supply chain.', ['Power Distribution','Power Management']],
+	  CEG: ['Constellation Energy', 'Constellation is the largest nuclear power operator in the United States, running approximately 20 nuclear plants that provide reliable, around-the-clock carbon-free power. Microsoft, Amazon and other tech companies have signed long-term power purchase agreements (PPAs) with Constellation, directing nuclear plant output specifically to data centers. In 2023, Constellation announced the restart of Three Mile Island Unit 1 specifically to supply Microsoft\'s data centers — a landmark deal that signaled the deep integration of nuclear power and AI infrastructure. Nuclear power\'s key advantage for AI data centers is dispatchability: unlike solar or wind, it generates at full capacity 24/7, matching the constant-power profile of always-on compute.', ['Nuclear','Clean Power']],
+	  VST: ['Vistra', 'Vistra is one of the largest independent power producers in the US, with a diversified generation portfolio including nuclear, natural gas, coal and renewables. Its nuclear assets — primarily in Illinois and Texas — provide stable, carbon-free baseload power, and Vistra is actively negotiating long-term power purchase agreements with data-center customers. Natural gas peaker plants fill in as fast-ramping capacity to cover renewable intermittency. AI data centers tend to choose locations where power is abundant and prices are stable — factors that benefit diversified generators like Vistra that can offer multi-year price certainty. The Texas ERCOT market, where Vistra is a major player, has become a key battleground for data-center power supply.', ['Generation','Nuclear']],
+	  NRG: ['NRG Energy', 'NRG is a major US power generator and electricity retailer with natural gas and renewable generation assets. Its subsidiary Vivint Smart Home adds consumer energy services. NRG is actively developing data-center-specific power solutions, including direct power purchase agreements and co-located distributed generation facilities. As data centers expand rapidly across the US, the ability to provide reliable local power close to the load is increasingly valuable. NRG\'s competitive advantage is in retail power structuring and its Texas market expertise — it can offer large commercial customers creative power supply structures that utilities may not match.', ['Power Markets','Generation']],
+	  GEV: ['GE Vernova', 'GE Vernova was spun off from General Electric in 2024 to focus on power generation and grid infrastructure. Its gas turbine business is benefiting from data-center power demand driving natural gas generation expansion; its grid business (transformers, switchgear) is benefiting from the massive infrastructure investment required to connect new generation to loads. Global transformer supply is severely constrained — lead times have extended to several years — and GE Vernova\'s backlog has surged correspondingly. This supply-demand imbalance in critical grid equipment reflects how the AI infrastructure buildout has created bottlenecks far upstream in the power supply chain.', ['Gas Turbines','Grid']],
+	  CMI: ['Cummins', 'Cummins is a global leader in diesel and natural gas engines, power systems and filtration technology. The data-center market is an important end customer: Cummins generator sets provide backup power to ensure continuous operation when primary grid power fails. As data centers scale in size, backup generation capacity scales proportionally — a 100 MW data center campus needs substantial backup generation to meet uptime SLAs. Cummins is also investing in hydrogen fuel cells, electrolyzers and hybrid power systems to address future low-carbon requirements. Its proven reliability track record and global service network are key differentiators in the mission-critical data-center power market.', ['Backup Power','Generators']],
+	  PWR: ['Quanta Services', 'Quanta Services is the largest specialty electrical and communications infrastructure contractor in North America, building transmission lines, substations, underground cables and fiber networks. New AI data-center campuses require new transmission infrastructure to connect to the grid — Quanta is the company physically building those connections. Its revenue scale and execution capability allow it to take on projects that smaller contractors cannot handle. In the current environment of surging grid investment and data-center construction, Quanta\'s backlog has grown substantially and labor constraints are the primary limit on how fast it can grow. It is a picks-and-shovels play on the electrification of AI.', ['Grid Construction','Transmission']],
+	  MSFT: ['Microsoft', 'Microsoft\'s deep partnership with OpenAI has established it as the leading enterprise AI application provider. Azure OpenAI Service delivers GPT model families as an API to tens of thousands of enterprise customers; Microsoft 365 Copilot embeds AI directly into Word, Excel, Teams and other productivity tools used by hundreds of millions of people. At the infrastructure level, Microsoft is building GPU data centers globally at massive scale, with long-term GPU procurement agreements with NVIDIA. Azure is the company\'s fastest-growing business, and AI is materially increasing cloud revenue per user. Microsoft\'s ability to distribute AI capability through its existing enterprise software relationships is its primary competitive moat.', ['Azure','GPU Cloud']],
+	  META: ['Meta Platforms', 'Meta is one of the world\'s largest GPU purchasers, using AI compute primarily to power recommendation algorithms across Facebook, Instagram and WhatsApp, and to train and serve its Llama series of open-source large language models. Meta\'s AI strategy is "build for internal use, open-source strategically" — releasing Llama reduces the industry\'s dependence on OpenAI while building Meta\'s technical credibility. Its custom MTIA (Meta Training and Inference Accelerator) chip aims to reduce NVIDIA dependency over time, though GPU procurement remains dominant. Meta\'s advertising business creates the economic rationale for massive AI investment: better AI recommendations directly drive higher ad revenue per impression at billion-user scale.', ['AI Clusters','Foundation Models']],
+	  AMZN: ['Amazon', 'AWS is the world\'s largest cloud platform, offering a complete stack from compute (EC2 GPU instances) to AI services (SageMaker for model training, Bedrock for foundation model APIs). Amazon is also among the most aggressive custom silicon developers, with multiple generations of Trainium (training) and Inferentia (inference) chips deployed at scale in AWS. Amazon Alexa\'s AI overhaul and the rapid growth of AWS enterprise AI services make Amazon simultaneously a supplier and a consumer of AI infrastructure. Its annual capex budget of $80+ billion is one of the largest single sources of demand for NVIDIA, TSMC and the broader supply chain.', ['AWS','Heterogeneous Compute']],
+	  GOOGL: ['Alphabet', 'Google is an AI pioneer — the 2017 Transformer paper that underpins nearly all modern LLMs came from Google Brain, and its research teams have been central to AI progress for over a decade. Google Cloud offers both GPU instances and proprietary TPUs (Tensor Processing Units) as parallel compute paths. The Gemini model series competes directly with OpenAI\'s GPT across reasoning, coding and multimodal tasks. Google Search, Gmail, Maps and Workspace are being comprehensively rebuilt around AI. The central business risk is that AI assistants may disrupt search as the primary way people find information — a business that generates most of Alphabet\'s profit. How Google navigates that transition is the defining strategic question of the next decade.', ['Google Cloud','TPU']],
+	  ORCL: ['Oracle', 'Oracle has won significant AI model training customers on OCI (Oracle Cloud Infrastructure) by offering low-latency GPU superclusters with fast InfiniBand interconnects at competitive pricing — xAI, Mistral and others have publicly chosen OCI for frontier model training. Simultaneously, Oracle\'s database and enterprise application software (ERP, HCM, SCM) are deeply embedded in thousands of large enterprises globally; integrating AI into these applications is a major growth lever. Compared to Microsoft, Amazon and Google, Oracle is the smallest cloud player — but its aggressive AI infrastructure investment and differentiated supercluster architecture are closing the gap in the workloads that matter most: large-scale model training.', ['OCI','GPU Clusters']],
+	  TSLA: ['Tesla', 'Tesla is simultaneously one of the largest self-consumers of AI compute and a builder of AI infrastructure. Its Dojo supercomputer platform is purpose-built for training vision-based AI models on driving data. The fleet of more than 5 million Teslas on roads worldwide continuously uploads real-world driving data, creating a dataset of unmatched scale and diversity for autonomous-driving AI training — a data flywheel competitors cannot easily replicate. FSD (Full Self-Driving) V12 marked a shift to end-to-end neural network architecture, eliminating hand-coded rules in favor of learned behavior. Tesla\'s GPU procurement and Dojo investment make it a significant consumer of AI infrastructure even before counting its robotics and energy storage AI applications.', ['Autonomy','Dojo']],
+	  PLTR: ['Palantir Technologies', 'Palantir began in government intelligence analysis and is now a leading enterprise AI platform provider. Its AIP (AI Platform) helps organizations safely integrate large language models with proprietary internal data and operational workflows — solving the core problem of "how do you make AI actually usable in regulated, high-security environments." The US government business provides a stable, high-margin revenue base, while enterprise is growing rapidly. Palantir\'s Bootcamp sales motion — letting prospective customers see concrete results within days rather than months — is an unusual and effective customer acquisition approach. Its software is designed to make AI outputs explainable and auditable, which is increasingly valuable as AI is used in consequential decisions.', ['Enterprise AI','Data Platform']],
+	  NOW: ['ServiceNow', 'ServiceNow is the leading enterprise IT workflow automation platform, covering IT service management (ITSM), IT operations, customer service and HR. Its Now Intelligence platform embeds generative AI deeply into workflows, enabling employees to complete complex internal processes through natural language. The core competitive advantage is the workflow network effect: the more departments use ServiceNow within an enterprise, the greater the value of AI-automated handoffs between them. Average contract value (ACV) growth is the key health metric. ServiceNow\'s strong renewal rates and near-universal penetration in large enterprises make it one of the most resilient enterprise software businesses — AI is amplifying its value rather than threatening its model.', ['AI Workflows','Enterprise']],
+	  CRM: ['Salesforce', 'Salesforce is the world\'s largest CRM software company, and its Einstein AI platform and Agentforce AI agent system are central to its AI strategy. Agentforce allows enterprises to build and deploy AI agents that autonomously handle customer inquiries, sales follow-ups and service requests without human intervention. Salesforce owns massive customer data assets through its Data Cloud product — an invaluable foundation for personalizing AI applications at enterprise scale. In an environment of slowing SaaS growth, AI is Salesforce\'s primary lever for increasing revenue per customer and maintaining competitive moats. Its challenge is convincing existing customers that AI agents justify meaningful additional spend beyond existing subscription fees.', ['AI Agents','CRM']],
+	  SNOW: ['Snowflake', 'Snowflake provides a cloud-native data warehousing and data-sharing platform that helps enterprises consolidate, govern and analyze data scattered across systems. In the AI era, data preparation is the first and often most painful step in any AI deployment — Snowflake\'s Cortex AI platform lets enterprises run LLM queries directly against data where it lives, without moving it to an external AI service. Its Marketplace model allows companies to safely share and monetize data across organizational boundaries, a unique network effect. Snowflake\'s consumption-based pricing model means revenue is directly linked to how intensively customers use AI on their data — a double-edged sword when usage ramps (good) or is delayed (bad).', ['Data Cloud','AI Platform']],
+	  MDB: ['MongoDB', 'MongoDB is the most popular document database, widely adopted by developers for its flexible JSON document model that fits naturally with modern application architectures. In the AI era, MongoDB Atlas\'s vector search capability makes it a key infrastructure component for RAG (Retrieval-Augmented Generation) applications — converting user queries into vectors, retrieving the most semantically relevant context from the database, then passing it to an LLM to generate accurate, grounded responses. Atlas cloud service growth and developer ecosystem breadth position MongoDB as an important tool in AI application development. Its horizontal scaling and multi-cloud flexibility appeal to AI startups building at speed.', ['Developer Data','RAG']],
+	  ADBE: ['Adobe', 'Adobe is integrating generative AI under the Firefly brand across Photoshop, Illustrator, Premiere and other core creative products, enabling users to generate, edit and transform creative content through natural language prompts. Unlike many AI companies, Adobe emphasizes "commercial safety" — Firefly models are trained exclusively on licensed content, and Adobe compensates content contributors through its Stock marketplace, a stance that differentiates it amid widespread AI copyright controversy. Adobe Express and Acrobat AI Assistant extend AI capability to small businesses and document workflows. Its subscription model and deep integration into professional creative workflows give it pricing power and high switching costs that pure AI competitors lack.', ['Generative Media','Creative Software']],
+	};
+
+	let currentStatus = { key: 'loading', args: [] };
+
+	function text(key) {
+	  return UI_TEXT[currentLang][key];
+	}
+
+	function setStatus(key, ...args) {
+	  currentStatus = { key, args };
+	  const value = text(key);
+	  document.getElementById('ts-text').textContent =
+		typeof value === 'function' ? value(...args) : value;
+	}
+
+	function localizedIndustry(industry) {
+	  if (currentLang === 'zh') return industry;
+	  const [label, title, desc] = INDUSTRY_EN[industry.id];
+	  return { ...industry, label, title, desc };
+	}
+
+	function localizedCompany(company) {
+	  if (currentLang === 'zh') return company;
+	  const [name, role, tags] = COMPANY_EN[company.t];
+	  return { ...company, name, role, tags };
+	}
+
+	function applyLanguage() {
+	  document.documentElement.lang = currentLang === 'zh' ? 'zh-CN' : 'en';
+	  document.querySelectorAll('[data-i18n]').forEach(element => {
+		element.textContent = text(element.dataset.i18n);
+	  });
+	  document.getElementById('lang-toggle').textContent = currentLang === 'zh' ? 'EN' : '中文';
+	  localStorage.setItem('language', currentLang);
+
+	  if (aiInited) {
+		document.querySelectorAll('.industry-tab').forEach(button => {
+		  const industry = INDUSTRIES.find(item => item.id === button.dataset.industry);
+		  button.textContent = localizedIndustry(industry).label;
+		});
+		selectIndustry(activeIndustry);
+	  } else {
+		setStatus(currentStatus.key, ...currentStatus.args);
+	  }
+	}
+
+	function switchPage(page) {
+	  const activeTab = document.querySelector(`.tab[data-page="${page}"]`);
+	  if (!activeTab) return;
+
+	  tabBtns.forEach(button => button.classList.remove('on'));
+	  pages.forEach(section => section.classList.remove('on'));
+	  activeTab.classList.add('on');
+	  document.getElementById('p-' + page).classList.add('on');
+	  if (page === 'ai' && !aiInited) {
+		aiInited = true;
+		initChain();
+	  }
+	}
+
+	tabBtns.forEach(btn => {
+	  btn.addEventListener('click', () => switchPage(btn.dataset.page));
+	});
+
+	document.querySelectorAll('[data-go-page]').forEach(button => {
+	  button.addEventListener('click', () => switchPage(button.dataset.goPage));
+	});
+
+	/* ── Industry data ─────────────────────── */
+	const INDUSTRIES = [
+	  {
+		id: 'compute', label: 'AI 芯片', title: '加速器、CPU 与计算平台',
+		desc: 'GPU 是现代 AI 的核心引擎。无论是大型语言模型的预训练、实时推理，还是端侧 AI 应用，都依赖高并行度的计算芯片。NVIDIA 以 CUDA 生态建立了深厚护城河，AMD 和 Intel 持续追赶，Arm 则通过架构授权渗透到从云端到手机的各类 AI 平台。随着推理需求爆发，竞争重心正从"谁能训练最大的模型"转向"谁能以最低成本大规模推理"。',
+		companies: [
+		  { t: 'NVDA', name: 'NVIDIA', role: 'NVIDIA 是 AI 算力的核心基础设施提供商。其 GPU 产品线（H100、H200、B200）主导大型模型训练市场，CUDA 软件生态经过十多年积累形成了竞争对手难以逾越的护城河。除 GPU 外，NVIDIA 还提供 InfiniBand 高速互连、网络交换芯片和 DGX 集成系统，正从芯片公司演变为全栈 AI 基础设施平台。数据中心业务已占总营收约九成，季度同比增速曾超过 200%。', tags: ['GPU','AI平台'] },
+		  { t: 'AMD', name: 'Advanced Micro Devices', role: 'AMD 的 Instinct MI300X 加速器搭载高达 192GB HBM3，是目前片上内存容量最大的 AI 加速器之一，在需要将大模型完整装入内存的推理场景极具吸引力。ROCm 开源软件栈与 CUDA 仍有差距但持续改进。在 CPU 领域，EPYC 处理器已从 Intel 手中夺回大量数据中心份额。AMD 是目前最具实力的 NVIDIA 替代方案，凭借与台积电的紧密合作和持续的研发投入保持竞争力。', tags: ['AI加速器','服务器CPU'] },
+		  { t: 'INTC', name: 'Intel', role: '曾经的半导体霸主正在经历深度转型。Gaudi 系列 AI 加速器在性价比上有竞争力但软件生态薄弱；Xeon 服务器 CPU 在数据中心保有庞大安装量；Intel Foundry 是其最大战略押注，目标是在美国和欧洲建立先进制程产能，但良率和进度问题持续。Intel 同时面临 AMD 在 CPU 的追赶、NVIDIA 在 AI 加速器的主导、台积电在代工领域的领先，未来三年晶圆代工业务的执行情况将决定其长期地位。', tags: ['Xeon','晶圆代工'] },
+		  { t: 'QCOM', name: 'Qualcomm', role: 'Qualcomm 的 Snapdragon 平台主导智能手机 SoC 市场，其集成 NPU（神经处理单元）使手机能在本地运行复杂 AI 模型，无需将数据发往云端。这种"端侧 AI"定位随隐私需求提升和低延迟应用增加而愈发重要。Qualcomm 还在向 PC（Snapdragon X Elite）、汽车和工业 IoT 扩展，其核心优势是极致的能效比——在电池供电设备上运行复杂模型是与数据中心完全不同的工程挑战。', tags: ['端侧AI','设备计算'] },
+		  { t: 'ARM', name: 'Arm Holdings', role: 'Arm 不生产芯片，但其 CPU 架构 IP 授权给苹果、高通、三星、NVIDIA 等几乎所有主要芯片公司。Arm 架构数据中心芯片（AWS Graviton、苹果 M 系列）因能效比优异正从 x86 夺取市场份额。其商业模式收取架构授权费和按芯片出货量的版税，AI 芯片出货量爆发直接带动版税收入增长。Arm 的 IP 触及 AI 生态中从云端服务器到智能手机的几乎每一个设备。', tags: ['CPU架构','IP授权'] },
+		],
+	  },
+	  {
+		id: 'chips', label: '芯片制造', title: '芯片设计、晶圆制造与设备',
+		desc: '制造一颗 AI 芯片需要极端精密的工艺链。台积电等代工厂将芯片设计转化为硅晶圆，ASML 的 EUV 光刻机是先进制程不可或缺的基石，应用材料、Lam Research 和 KLA 覆盖沉积、刻蚀和良率检测等关键工序。AI 需求推动先进制程节点（3nm、2nm）和先进封装（CoWoS、SoIC）需求快速增长，整条供应链高度集中，少数公司掌控全球 AI 芯片制造的关键节点。',
+		companies: [
+		  { t: 'TSM', name: '台积电 TSMC', role: '台积电是全球先进芯片制造的核心节点，制造了绝大多数高端 AI 芯片（NVIDIA GPU、苹果芯片、AMD 处理器）。其 3nm 制程和即将量产的 2nm，以及 CoWoS 先进封装技术（将 HBM 与 GPU 封装在一起的关键技术），使其在 AI 供应链中具有不可替代的地位。产能集中于台湾是地缘政治风险焦点，推动其在美国亚利桑那和日本熊本建设新产能，但成本显著高于台湾。台积电对客户拥有极强的定价权，因为大多数客户没有可替代的先进制程选择。', tags: ['晶圆代工','先进封装'] },
+		  { t: 'ASML', name: 'ASML Holding', role: 'ASML 是全球唯一能生产 EUV（极紫外）光刻机的公司，每台售价约 1.5-2 亿美元。没有 EUV，7nm 以下先进制程芯片无法经济地量产。其护城河极深——EUV 技术涉及数万个零部件和数十年技术积累，新进入者几乎无法复制。AI 需求推动台积电、三星、英特尔大力扩产，ASML 订单积压量创历史新高。荷兰政府限制 EUV 出口中国，使 ASML 置身地缘政治博弈核心。', tags: ['EUV','半导体设备'] },
+		  { t: 'AMAT', name: 'Applied Materials', role: '应用材料是全球最大半导体设备公司之一，产品覆盖薄膜沉积、刻蚀和材料检测，广泛用于逻辑芯片和存储器生产。AI 对 HBM 内存和先进逻辑芯片的需求激增直接拉动其设备出货。在先进封装领域也有重要布局，受益于 GPU 与 HBM 集成封装的趋势。其产品线覆盖最广，是投资半导体设备资本开支增长最多元化的标的之一。', tags: ['沉积','材料工程'] },
+		  { t: 'LRCX', name: 'Lam Research', role: 'Lam Research 专注薄膜沉积（ALD/CVD）和等离子刻蚀设备，是 NAND 闪存和 DRAM 生产中不可或缺的设备供应商。AI 对 HBM 高带宽内存的旺盛需求和数据中心 SSD 扩容，直接拉动 Lam 的设备订单。其在 3D NAND 多层堆叠工艺中的刻蚀设备几乎没有可替代方案，客户一旦采用，切换成本极高。随着内存厂商激进扩产 HBM 以满足 AI 需求，Lam 是设备行业中最直接的受益者之一。', tags: ['刻蚀','薄膜'] },
+		  { t: 'KLAC', name: 'KLA', role: 'KLA 专注晶圆缺陷检测和制程控制设备，帮助芯片厂在生产过程中发现并消除缺陷以提高良率。制程节点越精密、单张 GPU 晶圆价值越高，良率控制的价值就越大——先进节点良率提升 1% 每年可为大型晶圆厂带来数亿美元的额外价值。KLA 在制程控制市场占有极高份额，且多年积累的检测数据形成显著的先发优势。其设备在生产过程中持续运行，使其成为半导体设备中周期性最弱的公司之一。', tags: ['检测','良率控制'] },
+		],
+	  },
+	  {
+		id: 'memory', label: '存储内存', title: 'HBM、企业存储与数据管线',
+		desc: '训练大型模型需要将数十亿个参数频繁在计算单元与内存之间搬运，内存带宽是 AI 性能最难突破的瓶颈之一。HBM（高带宽内存）将 DRAM 芯片堆叠封装在 GPU 旁边，极大缓解带宽压力；AI 数据集、模型检查点和推理日志的规模急速膨胀，同步推动数据中心对大容量存储的强劲需求。从 GPU 上的 HBM 到机架里的近线硬盘，整个存储层级都在为 AI 工作负载重新设计。',
+		companies: [
+		  { t: 'MU', name: 'Micron Technology', role: 'Micron 是美国唯一同时生产 DRAM 和 NAND 的内存厂商，也是全球三家 HBM 供应商之一。HBM 是 AI GPU 标配：H100 搭载 80GB HBM3，B200 则配备 192GB HBM3e。Micron 正激进扩大 HBM 产能以满足 NVIDIA 和 AMD 的需求。内存行业历来周期性强，但 AI 对 HBM 的结构性需求正在平滑传统的繁荣-萧条周期。其加快 HBM 爬坡的能力是最关键的观察变量。', tags: ['HBM','DRAM'] },
+		  { t: 'WDC', name: 'Western Digital', role: 'Western Digital 生产机械硬盘（HDD）和固态硬盘（SSD），面向数据中心、PC 和消费电子市场。数据中心是其最重要的营收来源：AI 产生的海量训练数据、模型检查点和推理记录正推动对大容量存储的持续需求。WDC 正将旗下闪存业务与 HDD 业务分拆，以便各自聚焦各自的市场动态。AI 工作负载爆发为大容量存储创造了多年需求顺风，即便每 GB 存储价格长期趋于下降。', tags: ['HDD','数据中心'] },
+		  { t: 'STX', name: 'Seagate Technology', role: 'Seagate 是全球最大的机械硬盘制造商，专注数据中心近线存储，其 HAMR（热辅助磁记录）技术可将单盘容量提升至 30TB 以上。云厂商对廉价、高密度、PB 级存储的需求保持结构性旺盛，Seagate 的产品正是这一需求的核心解决方案。其营收对头部超大规模客户的资本开支节奏高度敏感——当微软、亚马逊或谷歌调整数据中心支出时，Seagate 很快感受到影响。', tags: ['近线存储','数据湖'] },
+		  { t: 'P', name: 'Pure Storage', role: 'Pure Storage 是一家全闪存企业存储公司，提供高性能存储阵列和云原生数据服务。其 DirectFlash 技术消除了传统存储协议的延迟，为 AI 训练数据管线提供稳定低延迟的存储访问——存储 I/O 瓶颈会直接拖低 GPU 利用率。Pure 的 Evergreen 订阅模式让客户持续付费，而非一次性购买硬件，提供更好的营收可预测性。随着企业构建内部 AI 基础设施，全闪存存储越来越被视为快速数据管线的必备基础。', tags: ['全闪存','数据平台'] },
+		  { t: 'NTAP', name: 'NetApp', role: 'NetApp 提供企业级混合云数据管理解决方案，帮助大型企业在本地和多云环境中统一管理数据。其 ONTAP 软件平台被广泛用于 AI 数据准备、数据湖建设和 MLOps 工作流。NetApp 在金融、医疗和政府等对数据合规要求严格的行业有深厚客户基础，随着更多 AI 工作负载迁移到混合云，专业数据管理平台的需求持续增长。与三大云厂商的原生集成，使 NetApp 存储可在云端与本地部署无缝协同运行。', tags: ['数据管理','混合云'] },
+		],
+	  },
+	  {
+		id: 'network', label: '网络芯片', title: '交换芯片、互连与 AI 网络',
+		desc: '当 GPU 集群从数百张卡扩展到数万张时，网络成为整个系统的神经系统。Scale-up 网络（NVLink、InfiniBand）在 GPU 之间传递梯度，要求纳秒级延迟；Scale-out 网络（以太网）将机架、机柜和数据中心相互连接。随着集群规模持续膨胀，网络在数据中心总资本开支中的占比不断上升，成为仅次于 GPU 本身的第二大支出项目。',
+		companies: [
+		  { t: 'MRVL', name: 'Marvell Technology', role: 'Marvell 是 AI 数据中心互连芯片的关键供应商，产品涵盖交换芯片、光学 DSP、高速 SerDes 接口和 PCIe/CXL 控制器。其 OCTEON DPU 系列用于数据中心网络加速。更重要的是，Marvell 承接了大量定制 ASIC 业务，为亚马逊（Trainium/Inferentia）和谷歌等超大规模客户设计专用 AI 芯片，定制芯片正成为其最重要的增长引擎。与多家超大规模客户的设计合作，表明 Marvell 在 AI 基础设施中的深度参与还在持续扩大。', tags: ['AI互连','定制芯片'] },
+		  { t: 'AVGO', name: 'Broadcom', role: 'Broadcom 是全球最大的网络芯片和定制 AI 加速器供应商之一。Tomahawk 和 Jericho 系列交换芯片构成主要数据中心以太网交换的骨干；SerDes IP 几乎覆盖所有高速互连标准。更关键的是，Broadcom 为谷歌（TPU）和 Meta 设计大规模定制 AI 加速芯片，这一定制硅业务的规模是竞争对手难以匹敌的。以 610 亿美元收购 VMware 后，Broadcom 同时成为网络芯片公司、定制芯片设计厂和企业软件公司。', tags: ['交换芯片','ASIC'] },
+		  { t: 'ANET', name: 'Arista Networks', role: 'Arista 以高性能、可编程的以太网交换机主导云数据中心和 AI 数据中心网络基础设施。其 EOS（可扩展操作系统）以稳定性和开放性著称，使 Meta、微软等大型客户将 Arista 定为标准配置。随着 AI 集群从 InfiniBand 向以太网迁移（采用 RoCE 技术），Arista 直接受益于这一架构转变。其 400G/800G 产品的强劲销售是 AI 基础设施投资热潮的直接体现，高毛利率和软件营收使其财务结构优于多数网络硬件公司。', tags: ['AI以太网','交换机'] },
+		  { t: 'CSCO', name: 'Cisco Systems', role: '思科是全球最大网络设备公司，产品覆盖企业和数据中心的交换、路由、安全与协作工具。在 AI 基础设施领域，思科提供数据中心交换机、硅光子产品和以太网 AI 网络方案，正从传统企业 IT 向 AI 时代网络架构转型。其硅光子技术和与 NVIDIA 合作的 AI 以太网方案是重要增长看点。思科庞大的企业安装基础和高毛利率服务收入提供了营收稳定性，但需要加速 AI 网络产品组合升级以保持竞争力。', tags: ['网络设备','硅光'] },
+		],
+	  },
+	  {
+		id: 'optics', label: '光通信', title: '高速光模块、激光器与光器件',
+		desc: '数据中心内部和数据中心之间的光纤连接，是 AI 基础设施扩展的物理基础。800G 和 1.6T 高速光模块让海量数据以极低延迟在设备间穿梭，同时比铜缆更节能。AI 算力持续堆叠正加速整个光通信行业从 400G 向更高速率升级，市场规模在未来数年内有望翻倍以上。',
+		companies: [
+		  { t: 'AAOI', name: 'Applied Optoelectronics', role: 'Applied Optoelectronics 是垂直整合的光模块制造商，自主研发并生产激光器芯片、收发器和子组件。其 100G/400G/800G 数据中心光模块直接受益于 AI 数据中心扩张。与大型同行相比体量较小，但垂直整合优势使其能快速响应客户定制需求。公司正加速 1.6T 产品研发，以抢占下一代 AI 集群互连升级机遇。营收波动性较大，但 AI 带来的光通信结构性需求是真实且持久的顺风。', tags: ['800G','光模块'] },
+		  { t: 'COHR', name: 'Coherent', role: 'Coherent 是高速光子学和激光技术的全球领先企业，产品覆盖 800G/1.6T 数据中心收发器、EML 激光器、硅光子模块以及工业和医疗激光器。数据通信业务随 AI 数据中心扩张快速增长，但公司仍在消化收购 II-VI 带来的整合压力。其差异化在于垂直整合能力——从激光芯片到完整模块均可自研自产，在高端 800G+ 产品上形成竞争优势。激光器行业供货紧张的局面有利于像 Coherent 这样具备完整产业链的供应商。', tags: ['收发器','激光器'] },
+		  { t: 'LITE', name: 'Lumentum', role: 'Lumentum 是重要的光子学公司，专注光通信、工业激光和 3D 传感（VCSEL）。泵浦激光器是光纤放大器的核心元件，广泛用于长距离数据传输；在数据中心短距离互连中也提供高速激光器和收发器产品。随着 AI 数据中心对高速光互连需求激增，Lumentum 的数据通信业务正经历强劲复苏。共封装光学（CPO）——将光学组件直接集成到交换芯片上——是其重要的下一代技术布局。3D 传感业务（Face ID、汽车 LiDAR）提供了 AI 基础设施之外的多元化收入来源。', tags: ['光子器件','CPO'] },
+		  { t: 'FN', name: 'Fabrinet', role: 'Fabrinet 是精密光电器件合同制造商，为 Coherent、Lumentum、Ciena 等众多光通信客户提供制造和组装服务。泰国工厂以极高精度和一致良率著称——这在光学组件领域至关重要，微小的制造偏差就会影响信号完整性。Fabrinet 本身不拥有产品，是"AI 基础设施供应链的制造后端"，分享行业增长却不承担产品技术风险。营收高度依赖少数几家大客户是主要风险，但同时也反映了其在这一细分市场的主导地位。', tags: ['光器件制造','代工'] },
+		  { t: 'CIEN', name: 'Ciena', role: 'Ciena 专注数据中心互连（DCI）和相干光网络平台，帮助企业和运营商在城域、长途和海底光缆上传输海量数据。其 WaveLogic 相干光芯片达到业界领先的频谱效率，是核心竞争力所在。AI 工作负载对数据中心间带宽的需求急剧增加——分布式训练需要持续同步模型参数，推理服务需要低延迟连接算力与存储，这正在加速运营商和超大规模客户的 DCI 升级周期，Ciena 是这一趋势的直接受益者。', tags: ['DCI','相干光'] },
+		  { t: 'GLW', name: 'Corning', role: '康宁是全球最大的光纤和光缆制造商，其产品是所有数据中心和广域网络物理传输的基础。AI 数据中心的高密度布线和数据中心间光纤连接推动了光纤出货量增长。康宁业务还涵盖显示玻璃（OLED 和 LCD 屏幕）和特种玻璃，但光纤业务是其与 AI 基础设施最直接的连接点。全球光纤渗透率的长期提升，叠加 AI 驱动的数据中心需求，为康宁提供了稳健的结构性需求基础。', tags: ['光纤','布线'] },
+		],
+	  },
+	  {
+		id: 'systems', label: '服务器基建', title: 'AI 服务器、机架与液冷',
+		desc: 'GPU、内存、网络和散热被集成到 AI 服务器中，再组成机架和集群，才能对外提供算力服务。AI 正在重塑服务器设计的每一个层面：单机架功耗从 10kW 攀升至超过 100kW，液冷从可选配件变成了必选项，散热基础设施正在经历十年一遇的升级周期。',
+		companies: [
+		  { t: 'SMCI', name: 'Super Micro Computer', role: 'Super Micro 以极快的产品迭代速度和灵活的定制能力著称，是最早实现新一代 GPU 服务器（H100、H200、B200）批量交付的厂商之一。高密度机架式服务器、液冷方案和 GPU 机柜产品直接受益于 AI 基础设施投资热潮。然而，公司此前因财务报告延误和会计问题引发市场担忧——这是评估 SMCI 时不可忽视的背景。当问题解决后，股价迅速反弹，印证了其在 AI 服务器供应链中的核心地位。以更快速度交付最新 GPU 服务器，是其相对于戴尔和 HPE 的核心竞争优势。', tags: ['GPU服务器','机架系统'] },
+		  { t: 'DELL', name: 'Dell Technologies', role: '戴尔通过 PowerEdge AI 服务器为企业客户提供 AI 基础设施，覆盖从边缘到数据中心的各类部署场景。与 NVIDIA 的紧密合作使 DGX 系统可通过戴尔庞大的企业销售网络触达大量传统企业客户——这些客户可能不愿直接向超大规模云厂商采购。戴尔的优势在于庞大的企业客户关系和端到端 IT 解决方案能力，但毛利率偏低、竞争激烈是长期挑战。AI 服务器（PowerEdge GPU 服务器）是近年最重要的增长动力，订单积压延伸到多个季度以后。', tags: ['AI服务器','企业客户'] },
+		  { t: 'HPE', name: 'Hewlett Packard Enterprise', role: 'HPE 的 AI 产品线覆盖超算（Cray 超级计算机）、AI 服务器、网络（Aruba）和私有云（GreenLake）。Cray 超算平台被美国多个国家实验室采用，也越来越多被商业 AI 客户用于大规模训练任务。GreenLake 是 HPE 向"算力即服务"转型的核心战略，为企业提供公有云之外可控、可定制的 AI 计算环境。HPE 的目标客户是国防、研究和受监管金融服务行业——这些行业因合规或安全原因需要本地部署 AI 基础设施，是一个差异化的细分市场。', tags: ['超级计算','私有云'] },
+		  { t: 'VRT', name: 'Vertiv', role: 'Vertiv 是数据中心电力和冷却基础设施的全球领导者，提供 UPS 不间断电源、配电系统、精密空调和液冷解决方案。AI GPU 的功耗密度（单颗 H100 TDP 约 700W，单机架超过 100kW）使传统风冷无法应对，液冷成为硬需求。Vertiv 是这一趋势最直接的受益者。其订单积压量的增长速度是衡量 AI 数据中心建设热情的重要先行指标。客户涵盖超大规模云厂商、托管服务提供商和自建 AI 基础设施的企业，定价权和积压可见性使其成为投资 AI 基础设施建设最可预测的标的之一。', tags: ['液冷','供电'] },
+		],
+	  },
+	  {
+		id: 'power', label: '电力能源', title: '发电、电网设备与数据中心供能',
+		desc: '一座大型 AI 数据中心的用电量相当于一座中等城市。据估计，到 2030 年数据中心的全球电力需求将翻数倍，这推动了对核电（全天候无碳电力）、天然气（快速调峰电源），以及变压器、配电设备、备用发电机等电力基础设施的强劲投资。电力可用性已成为数据中心选址和扩张的首要约束。',
+		companies: [
+		  { t: 'CEG', name: 'Constellation Energy', role: 'Constellation 是美国最大的核电运营商，运营约 20 座核电站，提供可靠的全天候无碳基荷电力。微软、亚马逊等科技公司已与其签订长期购电协议（PPA），将核电站电力定向供应给数据中心。2023 年 Constellation 宣布重启三哩岛核电站专供微软数据中心，标志着核电与 AI 基础设施的深度绑定。核电的核心优势是可调度性：与太阳能和风能不同，核电可以全天候满功率运行，完美匹配数据中心"永远在线"的用电特征。', tags: ['核电','清洁电力'] },
+		  { t: 'VST', name: 'Vistra', role: 'Vistra 是美国最大的独立电力生产商之一，拥有核电、天然气、煤炭和可再生能源等多元化发电资产。其核电资产（主要位于伊利诺伊州和德克萨斯州）提供稳定的无碳基荷电力，正积极与数据中心客户谈判长期购电协议。天然气机组作为快速调峰电源弥补可再生能源的间歇性缺口。AI 数据中心选址通常优先考虑电力充裕、电价稳定的地区——这对 Vistra 这类可提供多年价格稳定性的综合电力公司形成结构性利好。德克萨斯州 ERCOT 市场已成为数据中心电力供应的重要战场，Vistra 是其中的主要参与者。', tags: ['发电','核电'] },
+		  { t: 'NRG', name: 'NRG Energy', role: 'NRG 是美国主要的电力生产和零售商，拥有天然气发电和可再生能源资产。其旗下 Vivint Smart Home 品牌提供智能家居服务，但电力业务是核心。NRG 正积极开发面向数据中心的专属电力解决方案，包括签订直接购电协议和建设配套分布式发电设施。随着数据中心在全美各地快速扩张，靠近终端负荷的本地发电能力变得越来越有价值。NRG 在电力零售结构设计和德克萨斯市场方面的专业能力，使其能为大型商业客户提供公用事业无法匹配的灵活电力方案。', tags: ['电力市场','发电'] },
+		  { t: 'GEV', name: 'GE Vernova', role: 'GE Vernova 于 2024 年从通用电气分拆独立上市，专注于电力生产和电网基础设施。燃气轮机业务受益于数据中心用电需求推动的天然气发电扩张；电网业务（变压器、开关设备）受益于大规模基础设施建设带来的强劲需求。全球变压器供应严重紧张——交货周期已延长至数年，GE Vernova 的订单积压量大幅攀升。这种关键电网设备供不应求的局面，揭示了 AI 基础设施建设浪潮如何在供应链远上游制造瓶颈。', tags: ['燃气轮机','电网'] },
+		  { t: 'ETN', name: 'Eaton', role: '伊顿是数据中心电气基础设施的重要供应商，提供配电单元（PDU）、UPS 系统、电气断路器和电源管理软件。随着 AI 数据中心用电需求激增，伊顿的电气产品在新建和扩建项目中需求旺盛。其业务还涵盖航空、车辆和工业领域，数据中心是多个重要业务条线之一，但 AI 带来的增量需求最为显著。在整个 AI 基础设施投资链条中，伊顿的电气产品是芯片供应链风险之外的一种差异化暴露方式。', tags: ['配电','电力管理'] },
+		  { t: 'CMI', name: 'Cummins', role: '康明斯是全球领先的发动机和动力系统制造商，数据中心市场是其重要终端客户之一。其柴油/天然气发电机组在主电源故障时为数据中心提供备用电力保障，确保连续运行。随着数据中心规模持续扩大，备用发电容量需求同步增长——一个 100MW 的数据中心园区需要相当可观的备用发电机组来满足在线率 SLA 承诺。康明斯也在积极布局氢燃料电池和混合动力系统，以应对未来的低碳化需求。其成熟的可靠性记录和全球服务网络是在关键任务数据中心市场的核心竞争优势。', tags: ['备用电源','发电机'] },
+		  { t: 'PWR', name: 'Quanta Services', role: 'Quanta Services 是北美最大的电力和通信基础设施建设承包商，承接输电线路、变电站、地下电缆和光纤网络的设计与施工。新建 AI 数据中心园区需要新的输电线路和变电站接入电网——Quanta 就是那家实际完成这些建设的公司。其营收规模和项目执行能力使其能承接其他承包商无力完成的超大型工程。在当前电网投资激增和数据中心建设高峰并发的环境下，Quanta 的订单积压量大幅增加，劳动力供应是限制其增长速度的首要瓶颈。可以说，它是 AI 电气化浪潮中"镐和铲"式的投资标的。', tags: ['电网建设','输电'] },
+		],
+	  },
+	  {
+		id: 'cloud', label: '云与算力', title: 'GPU 云、超大规模客户与 AI 应用',
+		desc: '微软、亚马逊、谷歌和 Meta 是全球最大的 AI 算力消费者，也是推动 GPU 供应链的终端需求来源。它们每年合计投入数千亿美元采购 GPU 和建设数据中心，同时向外部开发者提供 GPU 云服务。这些超大规模客户的资本开支计划，几乎决定了整条 AI 供应链的景气程度。',
+		companies: [
+		  { t: 'MSFT', name: 'Microsoft', role: '微软通过与 OpenAI 的深度绑定确立了企业 AI 应用领导地位。Azure OpenAI Service 将 GPT 模型系列以 API 形式提供给数万家企业客户；Microsoft 365 Copilot 将 AI 直接嵌入 Word、Excel、Teams 等数亿人使用的生产力工具。在基础设施层面，微软正在全球大规模建设 GPU 数据中心，并与 NVIDIA 签订长期 GPU 采购协议。Azure 是公司增长最快的业务，AI 正在显著提升云服务的单用户营收。通过现有企业软件关系分发 AI 能力，是微软最核心的竞争护城河。', tags: ['Azure','GPU云'] },
+		  { t: 'META', name: 'Meta Platforms', role: 'Meta 是全球最大的 GPU 购买者之一，主要用于驱动 Facebook、Instagram 和 WhatsApp 的推荐算法，以及训练和部署其 Llama 系列开源大模型。Meta 的 AI 策略是"内部使用为主、策略性开源"——开放 Llama 模型可降低行业对 OpenAI 的依赖，同时提升 Meta 的技术影响力。自研 MTIA（Meta Training and Inference Accelerator）芯片旨在长期减少对 NVIDIA 的依赖，但当前 GPU 采购量仍占主导地位。Meta 的广告业务创造了 AI 大规模投资的经济逻辑：更好的 AI 推荐算法直接驱动每次展示的广告营收提升。', tags: ['AI集群','大模型'] },
+		  { t: 'AMZN', name: 'Amazon', role: 'AWS 是全球最大的云服务平台，提供从基础算力（EC2 GPU 实例）到 AI 服务（SageMaker 模型训练、Bedrock 基础模型 API）的完整技术栈。Amazon 也是最积极的自研 AI 芯片厂商之一，Trainium（训练）和 Inferentia（推理）已部署多代产品并向 AWS 客户开放。Amazon Alexa 的 AI 重构和 AWS 企业 AI 服务的快速增长，使 Amazon 同时是 AI 基础设施的供给方和最大消费者之一。其每年 800 亿美元以上的资本开支，是 NVIDIA、台积电等上游供应商最重要的订单来源之一。', tags: ['AWS','混合算力'] },
+		  { t: 'GOOGL', name: 'Alphabet', role: '谷歌是 AI 的先驱——2017 年奠定现代 AI 基础的 Transformer 论文来自 Google Brain，其研究团队在 AI 进步中持续发挥核心作用。Google Cloud 提供 GPU 实例和自研 TPU（张量处理器）两条算力路线，Gemini 模型系列在推理、编程和多模态任务上与 OpenAI 的 GPT 正面竞争。谷歌搜索、Gmail、地图和 Workspace 正在全面集成 AI 能力。核心战略挑战在于：AI 助手可能颠覆搜索这一核心商业模式——谷歌如何在不损害搜索广告收入的前提下完成 AI 转型，是未来十年最关键的战略问题。', tags: ['Google Cloud','TPU'] },
+		  { t: 'ORCL', name: 'Oracle', role: 'Oracle 凭借 OCI（Oracle Cloud Infrastructure）超集群的低延迟 GPU 网络架构，赢得了 xAI、Mistral 等 AI 公司作为前沿模型训练客户。同时，Oracle 的数据库和企业应用软件（ERP、HCM、SCM）在全球数千家大型企业中深度部署，将 AI 融入这些企业软件是其重要的应用战略。与微软、亚马逊、谷歌相比，Oracle 是最小的云厂商，但激进的 AI 基础设施投资和差异化的超集群架构，正在快速缩小在最重要工作负载（大规模模型训练）上的差距。', tags: ['OCI','GPU集群'] },
+		  { t: 'TSLA', name: 'Tesla', role: '特斯拉同时是 AI 算力的最大自消费者之一和 AI 基础设施的建设者。其 Dojo 超算平台专为训练基于视觉的 AI 驾驶模型而设计。全球超过 500 万辆在路特斯拉持续上传真实世界驾驶数据，形成了规模无可匹敌的自动驾驶训练数据集——这是竞争对手无法轻易复制的数据飞轮。FSD（全自动驾驶）V12 标志着向端到端神经网络架构的重大转变，彻底去除了手工编码规则。特斯拉在 GPU 采购和 Dojo 建设上的大规模投入，使其成为 AI 基础设施的重要需求来源，甚至在计算机视觉 AI 的发展方向上具有塑造力。', tags: ['自动驾驶','Dojo'] },
+		],
+	  },
+	  {
+		id: 'software', label: '软件应用', title: 'AI 软件、数据平台与企业应用',
+		desc: '算力和数据本身不能直接产生商业价值，软件才是将二者转化为可部署 AI 产品的关键。这一层的竞争核心在于：谁能把通用大模型能力转化为足够具体、足够有粘性的企业级应用，而不只是一个套着 AI 外壳的旧产品。',
+		companies: [
+		  { t: 'PLTR', name: 'Palantir Technologies', role: 'Palantir 以政府情报分析起家，现在是企业 AI 平台的领先供应商。其 AIP（AI Platform）帮助企业将大语言模型与内部数据和运营工作流安全集成，解决的核心问题是"如何在高安全、高监管环境中让 AI 真正可用"。美国政府业务提供稳定的高毛利收入基础，企业业务正快速增长。Palantir 的 Bootcamp 销售方式——让潜在客户在数天内看到可量化的实际效果——是独特且有效的客户获取手段。其软件被设计为让 AI 输出可解释、可审计，随着 AI 被用于高风险决策，这一特性愈发有价值。', tags: ['企业AI','数据平台'] },
+		  { t: 'NOW', name: 'ServiceNow', role: 'ServiceNow 是企业 IT 工作流自动化的领导者，覆盖 IT 服务管理（ITSM）、IT 运营、客户服务和人力资源。其 Now Intelligence 平台将生成式 AI 深度集成进工作流，使员工可以通过自然语言完成复杂的内部流程操作。核心竞争优势是工作流网络效应：越多部门在企业内部使用 ServiceNow，AI 自动化跨部门交接的价值就越大。合同年均价值（ACV）增长是其最重要的健康指标。ServiceNow 的高续约率和在大型企业中的广泛渗透，使其成为企业软件中最具韧性的商业模式之一——AI 在放大其价值而非威胁其商业逻辑。', tags: ['AI工作流','企业软件'] },
+		  { t: 'CRM', name: 'Salesforce', role: 'Salesforce 是全球最大的 CRM 软件公司，Einstein AI 平台和 Agentforce AI 智能体系统是其 AI 战略核心。Agentforce 允许企业构建和部署 AI 智能体，自主处理客户咨询、销售跟进和服务请求，无需人工干预。Salesforce 通过 Data Cloud 产品汇聚的海量客户数据，是训练和个性化 AI 应用的宝贵基础。在 SaaS 增长放缓的背景下，AI 是 Salesforce 提升单客户营收和维持竞争壁垒的核心手段。其挑战在于说服现有客户相信 AI 智能体值得在现有订阅费之外额外付费。', tags: ['AI智能体','CRM'] },
+		  { t: 'SNOW', name: 'Snowflake', role: 'Snowflake 提供云原生数据仓库和数据共享平台，帮助企业整合、治理和分析散落在各处的数据。在 AI 时代，"数据准备"是 AI 应用落地最痛苦的第一步；Snowflake 的 Cortex AI 平台让企业可以直接在数据所在地运行大模型查询，无需将数据搬至外部 AI 服务。其 Marketplace 模式允许企业间安全地共享和变现数据，形成独特的网络效应。消费量驱动的定价模式意味着营收直接与客户的 AI 使用强度挂钩——这在客户使用量快速增长时是加速器，在投资周期减速时则是阻力。', tags: ['数据云','AI平台'] },
+		  { t: 'MDB', name: 'MongoDB', role: 'MongoDB 是最流行的文档型数据库，凭借灵活的 JSON 文档模型深受开发者青睐。在 AI 时代，MongoDB Atlas 的向量搜索功能使其成为 RAG（检索增强生成）应用的关键基础设施——将用户查询向量化，从数据库中检索最相关的上下文，再交给大模型生成准确、有依据的回答。Atlas 云服务的快速增长和广泛的开发者生态，使 MongoDB 在 AI 应用开发者工具市场占据重要位置。其水平扩展能力和多云灵活性，对以速度构建 AI 应用的初创公司极具吸引力。', tags: ['开发者数据','RAG'] },
+		  { t: 'ADBE', name: 'Adobe', role: 'Adobe 将生成式 AI 以 Firefly 品牌整合进 Photoshop、Illustrator、Premiere 等核心创意产品，使用户可以通过自然语言描述生成、编辑和变换创意内容。与其他 AI 公司不同，Adobe 特别强调"商业安全性"——Firefly 模型只使用授权内容训练，并通过 Stock 市场向内容创作者提供补偿，在版权争议频发的生成式 AI 领域形成差异化定位。Adobe Express 和 Acrobat AI Assistant 将 AI 能力延伸到中小企业和文档处理场景。订阅制模式和在专业创意工作流中的深度集成，赋予其定价权和高转换成本——这是纯 AI 竞争对手难以复制的优势。', tags: ['生成式媒体','创意软件'] },
+		],
+	  },
+	];
+
+	const quoteCache = new Map();
+	const historyCache = new Map();
+	const companyCache = new Map();
+	let activeIndustry = INDUSTRIES[0].id;
+
+	async function fetchQuotes(tickers) {
+	  const syms = tickers.join(',');
+	  const url  = `/api/stocks?symbols=${syms}`;
+	  const controller = new AbortController();
+	  const timeout = setTimeout(() => controller.abort(), 15000);
+	  let res;
+
+	  try {
+		res = await fetch(url, {
+		  headers: { Accept: 'application/json' },
+		  signal: controller.signal,
+		});
+	  } finally {
+		clearTimeout(timeout);
+	  }
+
+	  const json = await res.json().catch(() => null);
+	  if (!res.ok) {
+		throw new Error(json?.error || `股票接口请求失败 (${res.status})`);
+	  }
+
+	  const map  = {};
+	  (json?.quoteResponse?.result || []).forEach(q => {
+		map[q.symbol] = {
+		  price:  q.regularMarketPrice,
+		  changePct: q.regularMarketChangePercent,
+		};
+	  });
+	  if (!Object.keys(map).length) {
+		throw new Error('股票接口未返回有效数据');
+	  }
+	  return { map, failedSymbols: json?.failedSymbols || [], fetchedAt: json?.fetchedAt };
+	}
+
+	async function fetchHistory(ticker) {
+	  const res = await fetch(`/api/history?symbols=${encodeURIComponent(ticker)}`, {
+		headers: { Accept: 'application/json' },
+	  });
+	  const json = await res.json().catch(() => null);
+	  if (!res.ok && !json?.history) throw new Error(json?.error || 'history unavailable');
+	  return json?.history?.[ticker] || [];
+	}
+
+	async function fetchHistoryBatch(tickers) {
+	  const res = await fetch(`/api/history?symbols=${tickers.map(encodeURIComponent).join(',')}`, {
+		headers: { Accept: 'application/json' },
+	  });
+	  const json = await res.json().catch(() => null);
+	  return json?.history || {};
+	}
+
+	async function fetchCompany(symbol) {
+	  const res = await fetch(`/api/company?symbol=${encodeURIComponent(symbol)}`, {
+		headers: { Accept: 'application/json' },
+	  });
+	  const json = await res.json().catch(() => null);
+	  if (!res.ok) throw new Error(json?.error || 'company details unavailable');
+	  return json;
+	}
+
+	/* ── Formatting ────────────────────────── */
+	const fmtPrice = p => p != null
+	  ? '$' + Number(p).toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+	  : '—';
+
+	const fmtChg = c => c != null
+	  ? (c >= 0 ? '+' : '') + Number(c).toFixed(2) + '%'
+	  : '—';
+
+	/* ── Render ─────────────────────────────── */
+	function buildCard(company) {
+	  company = localizedCompany(company);
+	  const div = document.createElement('div');
+	  div.className = 'ccard';
+	  div.id = 'cc-' + company.t;
+	  div.tabIndex = 0;
+	  div.setAttribute('role', 'button');
+	  div.innerHTML = `
+		<div class="ccard-top">
+		  <span class="ticker">${company.t}</span>
+		  <div class="price-wrap">
+			<span class="price sk" id="pr-${company.t}">$000.00</span>
+			<span class="chg load sk" id="ch-${company.t}">+0.00%</span>
+		  </div>
+		</div>
+		<div class="ccard-name">${company.name}</div>
+		<div class="ccard-role">${company.role}</div>
+		<div class="spark-wrap" id="spark-${company.t}">
+		  <div class="spark-empty">${text('chartUnavailable')}</div>
+		</div>
+		<div class="ccard-tags">${company.tags.map(t => `<span class="ctag">${t}</span>`).join('')}</div>
+	  `;
+	  div.addEventListener('click', () => openCompanyDetail(company.t));
+	  div.addEventListener('keydown', event => {
+		if (event.key === 'Enter' || event.key === ' ') {
+		  event.preventDefault();
+		  openCompanyDetail(company.t);
+		}
+	  });
+	  document.getElementById('industry-cards').appendChild(div);
+	}
+
+	function sparkSvg(points, width = 240, height = 46) {
+	  const values = points.map(point => Number(point.close)).filter(Number.isFinite);
+	  if (values.length < 2) return '';
+	  const min = Math.min(...values);
+	  const max = Math.max(...values);
+	  const range = max - min || 1;
+	  const pad = 2;
+	  const coordinates = values.map((value, index) => {
+		const x = pad + (index / (values.length - 1)) * (width - pad * 2);
+		const y = pad + ((max - value) / range) * (height - pad * 2);
+		return [x, y];
+	  });
+	  const line = coordinates.map(([x, y]) => `${x.toFixed(1)},${y.toFixed(1)}`).join(' ');
+	  const area = `${pad},${height - pad} ${line} ${width - pad},${height - pad}`;
+	  return `<svg viewBox="0 0 ${width} ${height}" preserveAspectRatio="none" aria-hidden="true">
+		<polygon class="spark-area" points="${area}"></polygon>
+		<polyline class="spark-line" points="${line}"></polyline>
+	  </svg>`;
+	}
+
+	function applyHistory(ticker, points) {
+	  const container = document.getElementById('spark-' + ticker);
+	  if (!container) return;
+	  const svg = sparkSvg(points);
+	  container.classList.toggle(
+		'down',
+		points.length > 1 && points[points.length - 1].close < points[0].close
+	  );
+	  container.innerHTML = svg || `<div class="spark-empty">${text('chartUnavailable')}</div>`;
+	}
+
+	function applyCard(ticker, price, changePct) {
+	  const pr = document.getElementById('pr-' + ticker);
+	  const ch = document.getElementById('ch-' + ticker);
+	  if (pr) { pr.textContent = fmtPrice(price); pr.classList.remove('sk'); }
+	  if (ch) {
+		ch.textContent = fmtChg(changePct);
+		ch.classList.remove('sk', 'load');
+		if (changePct != null) ch.classList.add(changePct >= 0 ? 'up' : 'dn');
+	  }
+	}
+
+	/* ── Init ────────────────────────────────── */
+	function initChain() {
+	  const tabs = document.getElementById('industry-tabs');
+	  INDUSTRIES.forEach((industry, index) => {
+		const displayIndustry = localizedIndustry(industry);
+		const button = document.createElement('button');
+		button.className = 'industry-tab' + (index === 0 ? ' on' : '');
+		button.dataset.industry = industry.id;
+		button.textContent = displayIndustry.label;
+		button.addEventListener('click', () => selectIndustry(industry.id));
+		tabs.appendChild(button);
+	  });
+	  selectIndustry(activeIndustry);
+	}
+
+	function selectIndustry(industryId) {
+	  activeIndustry = industryId;
+	  document.querySelectorAll('.industry-tab').forEach(button => {
+		button.classList.toggle('on', button.dataset.industry === industryId);
+	  });
+
+	  const industry = INDUSTRIES.find(item => item.id === industryId);
+	  const displayIndustry = localizedIndustry(industry);
+	  document.getElementById('industry-title').textContent = displayIndustry.title;
+	  document.getElementById('industry-desc').textContent = displayIndustry.desc;
+	  document.getElementById('industry-count').textContent = text('companyCount')(industry.companies.length);
+
+	  const cards = document.getElementById('industry-cards');
+	  cards.replaceChildren();
+	  industry.companies.forEach(buildCard);
+
+	  industry.companies.forEach(company => {
+		const quote = quoteCache.get(company.t);
+		if (quote) applyCard(company.t, quote.price, quote.changePct);
+		const history = historyCache.get(company.t);
+		if (history) applyHistory(company.t, history);
+	  });
+
+	  loadIndustryStocks(industry);
+	  loadIndustryHistory(industry);
+	}
+
+	async function loadIndustryHistory(industry) {
+	  const needed = [];
+	  for (const company of industry.companies) {
+		if (historyCache.has(company.t)) continue;
+		const stored = readStoredHistory(company.t);
+		if (stored.length) {
+		  historyCache.set(company.t, stored);
+		  if (activeIndustry === industry.id) applyHistory(company.t, stored);
+		} else {
+		  needed.push(company.t);
+		}
+	  }
+	  if (!needed.length) return;
+
+	  try {
+		const historyMap = await fetchHistoryBatch(needed);
+		for (const ticker of needed) {
+		  const points = historyMap[ticker] || [];
+		  if (points.length) {
+			historyCache.set(ticker, points);
+			storeHistory(ticker, points);
+			if (activeIndustry === industry.id) applyHistory(ticker, points);
+		  }
+		}
+	  } catch (error) {
+		console.error('Batch history load failed:', error);
+	  }
+	}
+
+	function readStoredHistory(ticker) {
+	  try {
+		const stored = JSON.parse(localStorage.getItem(`history:${ticker}`));
+		const fresh = stored && Date.now() - stored.savedAt < 12 * 60 * 60 * 1000;
+		return fresh && Array.isArray(stored.points) ? stored.points : [];
+	  } catch {
+		return [];
+	  }
+	}
+
+	function storeHistory(ticker, points) {
+	  try {
+		localStorage.setItem(`history:${ticker}`, JSON.stringify({
+		  savedAt: Date.now(),
+		  points,
+		}));
+	  } catch {
+		// Local storage is optional.
+	  }
+	}
+
+	async function loadIndustryStocks(industry, force = false) {
+	  setStatus('loading');
+	  const tickers = industry.companies
+		.map(company => company.t)
+		.filter(ticker => force || !quoteCache.has(ticker));
+
+	  if (!tickers.length) {
+		setStatus('cached');
+		return;
+	  }
+
+	  try {
+		const { map, failedSymbols, fetchedAt } = await fetchQuotes(tickers);
+		Object.entries(map).forEach(([ticker, quote]) => {
+		  quoteCache.set(ticker, quote);
+		  if (activeIndustry === industry.id) {
+			applyCard(ticker, quote.price, quote.changePct);
+		  }
+		});
+
+		const updatedAt = fetchedAt ? new Date(fetchedAt) : new Date();
+		const time = updatedAt.toLocaleTimeString(currentLang === 'zh' ? 'zh-CN' : 'en-US', {
+		  hour: '2-digit',
+		  minute: '2-digit',
+		});
+		if (activeIndustry !== industry.id) return;
+		failedSymbols.length
+		  ? setStatus('partial', time, failedSymbols.length)
+		  : setStatus('updated', time);
+	  } catch (e) {
+		console.error('Stock data load failed:', e);
+		if (activeIndustry !== industry.id) return;
+		setStatus(e.name === 'AbortError' ? 'timeout' : 'unavailable');
+		document.querySelectorAll('#industry-cards .sk').forEach(el => {
+		  el.classList.remove('sk');
+		  el.textContent = '—';
+		});
+	  }
+	}
+
+	function escapeHtml(value) {
+	  return String(value ?? '').replace(/[&<>"']/g, char => ({
+		'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#039;',
+	  })[char]);
+	}
+
+	function safeUrl(value) {
+	  try {
+		const url = new URL(value);
+		return ['http:', 'https:'].includes(url.protocol) ? url.href : '#';
+	  } catch {
+		return '#';
+	  }
+	}
+
+	function formatCompactNumber(value) {
+	  if (value == null) return '—';
+	  const number = Number(value);
+	  return Number.isFinite(number) && number !== 0
+		? new Intl.NumberFormat(currentLang === 'zh' ? 'zh-CN' : 'en-US', {
+			notation: 'compact',
+			maximumFractionDigits: 2,
+		  }).format(number)
+		: '—';
+	}
+
+	function formatRatio(value, percent = false) {
+	  if (value == null) return '—';
+	  const number = Number(value);
+	  if (!Number.isFinite(number)) return '—';
+	  return percent ? `${(number * 100).toFixed(2)}%` : number.toFixed(2);
+	}
+
+	function formatNewsDate(value) {
+	  if (!/^\d{8}T\d{6}$/.test(value || '')) return '';
+	  const date = new Date(
+		`${value.slice(0, 4)}-${value.slice(4, 6)}-${value.slice(6, 8)}` +
+		`T${value.slice(9, 11)}:${value.slice(11, 13)}:${value.slice(13, 15)}Z`
+	  );
+	  return date.toLocaleDateString(currentLang === 'zh' ? 'zh-CN' : 'en-US', {
+		month: 'short',
+		day: 'numeric',
+		year: 'numeric',
+	  });
+	}
+
+	function renderCompanyDetail(data, fallbackDescription = '') {
+	  const overview = data.overview || {};
+	  const history = data.history?.length ? data.history : (historyCache.get(data.symbol) || []);
+	  const chart = sparkSvg(history, 860, 220);
+	  const chartDown = history.length > 1 && history[history.length - 1].close < history[0].close;
+	  const metrics = [
+		['Market Cap', formatCompactNumber(overview.MarketCapitalization)],
+		['P/E', formatRatio(overview.PERatio)],
+		['EPS', overview.EPS || '—'],
+		['Revenue TTM', formatCompactNumber(overview.RevenueTTM)],
+		['Profit Margin', formatRatio(overview.ProfitMargin, true)],
+		['ROE', formatRatio(overview.ReturnOnEquityTTM, true)],
+		['Dividend Yield', formatRatio(overview.DividendYield, true)],
+		['Analyst Target', overview.AnalystTargetPrice ? `$${overview.AnalystTargetPrice}` : '—'],
+		['52W Range', overview['52WeekLow'] && overview['52WeekHigh']
+		  ? `$${overview['52WeekLow']} – $${overview['52WeekHigh']}` : '—'],
+	  ];
+	  const news = (data.news || []).map(item => `
+		<a class="news-item" href="${escapeHtml(safeUrl(item.url))}" target="_blank" rel="noopener noreferrer">
+		  <div class="news-title">${escapeHtml(item.title)}</div>
+		  <div class="news-meta">${escapeHtml(item.source)} · ${escapeHtml(formatNewsDate(item.timePublished))}${item.sentiment ? ` · ${escapeHtml(item.sentiment)}` : ''}</div>
+		</a>
+	  `).join('');
+
+	  const description = overview.Description || fallbackDescription || '—';
+	  document.getElementById('detail-content').innerHTML = `
+		<div class="detail-chart${chartDown ? ' down' : ''}">
+		  ${chart || `<div class="spark-empty">${text('chartUnavailable')}</div>`}
+		</div>
+		<section class="detail-section">
+		  <h4>${text('fundamentals')}</h4>
+		  <div class="fund-grid">
+			${metrics.map(([label, value]) => `
+			  <div class="fund-item">
+				<div class="fund-label">${escapeHtml(label)}</div>
+				<div class="fund-value">${escapeHtml(value)}</div>
+			  </div>
+			`).join('')}
+		  </div>
+		</section>
+		<section class="detail-section">
+		  <h4>${text('companyProfile')}</h4>
+		  <p class="company-description">${escapeHtml(description)}</p>
+		</section>
+		<section class="detail-section">
+		  <h4>${text('latestNews')}</h4>
+		  <div class="news-list">${news || `<div class="spark-empty">${text('noNews')}</div>`}</div>
+		</section>
+	  `;
+	}
+
+	async function openCompanyDetail(symbol) {
+	  const company = INDUSTRIES
+		.flatMap(industry => industry.companies)
+		.find(item => item.t === symbol);
+	  const localized = localizedCompany(company);
+
+	  const websiteEl = document.getElementById('company-website');
+	  websiteEl.classList.remove('visible');
+	  websiteEl.href = '#';
+
+	  const stockPageEl = document.getElementById('company-stockpage');
+	  stockPageEl.href = `https://finance.yahoo.com/quote/${encodeURIComponent(symbol)}`;
+	  stockPageEl.classList.add('visible');
+
+	  document.getElementById('detail-symbol').textContent = symbol;
+	  document.getElementById('detail-name').textContent = localized.name;
+	  document.getElementById('detail-content').innerHTML =
+		`<div class="detail-loading">${text('detailLoading')}</div>`;
+
+	  pages.forEach(s => s.classList.remove('on'));
+	  tabBtns.forEach(b => b.classList.remove('on'));
+	  document.getElementById('p-company').classList.add('on');
+	  document.getElementById('p-company').scrollTop = 0;
+
+	  try {
+		let data = companyCache.get(symbol);
+		if (!data) {
+		  data = await fetchCompany(symbol);
+		  companyCache.set(symbol, data);
+		}
+		if (data.history?.length) historyCache.set(symbol, data.history);
+
+		const website = data.overview?.Website;
+		if (website && safeUrl(website) !== '#') {
+		  websiteEl.href = safeUrl(website);
+		  websiteEl.classList.add('visible');
+		}
+
+		renderCompanyDetail(data, localized.role);
+	  } catch (error) {
+		console.error('Company detail load failed:', error);
+		document.getElementById('detail-content').innerHTML =
+		  `<div class="detail-loading">${text('detailError')}</div>`;
+	  }
+	}
+
+	document.getElementById('refresh-btn').addEventListener('click', () => {
+	  const industry = INDUSTRIES.find(item => item.id === activeIndustry);
+	  loadIndustryStocks(industry, true);
+	});
+
+	document.getElementById('lang-toggle').addEventListener('click', () => {
+	  currentLang = currentLang === 'zh' ? 'en' : 'zh';
+	  applyLanguage();
+	});
+
+	document.getElementById('back-btn').addEventListener('click', () => switchPage('ai'));
+	document.addEventListener('keydown', event => {
+	  if (event.key === 'Escape' && document.getElementById('p-company').classList.contains('on')) {
+		switchPage('ai');
+	  }
+	});
+
+	applyLanguage();
+  </script>
+</body>
+</html>

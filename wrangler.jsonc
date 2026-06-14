@@ -1,12 +1,14 @@
 {
   "$schema": "node_modules/wrangler/config-schema.json",
   "name": "website",
-  "compatibility_date": "2026-06-13",
+  "main": "worker.js",
+  "compatibility_date": "2026-05-03",
   "observability": {
     "enabled": true
   },
   "assets": {
-    "directory": "."
+    "directory": "./public",
+    "binding": "ASSETS"
   },
   "compatibility_flags": [
     "nodejs_compat"
