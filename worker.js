@@ -135,30 +135,40 @@ async function fetchStooqHistory(symbol) {
 async function handleCompany(url, env) {
   const [symbol] = parseSymbols(url.searchParams.get('symbol'), 1);
   if (!symbol) return jsonResponse({ error: 'valid symbol required' }, 400);
-  if (!env.ALPHA_VANTAGE_API_KEY) {
-    return jsonResponse({ error: 'Alpha Vantage API key is not configured' }, 503);
-  }
 
-  const key = env.ALPHA_VANTAGE_API_KEY;
-  const [overview, cik] = await Promise.all([
-    fetchAlpha('OVERVIEW', { symbol }, key),
+  const [alphaOverview, cik, tradingViewOverview] = await Promise.all([
+    env.ALPHA_VANTAGE_API_KEY
+      ? fetchAlpha('OVERVIEW', { symbol }, env.ALPHA_VANTAGE_API_KEY)
+      : Promise.resolve(null),
     lookupEdgarCIK(symbol),
+    fetchTradingViewFundamentals(symbol),
   ]);
 
-  const overviewError = overview?.Information || overview?.Note;
-  if (overviewError && !overview?.Symbol) {
-    return jsonResponse(
-      { error: 'Company fundamentals provider rate limit reached. Please try again later.' },
-      429,
-      { 'Cache-Control': 'no-store' }
-    );
-  }
-
   const submissions = cik ? await fetchEdgarSubmissions(cik) : null;
-  const normalizedOverview = normalizeOverview(overview);
-  if (normalizedOverview && submissions) {
-    normalizedOverview.Website = submissions.website || submissions.investorWebsite || null;
-  }
+  const [revenueData, netIncomeData, epsData] = cik
+    ? await Promise.all([
+        fetchRevenueConcept(cik),
+        fetchEdgarConcept(cik, 'NetIncomeLoss'),
+        fetchEdgarConcept(cik, 'EarningsPerShareDiluted'),
+      ])
+    : [null, null, null];
+  const edgarOverview = buildEdgarOverview(
+    submissions,
+    revenueData,
+    netIncomeData,
+    epsData
+  );
+  const normalizedAlpha = normalizeOverview(alphaOverview);
+  const normalizedOverview = {
+    ...edgarOverview,
+    ...Object.fromEntries(
+      Object.entries(tradingViewOverview || {}).filter(([, value]) => value != null)
+    ),
+    ...Object.fromEntries(
+      Object.entries(normalizedAlpha || {}).filter(([, value]) => value != null)
+    ),
+    Symbol: symbol,
+  };
 
   return jsonResponse(
     {
@@ -170,6 +180,54 @@ async function handleCompany(url, env) {
     200,
     { 'Cache-Control': 'public, max-age=3600' }
   );
+}
+
+async function fetchTradingViewFundamentals(symbol) {
+  const exchanges = ['NASDAQ', 'NYSE', 'AMEX'];
+  const resp = await withTimeout(
+    fetch('https://scanner.tradingview.com/america/scan', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        symbols: {
+          tickers: exchanges.map(exchange => `${exchange}:${symbol}`),
+          query: { types: [] },
+        },
+        columns: [
+          'name',
+          'market_cap_basic',
+          'price_earnings_ttm',
+          'earnings_per_share_diluted_ttm',
+          'total_revenue',
+          'net_margin',
+          'return_on_equity',
+          'dividends_yield_current',
+        ],
+      }),
+    }).then(result => result.ok ? result.json() : null).catch(() => null),
+    6000,
+    null
+  );
+  const row = resp?.data?.find(item => item?.d?.[0] === symbol)?.d;
+  if (!row) return null;
+  const [, marketCap, pe, eps, revenue, profitMargin, roe, dividendYield] = row;
+  return {
+    MarketCapitalization: finiteString(marketCap),
+    PERatio: finiteString(pe),
+    EPS: finiteString(eps),
+    RevenueTTM: finiteString(revenue),
+    ProfitMargin: finiteRatio(profitMargin),
+    ReturnOnEquityTTM: finiteRatio(roe),
+    DividendYield: finiteRatio(dividendYield),
+  };
+}
+
+function finiteString(value) {
+  return Number.isFinite(value) ? String(value) : null;
+}
+
+function finiteRatio(value) {
+  return Number.isFinite(value) ? String(value / 100) : null;
 }
 
 function parseSymbols(value, limit) {
