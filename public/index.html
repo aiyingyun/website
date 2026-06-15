@@ -4108,15 +4108,29 @@
 		  <line x1="238" y1="188" x2="238" y2="176" class="diagram-line"/>
 		</svg>` : `<svg ${common}>
 		  ${defs}
-		  <ellipse cx="182" cy="194" rx="135" ry="10" fill="#000" opacity=".4"/>
-		  <polygon points="37,157 292,157 327,179 72,179" fill="url(#board-${key})" class="hw-edge"/>
-		  <polygon points="72,179 327,179 327,188 72,188" fill="#061418" class="hw-fine"/>
-		  <polygon points="72,136 272,136 292,149 92,149" fill="#184959" class="hw-fine"/>
-		  <rect x="119" y="66" width="122" height="72" rx="5" fill="#061016" class="hw-edge"/>
-		  <rect x="128" y="74" width="104" height="56" rx="3" fill="url(#blue-${key})"/>
-		  ${[[65,76],[75,105],[250,76],[260,105]].map(([x,y]) => `<g transform="translate(${x} ${y})">${Array.from({ length: 4 }, (_, n) => `<polygon points="${n * 3},${n * 8} 39,${n * 8} 47,${7 + n * 8} 8,${7 + n * 8}" fill="${n === 3 ? '#196c86' : '#103e50'}" class="hw-fine"/>`).join('')}</g>`).join('')}
-		  <path d="M110 116h9M241 116h10M110 98h9M241 98h11" class="hw-gold"/>
-		  ${Array.from({ length: 20 }, (_, i) => `<circle cx="${91 + i * 10}" cy="171" r="1.4" fill="#dcae3a"/>`).join('')}
+		  <ellipse cx="180" cy="190" rx="126" ry="9" fill="#173027" opacity=".18"/>
+
+		  <!-- package substrate -->
+		  <rect x="51" y="139" width="258" height="31" rx="7" fill="url(#board-${key})" class="hw-edge"/>
+		  <rect x="61" y="148" width="238" height="12" rx="3" fill="#0b242c"/>
+		  ${Array.from({ length: 18 }, (_, i) => `<circle cx="${77 + i * 12}" cy="176" r="2.2" fill="#dcae3a"/>`).join('')}
+
+		  <!-- silicon interposer -->
+		  <rect x="70" y="118" width="220" height="24" rx="5" fill="#184d5e" class="hw-edge"/>
+		  <path d="M85 130h50m15 0h60m15 0h48" stroke="#f5bd3e" stroke-width=".8" opacity=".85"/>
+
+		  <!-- central GPU -->
+		  <rect x="122" y="55" width="116" height="65" rx="7" fill="#061016" class="hw-edge"/>
+		  <rect x="132" y="65" width="96" height="45" rx="4" fill="url(#blue-${key})"/>
+		  <path d="M143 77h74M143 87h74M143 97h74" stroke="#55ccff" stroke-width=".65" opacity=".4"/>
+
+		  <!-- HBM stacks -->
+		  ${[78,250].map(x => `<g transform="translate(${x} 67)">
+			${Array.from({ length: 4 }, (_, n) => `<rect x="${n * 2}" y="${n * 9}" width="34" height="10" rx="2" fill="${n === 3 ? '#19708c' : '#103f51'}" class="hw-fine"/>`).join('')}
+		  </g>`).join('')}
+
+		  <!-- short die-to-die links -->
+		  <path d="M114 87h8M238 87h12M112 104h10M238 104h14" class="hw-gold"/>
 		</svg>`,
 		server: `<svg ${common}>
 		  ${defs}
@@ -4242,18 +4256,30 @@
 		  <text x="9" y="211" class="${sub}">POWER → UPS / PDU</text>
 		</svg>` : `<svg ${common}>
 		  ${defs}
-		  <ellipse cx="181" cy="196" rx="144" ry="9" fill="#000" opacity=".4"/>
-		  <polygon points="40,83 180,29 320,83 180,129" fill="#1a3039" class="hw-fine"/>
-		  <polygon points="40,83 180,129 180,182 40,158" fill="#0b171d" class="hw-edge"/>
-		  <polygon points="180,129 320,83 320,158 180,182" fill="#0d1d24" class="hw-edge"/>
-		  ${[63,95,127,205,237,269].map((x, i) => {
-			const right = i > 2;
-			const y = right ? 111 - (i - 3) * 10 : 111 + i * 10;
-			return `<polygon points="${x},${y} ${x + 21},${right ? y - 7 : y + 7} ${x + 21},${right ? y + 37 : y + 44} ${x},${y + 38}" fill="#050d11" class="hw-fine"/>
-			  <path d="M${x + 5} ${y + 10}l11 ${right ? -4 : 4}m-11 10l11 ${right ? -4 : 4}m-11 10l11 ${right ? -4 : 4}" stroke="#17617a"/>`;
+		  <ellipse cx="180" cy="193" rx="132" ry="9" fill="#173027" opacity=".18"/>
+
+		  <!-- building shell -->
+		  <rect x="49" y="51" width="262" height="126" rx="9" fill="#102a32" class="hw-edge"/>
+		  <rect x="61" y="64" width="238" height="97" rx="5" fill="#0a1b21"/>
+
+		  <!-- repeated rack aisles -->
+		  ${Array.from({ length: 6 }, (_, i) => {
+			const x = 72 + i * 37;
+			return `<g>
+			  <rect x="${x}" y="76" width="26" height="72" rx="3" fill="#071318" stroke="#46c9f5" stroke-width="1"/>
+			  ${Array.from({ length: 5 }, (_, n) => `<path d="M${x + 5} ${88 + n * 11}h16" stroke="${n < 2 ? '#55ccff' : '#26718a'}" stroke-width="1"/>`).join('')}
+			  <circle cx="${x + 21}" cy="82" r="1.4" fill="#35d07f"/>
+			</g>`;
 		  }).join('')}
-		  <path d="M25 191h310M180 191v-9" class="hw-power"/>
-		  <path d="M292 49l13-16 13 16v21" fill="#102a33" class="hw-fine"/>
+
+		  <!-- network spine and utility rails -->
+		  <rect x="72" y="68" width="211" height="5" rx="2.5" fill="#e78dba"/>
+		  <path d="M75 157h207" stroke="#35d07f" stroke-width="2"/>
+		  <path d="M82 73v4M119 73v4M156 73v4M193 73v4M230 73v4M267 73v4" stroke="#e78dba" stroke-width="1"/>
+
+		  <!-- cooling loop -->
+		  <path d="M43 82h6v70h-6M311 82h6v70h-6" fill="none" stroke="#55ccff" stroke-width="3"/>
+		  <circle cx="43" cy="82" r="3" fill="#55ccff"/><circle cx="317" cy="152" r="3" fill="#55ccff"/>
 		</svg>`,
 	  };
 	  return diagrams[type] || diagrams.gpu;

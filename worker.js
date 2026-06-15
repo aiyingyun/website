@@ -147,7 +147,11 @@ async function handleCompany(url, env) {
 
   const overviewError = overview?.Information || overview?.Note;
   if (overviewError && !overview?.Symbol) {
-    return jsonResponse({ error: overviewError }, 429, { 'Cache-Control': 'no-store' });
+    return jsonResponse(
+      { error: 'Company fundamentals provider rate limit reached. Please try again later.' },
+      429,
+      { 'Cache-Control': 'no-store' }
+    );
   }
 
   const submissions = cik ? await fetchEdgarSubmissions(cik) : null;
